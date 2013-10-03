@@ -1,4 +1,4 @@
-package com.mycompany.dogbarbershop;
+package fi.muni.pa165.dogbarbershop;
 
 /**
  * Hello world!
