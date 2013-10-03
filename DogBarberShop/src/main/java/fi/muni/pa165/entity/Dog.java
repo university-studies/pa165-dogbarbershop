@@ -1,6 +1,9 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
+import javax.annotation.Nonnull;
+import org.apache.commons.lang3.Validate;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -10,12 +13,16 @@ public class Dog implements Serializable {
     private Long id;
     private String name;
     private String breed;
-    private int age;
+    private DateTime birth;
 
-    public Dog(String name, String breed, int age) {
+    public Dog(@Nonnull String name, @Nonnull String breed, @Nonnull DateTime birth) {
+        Validate.isTrue(name != null, "Name should not be null");
+        Validate.isTrue(breed != null, "Breed should not be null");
+        Validate.isTrue(birth != null, "Birth should not be null");
+        
         this.name = name;
         this.breed = breed;
-        this.age = age;
+        this.birth = birth;
     }
 
     public Long getId() {
@@ -42,12 +49,12 @@ public class Dog implements Serializable {
         this.breed = breed;
     }
 
-    public int getAge() {
-        return age;
+    public DateTime getBirth() {
+        return birth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirth(DateTime birth) {
+        this.birth = birth;
     }
 
     @Override
