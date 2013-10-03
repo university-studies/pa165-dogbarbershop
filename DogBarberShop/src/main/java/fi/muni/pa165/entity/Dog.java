@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Oliver Pentel
+ * @author Oliver Pentek
  */
 public class Dog implements Serializable {
     private Long id;
