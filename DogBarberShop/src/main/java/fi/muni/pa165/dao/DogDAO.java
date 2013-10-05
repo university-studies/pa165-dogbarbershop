@@ -13,24 +13,29 @@ public class DogDAO implements IDogDAO{
     @PersistenceContext(unitName = "PU")
     EntityManager em;
 
+    @Override
     public Dog creatDog(Dog dog) {
         em.persist(dog);
         return dog;
     }
 
+    @Override
     public Dog getDog(Long id) {
         return em.find(Dog.class, id);
     }
 
+    @Override
     public Dog updateDog(Dog dog) {
        return this.em.merge(dog);
     }
 
+    @Override
     public void deleteDog(Dog dog) {
         dog = this.em.merge(dog);
         em.remove(dog);
     }
 
+    @Override
     public List<Dog> getAllDogs() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
