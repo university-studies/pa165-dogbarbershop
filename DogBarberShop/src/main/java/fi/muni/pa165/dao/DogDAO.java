@@ -3,6 +3,8 @@ package fi.muni.pa165.dao;
 import fi.muni.pa165.entity.Dog;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -10,11 +12,16 @@ import javax.persistence.PersistenceContext;
  * @author Oliver Pentek
  */
 public class DogDAO implements IDogDAO{
-    @PersistenceContext(unitName = "PU")
     EntityManager em;
 
+    public DogDAO() {
+        super();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+        em = emf.createEntityManager();
+    }
+
     @Override
-    public Dog creatDog(Dog dog) {
+    public Dog createDog(Dog dog) {
         em.persist(dog);
         return dog;
     }

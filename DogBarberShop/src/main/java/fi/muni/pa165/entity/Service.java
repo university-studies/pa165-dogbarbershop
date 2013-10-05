@@ -22,7 +22,7 @@ public class Service implements Serializable {
     private Long price;
     private Duration duration;
     @ManyToMany
-    private Employee employees;
+    private List<Employee> employees;
     @ManyToMany(mappedBy = "services")
     private List<Dog> dogs;
 
