@@ -1,25 +1,29 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
-import javax.annotation.Nonnull;
-import org.apache.commons.lang3.Validate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import org.joda.time.DateTime;
 
 /**
  *
  * @author Oliver Pentek
  */
+@Entity
 public class Dog implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String name;
     private String breed;
     private DateTime birth;
 
-    public Dog(@Nonnull String name, @Nonnull String breed, @Nonnull DateTime birth) {
-        Validate.isTrue(name != null, "Name should not be null");
-        Validate.isTrue(breed != null, "Breed should not be null");
-        Validate.isTrue(birth != null, "Birth should not be null");
-        
+    public Dog() {
+    }
+
+    public Dog(String name, String breed, DateTime birth) {
         this.name = name;
         this.breed = breed;
         this.birth = birth;
