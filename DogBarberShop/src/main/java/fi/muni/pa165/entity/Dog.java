@@ -1,10 +1,13 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import org.joda.time.DateTime;
 
 /**
@@ -19,6 +22,10 @@ public class Dog implements Serializable {
     private String name;
     private String breed;
     private DateTime birth;
+    @ManyToOne
+    private Customer owner;
+    @ManyToMany
+    private List<Service> services;
 
     public Dog() {
     }

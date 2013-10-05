@@ -34,8 +34,8 @@ public class Customer implements Serializable {
     
     private String phone;
     
-    @OneToMany(mappedBy = "customer")
-    private List<Dog> dogs = new ArrayList<Dog>();
+    @OneToMany(mappedBy = "owner")
+    private List<Dog> dogs = new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;
