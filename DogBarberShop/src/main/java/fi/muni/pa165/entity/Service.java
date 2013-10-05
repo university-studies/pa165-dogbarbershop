@@ -1,8 +1,12 @@
 package fi.muni.pa165.entity;
 
+import java.io.Serializable;
+import javax.annotation.Nonnull;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import org.apache.commons.lang3.Validate;
 import org.joda.time.Duration;
 
 /**
