@@ -1,12 +1,11 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
-import javax.annotation.Nonnull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import org.apache.commons.lang3.Validate;
 import org.joda.time.Duration;
 
 /**
@@ -15,7 +14,7 @@ import org.joda.time.Duration;
 @Entity
 public class Service implements Serializable {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
   private String name;
@@ -24,14 +23,7 @@ public class Service implements Serializable {
   @ManyToMany
   private Employee employees;
 
-  public Service(@Nonnull String name, @Nonnull Long price, @Nonnull Duration duration) {
-    Validate.isTrue(!= null, "Name should not be null");
-    Validate.isTrue(!= null, "Price should not be null");
-    Validate.isTrue(!= null, "Duration should not be null");
-
-    this.name = name;
-    this.price = price;
-    this.duration = duration;
+  public Service() {
   }
 
   public Long getId() {
