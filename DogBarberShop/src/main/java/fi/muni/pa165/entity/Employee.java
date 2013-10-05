@@ -37,7 +37,7 @@ public class Employee implements Serializable {
     private String salary;
     
     @ManyToMany(mappedBy = "employees")
-    private List<Service> services = new ArrayList<>();
+    private List<Service> services = new ArrayList<Service>();
 
     public void setSalary(String salary) {
         this.salary = salary;
