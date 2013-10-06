@@ -5,6 +5,7 @@
 package fi.muni.pa165.dao;
 
 import fi.muni.pa165.entity.Service;
+import java.util.List;
 import org.joda.time.Duration;
 
 /**
@@ -12,7 +13,9 @@ import org.joda.time.Duration;
  */
 public interface IServiceDAO {
   public Service getServiceById(Long id);
-  public Service getServiceByName(String name);
-  public Service getServiceByPrice(Long price);
-  public Service getServiceByDuration(Duration duration);
+  public List<Service> getServiceByName(String name);
+
+  public List<Service> getServiceByPrice(Long price);
+
+  public List<Service> getServiceByDuration(Duration duration);
 }

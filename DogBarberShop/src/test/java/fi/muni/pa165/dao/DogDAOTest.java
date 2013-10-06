@@ -30,7 +30,7 @@ public class DogDAOTest extends TestCase {
         Map prop = new HashMap();
         prop.put("hibernate.connection.url", "jdbc:derby:memory:dogDao-test;create=true");
         prop.put("javax.persistence.jdbc.driver", "org.apache.derby.jdbc.EmbeddedDriver");
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU", prop);
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("testPU", prop);
         EntityManager em = emf.createEntityManager();
         this.dao = new DogDAO(em);
     }

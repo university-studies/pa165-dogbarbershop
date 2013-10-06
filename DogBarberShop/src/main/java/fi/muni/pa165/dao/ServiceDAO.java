@@ -5,6 +5,7 @@
 package fi.muni.pa165.dao;
 
 import fi.muni.pa165.entity.Service;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -19,51 +20,39 @@ public class ServiceDAO implements IServiceDAO {
   // FIXME EntityManager em1 = emf.createEntityManager();
   EntityManager em;
 
+  ServiceDAO(EntityManager em) {
+    this.em = em;
+  }
+
   @Override
   public Service getServiceById(Long id) {
     TypedQuery<Service> q = em.createQuery(
-            "SELECT x FROM Service s where s.id = :id", Service.class);
-    if (q.getResultList().isEmpty()) {
-      //FIXME
-      throw new UnsupportedOperationException("No items found.");
-    }
-
-    return q.getResultList().get(0);
+            "SELECT s FROM Service AS s WHERE s.id = :id", Service.class);
+    q.setParameter("id", id);
+    return q.getSingleResult();  // throws excptn if 0 || >1 results
   }
 
   @Override
-  public Service getServiceByName(String name) {
+  public List<Service> getServiceByName(String name) {
     TypedQuery<Service> q = em.createQuery(
-            "SELECT x FROM Service s where s.name = :name", Service.class);
-    if (q.getResultList().isEmpty()) {
-      //FIXME
-      throw new UnsupportedOperationException("No items found.");
-    }
-
-    return q.getResultList().get(0);
+            "SELECT s FROM Service AS s where s.name = :name", Service.class);
+    q.setParameter("name", name);
+    return q.getResultList();
   }
 
   @Override
-  public Service getServiceByPrice(Long price) {
+  public List<Service> getServiceByPrice(Long price) {
     TypedQuery<Service> q = em.createQuery(
-            "SELECT x FROM Service s where s.price = :price", Service.class);
-    if (q.getResultList().isEmpty()) {
-      //FIXME
-      throw new UnsupportedOperationException("No items found.");
-    }
-
-    return q.getResultList().get(0);
+            "SELECT s FROM Service AS s where s.price = :price", Service.class);
+    q.setParameter("price", price);
+    return q.getResultList();
   }
 
   @Override
-  public Service getServiceByDuration(Duration duration) {
+  public List<Service> getServiceByDuration(Duration duration) {
     TypedQuery<Service> q = em.createQuery(
-            "SELECT x FROM Service s where s.duration = :duration", Service.class);
-    if (q.getResultList().isEmpty()) {
-      //FIXME
-      throw new UnsupportedOperationException("No items found.");
-    }
-
-    return q.getResultList().get(0);
+            "SELECT s FROM Service AS s where s.duration = :duration", Service.class);
+    q.setParameter("duration", duration);
+    return q.getResultList();
   }
 }
