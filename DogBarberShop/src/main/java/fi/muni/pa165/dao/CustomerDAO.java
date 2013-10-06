@@ -8,6 +8,7 @@ import fi.muni.pa165.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -15,25 +16,32 @@ import javax.persistence.TypedQuery;
  * @author martin
  */
 public class CustomerDAO implements ICustomerDAO{
+    
+    private EntityManager em;
+    
+    public void setEntityManager(EntityManager em) {
+        this.em = em;
+    }
 
-    @PersistenceContext(unitName = "PU")
-    EntityManager em;
-
+    @Override
     public Customer getCustomerById(Long id) {
-        TypedQuery<Customer> query = em.createNamedQuery("select c from Customer c "
-                + "where c.id = :id", Customer.class);
+        Query query = em.createQuery("select c from Customer c "
+                + "where c.id = ?1")
+                .setParameter(1, id);
         if (query.getResultList() == null) {
-            throw new RuntimeException("No record found");
+            throw new RuntimeException("Query returned null.");
         }
         if (query.getResultList().size() != 1) {
             throw new RuntimeException("No record found");        
         }
-        return query.getResultList().get(0);
+        return ((List<Customer>)query.getResultList()).get(0);
     }
 
+    @Override
     public List<Customer> getCustomerBySurname(String surname) {
-        TypedQuery<Customer> query = em.createNamedQuery("select c from Customer c "
-                + "where c.surname = :surname", Customer.class);
+        Query query = em.createQuery("select c from Customer c "
+                + "where c.surname = ?1")
+                .setParameter(1, surname);
         if (query.getResultList() == null){
             throw new RuntimeException("Query returned null.");
         }
@@ -43,9 +51,11 @@ public class CustomerDAO implements ICustomerDAO{
         return query.getResultList();
     }
 
+    @Override
     public List<Customer> getCustomerByAddress(String address) {
         TypedQuery<Customer> query = em.createQuery("select c from Customer c "
-                + "where c.address = :address", Customer.class);
+                + "where c.address = :address", Customer.class)
+                .setParameter("address", address);
         if (query.getResultList() == null){
             throw new RuntimeException("Query returned null.");
         }
@@ -58,7 +68,8 @@ public class CustomerDAO implements ICustomerDAO{
     @Override
     public List<Customer> getCustomerByName(String name) {
         TypedQuery<Customer> query = em.createQuery("select c from Customer c "
-                + "where c.name = :name", Customer.class);
+                + "where c.name = :name", Customer.class)
+                .setParameter("name", name);
         if (query.getResultList() == null){
             throw new RuntimeException("Query returned null.");
         }
@@ -71,7 +82,8 @@ public class CustomerDAO implements ICustomerDAO{
     @Override
     public List<Customer> getCustomerByPhone(String phone) {
         TypedQuery<Customer> query = em.createQuery("select c from Customer c "
-                + "where c.phone = :phone", Customer.class);
+                + "where c.phone = :phone", Customer.class)
+                .setParameter("phone", phone);
         if (query.getResultList() == null){
             throw new RuntimeException("Query returned null.");
         }

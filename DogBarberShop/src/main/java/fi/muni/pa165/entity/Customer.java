@@ -23,7 +23,7 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     
     private String name;
@@ -99,7 +99,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.id == null && other.id != null) || (this.id != null && this.id != other.id)) {
             return false;
         }
         return true;
@@ -107,7 +107,8 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "fi.muni.pa165.entity.Customer[ id=" + id + " ]";
+        return "fi.muni.pa165.entity.Customer[ id=" + id + ", " + name + ", " 
+                + surname + ", " + address + ", " + phone + " ]";
     }
     
 }
