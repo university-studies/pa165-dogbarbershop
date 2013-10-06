@@ -20,6 +20,10 @@ public class DogDAO implements IDogDAO{
         em = emf.createEntityManager();
     }
 
+    public DogDAO(EntityManager em) {
+        this.em = em;
+    }
+
     @Override
     public Dog createDog(Dog dog) {
         em.persist(dog);
