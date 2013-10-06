@@ -27,25 +27,20 @@ public class CustomerDAOTest extends TestCase{
     
     private static Logger logger = Logger.getLogger(CustomerDAOTest.class.getName());
     
+    public CustomerDAOTest(String testName) {
+        super(testName);
+    }
+    
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         
-        try {
-            logger.info("Starting in-memory database for unit tests");
-            DriverManager.getConnection("jdbc:derby:memory:unit-testing-jpa;create=true").close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            fail("Exception during database startup.");
-        }
-        try {
-            logger.info("Building JPA EntityManager for unit tests");
-            emFactory = Persistence.createEntityManagerFactory("testPU");
-            em = emFactory.createEntityManager();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            fail("Exception during JPA EntityManager instanciation.");
-        }
+        logger.info("Starting in-memory database for unit tests");
+        DriverManager.getConnection("jdbc:derby:memory:unit-testing-jpa;create=true").close();
+        
+        logger.info("Building JPA EntityManager for unit tests");
+        emFactory = Persistence.createEntityManagerFactory("testPU");
+        em = emFactory.createEntityManager();
         
         this.dao = new CustomerDAO();
         this.dao.setEntityManager(em);
@@ -54,20 +49,7 @@ public class CustomerDAOTest extends TestCase{
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        
-        logger.info("Shuting down Hibernate JPA layer.");
-        if (em != null) {
-            em.close();
-        }
-        if (emFactory != null) {
-            emFactory.close();
-        }
         logger.info("Stopping in-memory database.");
-        try {
-            DriverManager.getConnection("jdbc:derby:memory:unit-testing-jpa;shutdown=true").close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
     
     private static Customer newCustomer(String name, String surname, 
