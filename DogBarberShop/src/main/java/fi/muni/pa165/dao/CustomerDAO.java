@@ -7,6 +7,7 @@ package fi.muni.pa165.dao;
 import fi.muni.pa165.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
