@@ -5,8 +5,6 @@
 package fi.muni.pa165.dao;
 
 import fi.muni.pa165.entity.Customer;
-import java.sql.DriverManager;
-import java.sql.SQLNonTransientConnectionException;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -35,10 +33,8 @@ public class CustomerDAOTest extends TestCase{
     protected void setUp() throws Exception {
         super.setUp();
         
-        logger.info("Starting in-memory database for unit tests");
-        DriverManager.getConnection("jdbc:derby:memory:unit-testing-jpa;create=true").close();
-        
         logger.info("Building JPA EntityManager for unit tests");
+        
         emFactory = Persistence.createEntityManagerFactory("testPU");
         em = emFactory.createEntityManager();
         
