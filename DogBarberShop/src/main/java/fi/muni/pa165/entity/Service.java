@@ -1,12 +1,16 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import org.joda.time.Duration;
 
 /**
@@ -17,20 +21,28 @@ public class Service implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Column(name = "SERVICE_ID")
   private Long id;
+  
   private String name;
   private Long price;  // CZK
   private Duration duration;  // ms
-  @ManyToMany
-  private List<Employee> employees;
+  
   @ManyToMany(mappedBy = "services")
-  private List<Dog> dogs;
+  private List<Employee> employees = new ArrayList<>();
+  
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.service")
+  private List<DogService> dogServices = new ArrayList<>();
 
   public Service() {
   }
 
   public Long getId() {
     return id;
+  }
+  
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -43,10 +55,6 @@ public class Service implements Serializable {
 
   public Duration getDuration() {
     return duration;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public void setName(String name) {

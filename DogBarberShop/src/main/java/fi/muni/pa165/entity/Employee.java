@@ -7,10 +7,14 @@ package fi.muni.pa165.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 /**
@@ -24,6 +28,7 @@ public class Employee implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "employee_id")
     private Long id;
 
     private String name;
@@ -36,7 +41,10 @@ public class Employee implements Serializable {
    
     private String salary;
     
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employee_service", joinColumns = {
+        @JoinColumn(name = "employee_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "service_id")})
     private List<Service> services = new ArrayList<>();
 
     public void setSalary(String salary) {

@@ -1,13 +1,18 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import org.joda.time.DateTime;
 
 /**
@@ -16,21 +21,28 @@ import org.joda.time.DateTime;
  */
 @Entity
 public class Dog implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "DOG_ID")
     private Long id;
+    
     private String name;
     private String breed;
-    private DateTime birth;
+    private Date birth;
+    
     @ManyToOne
     private Customer owner;
-    @ManyToMany
-    private List<Service> services;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.dog", 
+            cascade = CascadeType.ALL)
+    private List<DogService> dogServices = new ArrayList<>();
 
     public Dog() {
+        
     }
 
-    public Dog(String name, String breed, DateTime birth) {
+    public Dog(String name, String breed, Date birth) {
         this.name = name;
         this.breed = breed;
         this.birth = birth;
@@ -44,8 +56,24 @@ public class Dog implements Serializable {
         this.id = id;
     }
 
+    public List<DogService> getDogServices() {
+        return dogServices;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public Customer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Customer owner) {
+        this.owner = owner;
+    }
+
+    public void setDogServices(List<DogService> dogServices) {
+        this.dogServices = dogServices;
     }
 
     public void setName(String name) {
@@ -60,11 +88,11 @@ public class Dog implements Serializable {
         this.breed = breed;
     }
 
-    public DateTime getBirth() {
+    public Date getBirth() {
         return birth;
     }
 
-    public void setBirth(DateTime birth) {
+    public void setBirth(Date birth) {
         this.birth = birth;
     }
 
