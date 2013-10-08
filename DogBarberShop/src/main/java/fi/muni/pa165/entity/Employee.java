@@ -47,6 +47,22 @@ public class Employee implements Serializable {
         @JoinColumn(name = "service_id")})
     private List<Service> services = new ArrayList<>();
 
+    public Employee() {
+    }
+
+    public Employee(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+    public Employee (String name, String surname, String address, 
+            String phone, String salary) {
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phone = phone;
+        this.salary = salary;
+    }
+    
     public void setSalary(String salary) {
         this.salary = salary;
     }
