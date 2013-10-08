@@ -24,7 +24,6 @@ public class Dog implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "DOG_ID")
     private Long id;
     
     private String name;
@@ -33,10 +32,6 @@ public class Dog implements Serializable {
     
     @ManyToOne
     private Customer owner;
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.dog", 
-            cascade = CascadeType.ALL)
-    private List<DogService> dogServices = new ArrayList<>();
 
     public Dog() {
         
@@ -56,10 +51,6 @@ public class Dog implements Serializable {
         this.id = id;
     }
 
-    public List<DogService> getDogServices() {
-        return dogServices;
-    }
-
     public String getName() {
         return name;
     }
@@ -70,10 +61,6 @@ public class Dog implements Serializable {
 
     public void setOwner(Customer owner) {
         this.owner = owner;
-    }
-
-    public void setDogServices(List<DogService> dogServices) {
-        this.dogServices = dogServices;
     }
 
     public void setName(String name) {

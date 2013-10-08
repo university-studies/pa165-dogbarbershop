@@ -21,7 +21,6 @@ public class Service implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  @Column(name = "SERVICE_ID")
   private Long id;
   
   private String name;
@@ -30,9 +29,6 @@ public class Service implements Serializable {
   
   @ManyToMany(mappedBy = "services")
   private List<Employee> employees = new ArrayList<>();
-  
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.service")
-  private List<DogService> dogServices = new ArrayList<>();
 
   public Service() {
   }
@@ -44,6 +40,14 @@ public class Service implements Serializable {
   public void setId(Long id) {
     this.id = id;
   }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 
   public String getName() {
     return name;
@@ -89,5 +93,10 @@ public class Service implements Serializable {
       return false;
     }
     return true;
+  }
+  
+  @Override
+  public String toString() {
+        return "fi.muni.pa165.entity.Service[ id= " + id + ", " + name +  " ]";
   }
 }

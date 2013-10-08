@@ -32,19 +32,12 @@ public class Customer implements Serializable {
     
     private String phone;
     
-    @OneToMany(mappedBy = "owner")
-    private List<Dog> dogs = new ArrayList<>();
-
     public void setName(String name) {
         this.name = name;
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public List<Dog> getDogs() {
-        return dogs;
     }
 
     public void setAddress(String address) {
@@ -57,10 +50,6 @@ public class Customer implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public void setDogs(List<Dog> dogs) {
-        this.dogs = dogs;
     }
 
     public String getSurname() {
