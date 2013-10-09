@@ -1,19 +1,12 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -28,7 +21,7 @@ public class Dog implements Serializable {
     
     private String name;
     private String breed;
-    private Date birth;
+    private LocalDate birth;
     
     @ManyToOne
     private Customer owner;
@@ -37,7 +30,7 @@ public class Dog implements Serializable {
         
     }
 
-    public Dog(String name, String breed, Date birth) {
+    public Dog(String name, String breed, LocalDate birth) {
         this.name = name;
         this.breed = breed;
         this.birth = birth;
@@ -75,11 +68,11 @@ public class Dog implements Serializable {
         this.breed = breed;
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 

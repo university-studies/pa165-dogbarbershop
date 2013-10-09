@@ -5,7 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -48,7 +51,12 @@ public class DogDAO implements IDogDAO{
 
     @Override
     public List<Dog> getAllDogs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery cqry = cb.createQuery();
+        Root<Dog> root = cqry.from(Dog.class);
+        cqry.select(root);
+        Query qry = em.createQuery(cqry);
+        return  qry.getResultList();
+        }
     
 }
