@@ -5,8 +5,6 @@
 package fi.muni.pa165.dao;
 
 import fi.muni.pa165.entity.Service;
-import java.util.HashMap;
-import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,8 +17,7 @@ import org.joda.time.Duration;
  */
 public class ServiceDAOTest extends TestCase {
 
-  ServiceDAO servDao;
-  EntityManager em;
+  EntityManagerFactory emf;
 
   public ServiceDAOTest(String testName) {
     super(testName);
@@ -29,14 +26,12 @@ public class ServiceDAOTest extends TestCase {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
-    Map m = new HashMap();
+    //Map m = new HashMap();
     // in-memory DB
-    m.put("hibernate.connection.url", "jdbc:derby:memory:ServiceDAOTestDB;create=true");
+    //m.put("hibernate.connection.url", "jdbc:derby:memory:ServiceDAOTestDB;create=true");
     //m.put("javax.persistence.jdbc.driver", "org.apache.derby.jdbc.EmbeddedDriver");
     // use testPU instead of PU
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("testPU", m);
-    this.em = emf.createEntityManager();
-    this.servDao = new ServiceDAO(em);
+    emf = Persistence.createEntityManagerFactory("testPU");
   }
 
   @Override
@@ -57,6 +52,8 @@ public class ServiceDAOTest extends TestCase {
    */
   public void testGetServiceById() {
     System.out.println("getServiceById");
+    EntityManager em = emf.createEntityManager();
+    ServiceDAO sdao = new ServiceDAO(em);
     Service s = getService("abc", new Long(50),
             // 5 days
             new Duration(5 * 24 * 60 * 60 * 1000));
@@ -67,8 +64,8 @@ public class ServiceDAOTest extends TestCase {
 
     Long id = s.getId();
     assertNotNull(id);
-    assertNotNull(servDao.getServiceById(id));
-    assertEquals(s, servDao.getServiceById(id));
+    assertNotNull(sdao.getServiceById(id));
+    assertEquals(s, sdao.getServiceById(id));
   }
 
   /**
@@ -76,6 +73,8 @@ public class ServiceDAOTest extends TestCase {
    */
   public void testGetServiceByName() {
     System.out.println("getServiceByName");
+    EntityManager em = emf.createEntityManager();
+    ServiceDAO sdao = new ServiceDAO(em);
     Service s = getService("low-cost-one", new Long(99),
             // 1 day
             new Duration(24 * 60 * 60 * 1000));
@@ -84,8 +83,8 @@ public class ServiceDAOTest extends TestCase {
     em.persist(s);
     em.getTransaction().commit();
 
-    assertNotNull(servDao.getServiceByName("low-cost-one").get(0));
-    assertEquals(s, servDao.getServiceByName("low-cost-one").get(0));
+    assertNotNull(sdao.getServiceByName("low-cost-one").get(0));
+    assertEquals(s, sdao.getServiceByName("low-cost-one").get(0));
   }
 
   /**
@@ -93,6 +92,8 @@ public class ServiceDAOTest extends TestCase {
    */
   public void testGetServiceByPrice() {
     System.out.println("getServiceByPrice");
+    EntityManager em = emf.createEntityManager();
+    ServiceDAO sdao = new ServiceDAO(em);
     Service s = getService("expensive-one", new Long(8475),
             // 7 hours
             new Duration(7 * 60 * 60 * 1000));
@@ -101,8 +102,8 @@ public class ServiceDAOTest extends TestCase {
     em.persist(s);
     em.getTransaction().commit();
 
-    assertNotNull(servDao.getServiceByPrice(new Long(8475)).get(0));
-    assertEquals(s, servDao.getServiceByPrice(new Long(8475)).get(0));
+    assertNotNull(sdao.getServiceByPrice(new Long(8475)).get(0));
+    assertEquals(s, sdao.getServiceByPrice(new Long(8475)).get(0));
   }
 
   /**
@@ -110,6 +111,8 @@ public class ServiceDAOTest extends TestCase {
    */
   public void testGetServiceByDuration() {
     System.out.println("getServiceByDuration");
+    EntityManager em = emf.createEntityManager();
+    ServiceDAO sdao = new ServiceDAO(em);
     Service s = getService("useless-one", new Long(135),
             // 5 minutes
             new Duration(5 * 60 * 1000));
@@ -118,7 +121,7 @@ public class ServiceDAOTest extends TestCase {
     em.persist(s);
     em.getTransaction().commit();
 
-    assertNotNull(servDao.getServiceByDuration(new Duration(5 * 60 * 1000)).get(0));
-    assertEquals(s, servDao.getServiceByDuration(new Duration(5 * 60 * 1000)).get(0));
+    assertNotNull(sdao.getServiceByDuration(new Duration(5 * 60 * 1000)).get(0));
+    assertEquals(s, sdao.getServiceByDuration(new Duration(5 * 60 * 1000)).get(0));
   }
 }
