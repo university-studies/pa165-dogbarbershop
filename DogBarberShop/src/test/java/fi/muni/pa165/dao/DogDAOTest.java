@@ -50,6 +50,7 @@ public class DogDAOTest extends TestCase {
         dao.createDog(dog);
         em.getTransaction().commit();
         em.clear();
+        
         Long id = dog.getId();
         assertNotNull(id);
         Dog dog2 = dao.getDog(id);
@@ -68,6 +69,7 @@ public class DogDAOTest extends TestCase {
         dao.createDog(dog3);
         em.getTransaction().commit();
         em.clear();
+        
         Long id = dog.getId();
         Long id2 = dog2.getId();
         Long id3 = dog3.getId();
@@ -88,31 +90,37 @@ public class DogDAOTest extends TestCase {
         dao.createDog(dog1);
         em.getTransaction().commit();
         em.clear();
+        
         dog1.setName("prviak");
         em.getTransaction().begin();
         dao.updateDog(dog1);
         em.getTransaction().commit();
         em.clear();
+        
         em.getTransaction().begin();
         Dog dog11 = dao.getDog(dog1.getId());
         em.getTransaction().commit();
         em.clear();
         assertDeepEquals(dog1, dog11);
+        
         dog1.setBreed("civava");
         em.getTransaction().begin();
         dao.updateDog(dog1);
         em.getTransaction().commit();
         em.clear();
+        
         em.getTransaction().begin();
         dog11 = dao.getDog(dog1.getId());
         em.getTransaction().commit();
         em.clear();
         assertDeepEquals(dog1, dog11);
+        
         dog1.setBirth(new LocalDate(1991, 9, 23));
         em.getTransaction().begin();
         dao.updateDog(dog1);
         em.getTransaction().commit();
         em.clear();
+        
         em.getTransaction().begin();
         dog11 = dao.getDog(dog1.getId());
         em.getTransaction().commit();
