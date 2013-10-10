@@ -11,6 +11,7 @@ import fi.muni.pa165.entity.Service;
 import java.sql.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -23,30 +24,99 @@ public class DogServiceDAO implements IDogServiceDAO{
     public void setEntityManager(EntityManager em) {
         this.em = em;
     }
+    
+    @Override
+    public DogService createDogService(DogService dogService) {
+        em.persist(dogService);
+        return dogService;
+    }
 
     @Override
+    public void deleteDogService(DogService dogService) {
+        em.remove(dogService);
+    }
+    
+    @Override
     public DogService getDogServiceById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<DogService> query = em.createQuery("select d from DogService d "
+                + "where d.id = :id", DogService.class)
+                .setParameter("id", id);
+        if (query.getResultList() == null){
+            throw new RuntimeException("Query returned null.");
+        }
+        if (query.getResultList().size() < 1) {
+            throw new RuntimeException("No record found");        
+        }
+        return query.getResultList().get(0);
     }
 
     @Override
     public List<DogService> getDogServiceByDog(Dog dog) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<DogService> query = em.createQuery("select d from DogService d "
+                + "where d.dog = :dog", DogService.class)
+                .setParameter("dog", dog);
+        if (query.getResultList() == null){
+            throw new RuntimeException("Query returned null.");
+        }
+        if (query.getResultList().size() < 1) {
+            throw new RuntimeException("No record found");        
+        }
+        return query.getResultList();
     }
 
     @Override
     public List<DogService> getDogServiceByService(Service service) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<DogService> query = em.createQuery("select d from DogService d "
+                + "where d.service = :service", DogService.class)
+                .setParameter("service", service);
+        if (query.getResultList() == null){
+            throw new RuntimeException("Query returned null.");
+        }
+        if (query.getResultList().size() < 1) {
+            throw new RuntimeException("No record found");        
+        }
+        return query.getResultList();
     }
 
     @Override
     public List<DogService> getDogServiceByDate(Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<DogService> query = em.createQuery("select d from DogService d "
+                + "where d.serviceDate = :date", DogService.class)
+                .setParameter("date", date);
+        if (query.getResultList() == null){
+            throw new RuntimeException("Query returned null.");
+        }
+        if (query.getResultList().size() < 1) {
+            throw new RuntimeException("No record found");        
+        }
+        return query.getResultList();
     }
 
     @Override
     public List<DogService> getDogServiceByEmployee(Employee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<DogService> query = em.createQuery("select d from DogService d "
+                + "where d.servedBy = :employee", DogService.class)
+                .setParameter("employee", employee.getId());
+        if (query.getResultList() == null){
+            throw new RuntimeException("Query returned null.");
+        }
+        if (query.getResultList().size() < 1) {
+            throw new RuntimeException("No record found");        
+        }
+        return query.getResultList();
+    }
+
+    @Override
+    public List<DogService> getAllDogServices() {
+        TypedQuery<DogService> query = em.createQuery("select d from DogService d",
+                DogService.class);
+        if (query.getResultList() == null){
+            throw new RuntimeException("Query returned null.");
+        }
+        if (query.getResultList().size() < 1) {
+            throw new RuntimeException("No record found");        
+        }
+        return query.getResultList();
     }
     
 }
