@@ -16,6 +16,20 @@ import java.util.List;
  * @author martin
  */
 public interface IDogServiceDAO {
+    /*
+     * 
+     */
+    public DogService createDogService(DogService dogService);
+    
+    /*
+     * 
+     */
+    public void deleteDogService(DogService dogService);
+    
+    /*
+     * return all DogServices from DB
+     */
+    public List<DogService> getAllDogServices();
     
     /*
      * 

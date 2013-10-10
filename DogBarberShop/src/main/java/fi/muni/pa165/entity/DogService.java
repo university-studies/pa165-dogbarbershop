@@ -43,6 +43,22 @@ public class DogService implements Serializable {
         return id;
     }
 
+    public void setDog(Dog dog) {
+        this.dog = dog;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Dog getDog() {
+        return dog;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

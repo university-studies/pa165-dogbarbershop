@@ -58,6 +58,26 @@ public class CustomerDAOTest extends TestCase{
         return customer;
     }
     
+    public void testCreateCustomer(){
+        Customer customer = newCustomer("Andrej", "Kazisvet", "Skacelova 10", "987654321");
+        em.getTransaction().begin();
+        em.persist(customer);
+        em.getTransaction().commit();
+        assertNotNull(customer.getId());
+    }
+    
+    public void testDeleteCustomer(){
+        Customer customer = newCustomer("Oto", "Babal", "Zilina", "654123987");
+        em.getTransaction().begin();
+        em.persist(customer);
+        em.getTransaction().commit();
+        assertNotNull(em.find(Customer.class, customer.getId()));
+        em.getTransaction().begin();
+        em.remove(customer);
+        em.getTransaction().commit();
+        assertNull(em.find(Customer.class, customer.getId()));
+    }
+    
     public void testGetCustomerById() {
         Customer customer = newCustomer("Martin", "Sakac", "Purkynova 4", "774670609");
         
@@ -122,6 +142,18 @@ public class CustomerDAOTest extends TestCase{
         assertNotNull(id);
         assertNotNull(dao.getCustomerByPhone("000999111"));
         assertEquals(customer, dao.getCustomerByPhone("000999111").get(0));
+    }
+    
+    public void testGetAllCustomers(){
+        Customer customer1 = newCustomer("Tomas", "Hehehe", "Purkynova 40", "000999111");
+        Customer customer2 = newCustomer("Jan", "Haha", "Purkynova 20", "666666000");
+        Customer customer3 = newCustomer("Matej", "Prd", "Purkynova 30", "111222333");
+        em.getTransaction().begin();
+        em.persist(customer1);
+        em.persist(customer2);
+        em.persist(customer3);
+        em.getTransaction().commit();
+        assertEquals(dao.getAllCustomers().size(),3);
     }
     
 }

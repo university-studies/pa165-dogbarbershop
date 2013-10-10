@@ -5,13 +5,10 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -31,6 +28,17 @@ public class Customer implements Serializable {
     private String address;
     
     private String phone;
+    
+    public Customer(){
+    
+    }
+    
+    public Customer(String name, String surname, String address, String phone){
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phone = phone;
+    }
     
     public void setName(String name) {
         this.name = name;

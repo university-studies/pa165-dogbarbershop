@@ -21,6 +21,29 @@ public class CustomerDAO implements ICustomerDAO{
     public void setEntityManager(EntityManager em) {
         this.em = em;
     }
+    
+    @Override
+    public Customer createCustomer(Customer customer) {
+        em.persist(customer);
+        return customer;
+    }
+
+    @Override
+    public void deleteCustomer(Customer customer) {
+        em.remove(customer);
+    }
+    
+    @Override
+    public List<Customer> getAllCustomers(){
+        TypedQuery<Customer> query = em.createQuery("select c from Customer c ", Customer.class);
+        if (query.getResultList() == null){
+            throw new RuntimeException("Query returned null.");
+        }
+        if (query.getResultList().size() < 1) {
+            throw new RuntimeException("No record found");        
+        }
+        return query.getResultList();
+    }
 
     @Override
     public Customer getCustomerById(Long id) {
@@ -91,5 +114,6 @@ public class CustomerDAO implements ICustomerDAO{
         }
         return query.getResultList();
     }
+
     
 }
