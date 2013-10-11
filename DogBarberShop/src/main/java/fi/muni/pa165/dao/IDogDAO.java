@@ -1,5 +1,6 @@
 package fi.muni.pa165.dao;
 
+import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import java.io.Serializable;
 import java.util.List;
@@ -9,14 +10,16 @@ import java.util.List;
  * @author Oliver Pentek
  */
 public interface IDogDAO extends Serializable {
-    public Dog createDog(Dog dog);
+    public Dog addDog(Dog dog);
     
     public Dog getDog(Long id);
     
     public Dog updateDog(Dog dog);
     
-    public void deleteDog(Dog dog);
+    public void removeDog(Dog dog);
     
     public List<Dog> getAllDogs();
+    
+    public List<Dog> getDogsByOwner(Customer owner);
     
 }

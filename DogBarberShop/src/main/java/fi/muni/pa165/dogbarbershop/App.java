@@ -1,6 +1,5 @@
 package fi.muni.pa165.dogbarbershop;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

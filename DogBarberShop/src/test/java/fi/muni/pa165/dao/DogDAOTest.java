@@ -1,23 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fi.muni.pa165.dao;
 
+import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
 import org.joda.time.LocalDate;
 
 /**
  *
- * 
+ *  @author Oliver Pentek
  */
 public class DogDAOTest extends TestCase {
     
@@ -30,9 +27,6 @@ public class DogDAOTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-//        Map prop = new HashMap();
-//        prop.put("hibernate.connection.url", "jdbc:derby:memory:dogDao-test;create=true");
-//        prop.put("javax.persistence.jdbc.driver", "org.apache.derby.jdbc.EmbeddedDriver");
          this.emf = Persistence.createEntityManagerFactory("testPU");
         
     }
@@ -42,12 +36,20 @@ public class DogDAOTest extends TestCase {
         super.tearDown();
     }
     
-    public void testCreateDog() {
+    private Dog newDog(String name, String breed, LocalDate birth) {
+        Dog dog = new Dog();
+        dog.setName(name);
+        dog.setBreed(breed);
+        dog.setBirth(birth);
+        return dog;
+    }
+    
+    public void testAddDog() {
         EntityManager em = emf.createEntityManager();
         DogDAO dao = new DogDAO(em);
         Dog dog = new Dog();
         em.getTransaction().begin();
-        dao.createDog(dog);
+        dao.addDog(dog);
         em.getTransaction().commit();
         em.clear();
         
@@ -60,13 +62,13 @@ public class DogDAOTest extends TestCase {
     public void testGetDog() {
         EntityManager em = emf.createEntityManager();
         DogDAO dao = new DogDAO(em);
-        Dog dog = new Dog("prvy", "vlk", new LocalDate(1998, 05, 22));
-        Dog dog2 = new Dog("druhy", "vlciak", new LocalDate(1995, 01, 21));
-        Dog dog3 = new Dog("treti", "vlcisko", new LocalDate(1993, 8, 26));
+        Dog dog = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
+        Dog dog2 = newDog("druhy", "vlciak", new LocalDate(1995, 01, 21));
+        Dog dog3 = newDog("treti", "vlcisko", new LocalDate(1993, 8, 26));
         em.getTransaction().begin();
-        dao.createDog(dog);
-        dao.createDog(dog2);
-        dao.createDog(dog3);
+        dao.addDog(dog);
+        dao.addDog(dog2);
+        dao.addDog(dog3);
         em.getTransaction().commit();
         em.clear();
         
@@ -82,12 +84,11 @@ public class DogDAOTest extends TestCase {
     }
     
    public void testUpdateDog() {
-       Dog dog1 = new Dog("prvy", "vlk", new LocalDate(1998, 05, 22));
-
+       Dog dog1 = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
         EntityManager em = emf.createEntityManager();
         DogDAO dao = new DogDAO(em);
         em.getTransaction().begin();
-        dao.createDog(dog1);
+        dao.addDog(dog1);
         em.getTransaction().commit();
         em.clear();
         
@@ -126,6 +127,81 @@ public class DogDAOTest extends TestCase {
         em.getTransaction().commit();
         em.clear();
         assertDeepEquals(dog1, dog11);
+   }
+   
+   public void testRemoveDog() {
+       EntityManager em = emf.createEntityManager();
+        DogDAO dao = new DogDAO(em);
+        Dog dog = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
+        Dog dog2 = newDog("druhy", "vlciak", new LocalDate(1995, 01, 21));
+        Dog dog3 = newDog("treti", "vlcisko", new LocalDate(1993, 8, 26));
+        em.getTransaction().begin();
+        dao.addDog(dog);
+        dao.addDog(dog2);
+        dao.addDog(dog3);
+        em.getTransaction().commit();
+        
+        Long id = dog.getId();
+        Long id2 = dog2.getId();
+        Long id3 = dog3.getId();
+        
+        em.getTransaction().begin();
+        em.remove(dog2);
+        em.getTransaction().commit();
+        em.clear();
+        
+        assertNull(dao.getDog(id2));
+        assertNotNull(dao.getDog(id));
+        assertNotNull(dao.getDog(id3));
+   }
+   
+   public void testGetAllDogs() {
+       EntityManager em = emf.createEntityManager();
+        DogDAO dao = new DogDAO(em);
+        Dog dog = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
+        Dog dog2 = newDog("druhy", "vlciak", new LocalDate(1995, 01, 21));
+        Dog dog3 = newDog("treti", "vlcisko", new LocalDate(1993, 8, 26));
+        em.getTransaction().begin();
+        dao.addDog(dog);
+        dao.addDog(dog2);
+        dao.addDog(dog3);
+        em.getTransaction().commit();
+        em.clear();
+        
+        List all = dao.getAllDogs();
+        assertTrue(all.contains(dog));
+        assertTrue(all.contains(dog2));
+        assertTrue(all.contains(dog3));
+   }
+   
+   public void testGetDogsByOwner() {
+       EntityManager em = emf.createEntityManager();
+       CustomerDAO custDao = new CustomerDAO();
+       custDao.setEntityManager(em);
+       Customer customer1 = new Customer("Tomas", "Hehehe", "Purkynova 40", "000999111");
+       Customer customer2 = new Customer("Szilard", "Nemeth", "Rozalkova 40", "9999999999");
+       Customer customer3 = new Customer("Milan", "Cajda", "Osminova 40", "888888888");
+       em.getTransaction().begin();
+       custDao.createCustomer(customer1);
+       custDao.createCustomer(customer2);
+       custDao.createCustomer(customer3);
+       em.getTransaction().commit();
+       em.clear();
+        
+        Dog dog = new Dog("prvy", "vlk", new LocalDate(1998, 05, 22), customer1);
+        Dog dog2 = new Dog("druhy", "vlciak", new LocalDate(1995, 01, 21), customer2);
+        Dog dog3 = new Dog("treti", "vlcisko", new LocalDate(1993, 8, 26), customer2);
+        DogDAO dao = new DogDAO(em);
+        em.getTransaction().begin();
+        dao.addDog(dog);
+        dao.addDog(dog2);
+        dao.addDog(dog3);
+        em.getTransaction().commit();
+        em.clear();
+        
+        assertTrue(dao.getDogsByOwner(customer1).contains(dog));
+        assertTrue(dao.getDogsByOwner(customer2).contains(dog2) && dao.getDogsByOwner(customer2).contains(dog3));
+        assertTrue(dao.getDogsByOwner(customer3).isEmpty());
    }
    
    private void assertDeepEquals(Dog dog1, Dog dog2) {
