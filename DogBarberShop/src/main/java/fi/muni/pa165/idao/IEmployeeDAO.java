@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.muni.pa165.dao;
+package fi.muni.pa165.idao;
 
 import fi.muni.pa165.entity.Employee;
 import java.util.List;

@@ -1,5 +1,6 @@
 package fi.muni.pa165.dao;
 
+import fi.muni.pa165.idao.IDogDAO;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import java.util.List;

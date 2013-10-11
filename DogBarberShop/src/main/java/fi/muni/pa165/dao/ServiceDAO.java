@@ -4,6 +4,7 @@
  */
 package fi.muni.pa165.dao;
 
+import fi.muni.pa165.idao.IServiceDAO;
 import fi.muni.pa165.entity.Service;
 import java.util.List;
 import javax.persistence.EntityManager;

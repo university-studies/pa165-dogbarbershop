@@ -1,4 +1,4 @@
-package fi.muni.pa165.dao;
+package fi.muni.pa165.idao;
 
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
