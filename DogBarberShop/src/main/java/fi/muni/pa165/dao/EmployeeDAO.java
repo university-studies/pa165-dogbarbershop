@@ -80,7 +80,6 @@ public class EmployeeDAO implements IEmployeeDAO {
         return q.getResultList();
     }
     
-    
     @Override
     public List<Employee> getAllEmployee() {
         TypedQuery<Employee> q = em.createQuery(
