@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author pavol
+ * @author Pavol Loffay
  */
 public class EmployeeDAO implements IEmployeeDAO {  
     
@@ -20,48 +20,71 @@ public class EmployeeDAO implements IEmployeeDAO {
         this.em = em;
     }
     
+    EmployeeDAO() {
+    }
+
+    EmployeeDAO(EntityManager em) {
+        this.em = em;
+    }
+    
+    @Override
+    public Employee createEmployee(Employee employee) {
+        em.getTransaction().begin();
+        em.persist(employee);
+        em.getTransaction().commit();
+        return employee;
+    }
+    
+    @Override
+    public Employee updateEmployee(Employee employee) {
+       em.getTransaction().begin();
+       em.merge(employee);
+       em.getTransaction().commit();
+       return employee;
+    }
+    
+    @Override
+    public void deleteEmployee(Employee employee) {
+        em.getTransaction().begin();
+        employee = em.merge(employee);
+        em.remove(employee);
+        em.getTransaction().commit();
+    }
+    
     @Override
     public Employee getEmployeeById(Long id) {
         TypedQuery<Employee> q = em.createQuery(
-            "SELECT s FROM Employee  AS s WHERE s.id = :id", Employee.class);
+            "SELECT e FROM Employee AS e WHERE e.id = :id", Employee.class);
         q.setParameter("id", id);
+        
         return q.getSingleResult(); 
     }
     
     @Override
     public List<Employee> getEmployeeByName(String name) {    
         TypedQuery<Employee> q = em.createQuery(
-            "SELECT s FROM Employee AS s where s.name = :name", Employee.class);
+            "SELECT e FROM Employee AS e where e.name = :name", Employee.class);
         q.setParameter("name", name);
+        
         return q.getResultList();
     }
     
     @Override
     public List<Employee> getEmployeeBySurname(String surname) {
         TypedQuery<Employee> q = em.createQuery(
-            "SELECT s FROM Employee AS s where s.surname = :surname", Employee.class);
+            "SELECT e FROM Employee AS e where e.surname = :surname", 
+            Employee.class);
         q.setParameter("surname", surname);
+        
         return q.getResultList();
     }
     
-    /*TODO FIX
+    
     @Override
     public List<Employee> getAllEmployee() {
         TypedQuery<Employee> q = em.createQuery(
-            "SELECT * FROM Employee AS s where s.surname = :surname", Employee.class);
-        q.setParameter("surname", surname);
+            "SELECT e FROM Employee AS e", Employee.class);
+        
         return q.getResultList();
-    }
-    */
-    
-    @Override
-    public Employee updateEmployee(Employee employee) {
-       return this.em.merge(employee);
-    }
-    
-    @Override
-    public void deleteEmployee(Employee employee) {
-        employee = this.em.merge(employee);
-        em.remove(employee);
     }
 }
