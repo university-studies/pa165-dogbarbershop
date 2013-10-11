@@ -116,4 +116,14 @@ public class CustomerDAO implements ICustomerDAO{
     }
 
     
+    @Override
+    public List<Object[]> getCustomersServices(){
+       
+        TypedQuery<Object[]> query = em.createQuery(
+                "select c.name, c.surname, d.name, s.name, ds.serviceDate "
+                + "from Customer c, Dog d, DogService ds, Service s "
+                + "where c.id = d.owner.id and d.id = ds.dog.id and ds.service.id = s.id", 
+                Object[].class);
+        return query.getResultList();
+    }
 }

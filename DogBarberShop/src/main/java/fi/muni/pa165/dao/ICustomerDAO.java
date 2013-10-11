@@ -51,4 +51,9 @@ public interface ICustomerDAO {
      * returns all customers
      */
     public List<Customer> getAllCustomers();
+    
+    /*
+     * 
+     */
+    public List<Object[]> getCustomersServices();
 }

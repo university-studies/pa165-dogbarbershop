@@ -5,11 +5,17 @@
 package fi.muni.pa165.dao;
 
 import fi.muni.pa165.entity.Customer;
+import fi.muni.pa165.entity.Dog;
+import fi.muni.pa165.entity.DogService;
+import fi.muni.pa165.entity.Service;
+import java.sql.Date;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import junit.framework.TestCase;
+import org.joda.time.Duration;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -156,4 +162,45 @@ public class CustomerDAOTest extends TestCase{
         assertEquals(dao.getAllCustomers().size(),3);
     }
     
+    private static DogService newDogService(Dog dog, Service service, Date serviceDate, Long employeeId){
+        DogService dogService = new DogService();
+        dogService.setDog(dog);
+        dogService.setService(service);
+        dogService.setServiceDate(serviceDate);
+        dogService.setServedBy(employeeId);
+        return dogService;
+    }
+    
+    public void testGetCustomersServices(){
+        Customer customer1 = newCustomer("Tomas", "Hehehe", "Purkynova 40", "000999111");
+        Dog dog = new Dog("prvy", "vlk", new LocalDate(1998, 05, 22));
+        dog.setOwner(customer1);
+        Service s = new Service();
+        s.setName("strihanie");
+        s.setPrice(new Long(100));
+        s.setDuration(new Duration(5 * 24 * 60 * 60 * 1000));
+        
+        em.getTransaction().begin();
+        em.persist(customer1);
+        em.persist(dog);
+        em.persist(s);
+        em.getTransaction().commit();
+        
+        DogService dogService = newDogService
+                (dog, s, Date.valueOf("2013-10-25"), new Long(1));
+        dogService.setDog(dog);
+        dogService.setService(s);
+        
+        DogService dogService2 = newDogService
+                (dog, s, Date.valueOf("2013-1-1"), new Long(1));
+        dogService2.setDog(dog);
+        dogService2.setService(s);
+        
+        em.getTransaction().begin();
+        em.persist(dogService);
+        em.persist(dogService2);
+        em.getTransaction().commit();
+        
+        assertEquals(2, dao.getCustomersServices().size());
+    }
 }
