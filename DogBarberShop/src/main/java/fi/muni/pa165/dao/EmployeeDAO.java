@@ -54,8 +54,8 @@ public class EmployeeDAO implements IEmployeeDAO {
     
     @Override
     public Employee getEmployeeById(Long id) {
-        TypedQuery<Employee> q = em.createQuery(
-            "SELECT e FROM Employee AS e WHERE e.id = :id", Employee.class);
+        TypedQuery<Employee> q = em.createNamedQuery("Employee.ById",
+                Employee.class);
         q.setParameter("id", id);
         
         return q.getSingleResult(); 
@@ -63,8 +63,8 @@ public class EmployeeDAO implements IEmployeeDAO {
     
     @Override
     public List<Employee> getEmployeeByName(String name) {    
-        TypedQuery<Employee> q = em.createQuery(
-            "SELECT e FROM Employee AS e where e.name = :name", Employee.class);
+        TypedQuery<Employee> q = em.createNamedQuery("Employee.ByName",
+                Employee.class);
         q.setParameter("name", name);
         
         return q.getResultList();
@@ -72,9 +72,8 @@ public class EmployeeDAO implements IEmployeeDAO {
     
     @Override
     public List<Employee> getEmployeeBySurname(String surname) {
-        TypedQuery<Employee> q = em.createQuery(
-            "SELECT e FROM Employee AS e where e.surname = :surname", 
-            Employee.class);
+        TypedQuery<Employee> q = em.createNamedQuery("Employee.BySurname",
+                Employee.class);
         q.setParameter("surname", surname);
         
         return q.getResultList();
@@ -82,8 +81,8 @@ public class EmployeeDAO implements IEmployeeDAO {
     
     @Override
     public List<Employee> getAllEmployee() {
-        TypedQuery<Employee> q = em.createQuery(
-            "SELECT e FROM Employee AS e", Employee.class);
+        TypedQuery<Employee> q = em.createNamedQuery("Employee.all",
+                Employee.class);
         
         return q.getResultList();
     }

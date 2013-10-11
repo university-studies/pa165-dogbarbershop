@@ -17,12 +17,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author martin 
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Employee.all", query = "SELECT e FROM Employee e"),
+    @NamedQuery(name = "Employee.ById", query = "SELECT e "
+        + "FROM Employee AS e where e.id = :id"),
+    @NamedQuery(name = "Employee.ByName", query = "SELECT e "
+        + "FROM Employee AS e where e.name = :name"),
+    @NamedQuery(name = "Employee.BySurname", query = "SELECT e "
+        + "FROM Employee AS e where e.surname = :surname"),
+})
 public class Employee implements Serializable {
     
     @Id

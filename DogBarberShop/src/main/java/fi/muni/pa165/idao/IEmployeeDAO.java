@@ -9,13 +9,16 @@ import java.util.List;
 
 /**
  *
- * @author pavol
+ * @author Pavol Loffay
  */
 public interface IEmployeeDAO {
+    public Employee createEmployee(Employee employee);
+    public Employee updateEmployee(Employee employee);
+    public void deleteEmployee(Employee employee);
+    
     public Employee getEmployeeById(Long id);
     public List<Employee> getEmployeeByName(String name);
     public List<Employee> getEmployeeBySurname(String surname);
-    //public List<Employee> getAllEmployee();
-    public Employee updateEmployee(Employee employee);
-    public void deleteEmployee(Employee employee);
+    public List<Employee> getAllEmployee();
 }
+
