@@ -1,11 +1,13 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
+import javax.annotation.Nonnull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import org.apache.commons.lang3.Validate;
 import org.joda.time.LocalDate;
 
 /**
@@ -22,18 +24,18 @@ public class Dog implements Serializable {
     private String name;
     private String breed;
     private LocalDate birth;
-    
     @ManyToOne
     private Customer owner;
 
     public Dog() {
-        
     }
 
-    public Dog(String name, String breed, LocalDate birth) {
+    public Dog(String name, String breed, LocalDate birth, @Nonnull Customer owner) {
+        Validate.isTrue(owner != null, "Owner should not be null");
         this.name = name;
         this.breed = breed;
         this.birth = birth;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -97,4 +99,5 @@ public class Dog implements Serializable {
         }
         return true;
     }
+    
 }

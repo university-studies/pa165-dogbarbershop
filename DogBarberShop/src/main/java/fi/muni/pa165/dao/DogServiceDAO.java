@@ -4,6 +4,7 @@
  */
 package fi.muni.pa165.dao;
 
+import fi.muni.pa165.idao.IDogServiceDAO;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.DogService;
 import fi.muni.pa165.entity.Employee;

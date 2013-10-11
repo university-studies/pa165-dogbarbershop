@@ -4,6 +4,7 @@
  */
 package fi.muni.pa165.dao;
 
+import fi.muni.pa165.idao.IEmployeeDAO;
 import fi.muni.pa165.entity.Employee;
 import java.util.List;
 import javax.persistence.EntityManager;

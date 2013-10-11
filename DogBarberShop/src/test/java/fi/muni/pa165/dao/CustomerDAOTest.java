@@ -173,8 +173,7 @@ public class CustomerDAOTest extends TestCase{
     
     public void testGetCustomersServices(){
         Customer customer1 = newCustomer("Tomas", "Hehehe", "Purkynova 40", "000999111");
-        Dog dog = new Dog("prvy", "vlk", new LocalDate(1998, 05, 22));
-        dog.setOwner(customer1);
+        Dog dog = new Dog("prvy", "vlk", new LocalDate(1998, 05, 22), customer1);
         Service s = new Service();
         s.setName("strihanie");
         s.setPrice(new Long(100));
