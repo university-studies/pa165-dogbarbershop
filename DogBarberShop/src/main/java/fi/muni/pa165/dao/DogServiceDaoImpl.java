@@ -12,7 +12,11 @@ import fi.muni.pa165.entity.Service;
 import java.sql.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -21,6 +25,16 @@ import javax.persistence.TypedQuery;
 public class DogServiceDaoImpl implements DogServiceDAO{
     
     private EntityManager em;
+    
+//    @Autowired
+    EntityManagerFactory emf;
+    
+    public void setEmFromEmf() {
+        ApplicationContext context =
+    new ClassPathXmlApplicationContext("META-INF/context.xml");
+        emf = (EntityManagerFactory) context.getBean("entityManagerFactory");
+        em = emf.createEntityManager();
+    }
     
     public void setEntityManager(EntityManager em) {
         this.em = em;
