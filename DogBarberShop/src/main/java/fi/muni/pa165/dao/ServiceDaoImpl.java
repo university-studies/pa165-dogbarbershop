@@ -4,7 +4,7 @@
  */
 package fi.muni.pa165.dao;
 
-import fi.muni.pa165.idao.IServiceDAO;
+import fi.muni.pa165.idao.ServiceDAO;
 import fi.muni.pa165.entity.Service;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,13 +15,13 @@ import org.joda.time.Duration;
 /**
  * @author Honza
  */
-public class ServiceDAO implements IServiceDAO {
+public class ServiceDaoImpl implements ServiceDAO {
 
   @PersistenceContext(unitName = "PO")
   // FIXME EntityManager em1 = emf.createEntityManager();
   EntityManager em;
 
-  ServiceDAO(EntityManager em) {
+  ServiceDaoImpl(EntityManager em) {
     this.em = em;
   }
 

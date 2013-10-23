@@ -15,11 +15,11 @@ import javax.persistence.TypedQuery;
  *
  * @author pavol
  */
-public class EmployeeDAOTest extends TestCase {
+public class EmployeeDaoImplTest extends TestCase {
     
     private EntityManagerFactory emFactory;
     
-    public EmployeeDAOTest(String testName) {
+    public EmployeeDaoImplTest(String testName) {
         super(testName);
     }
     
@@ -39,7 +39,7 @@ public class EmployeeDAOTest extends TestCase {
     public void testCreateEmployee() {
         EntityManager em = emFactory.createEntityManager();
         
-        EmployeeDAO dao = new EmployeeDAO(em);
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em);
         Employee emp = new Employee("Janko", "Krasny", "Zabiedovo 114/5", 
                 "0905394355", "10000");
         dao.createEmployee(emp);
@@ -55,7 +55,7 @@ public class EmployeeDAOTest extends TestCase {
     public void testUpdateEmployee() {
         EntityManager em = emFactory.createEntityManager();
         
-        EmployeeDAO dao = new EmployeeDAO(em);
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em);
         
         /*
          * Vytiahnem Pavol z databaze, zmenim meno pomocu DAO
@@ -81,7 +81,7 @@ public class EmployeeDAOTest extends TestCase {
          * V DB najdem Pavol vymazem ho a potom podla 
          * query otestujem ci je v DB jeho id
          */
-        EmployeeDAO dao = new EmployeeDAO(em);  
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em);  
         Employee person = dao.getEmployeeByName("Pavol").get(0);
         Long id = person.getId();
         
@@ -99,7 +99,7 @@ public class EmployeeDAOTest extends TestCase {
     public void testGetEmployeeById() {  
         EntityManager em = emFactory.createEntityManager();
         
-        EmployeeDAO dao = new EmployeeDAO(em);     
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em);     
         
         TypedQuery<Employee> q = em.createQuery("SELECT e FROM Employee e WHERE"
                 + " e.name = 'Pavol'", Employee.class);
@@ -113,7 +113,7 @@ public class EmployeeDAOTest extends TestCase {
     public void testGetEmployeeByName() {
         EntityManager em = emFactory.createEntityManager();
         
-        EmployeeDAO dao = new EmployeeDAO(em);     
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em);     
         Employee person = dao.getEmployeeByName("Pavol").get(0);
         
         TypedQuery<Employee> q = em.createQuery("SELECT e FROM Employee e WHERE"
@@ -125,7 +125,7 @@ public class EmployeeDAOTest extends TestCase {
     public void testGetEmployeeBySurname() {
         EntityManager em = emFactory.createEntityManager();
         
-        EmployeeDAO dao = new EmployeeDAO(em);     
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em);     
         Employee person = dao.getEmployeeBySurname("Loffay").get(0);
         
         TypedQuery<Employee> q = em.createQuery("SELECT e FROM Employee e WHERE"
@@ -137,7 +137,7 @@ public class EmployeeDAOTest extends TestCase {
     public void testGetAllEmployee() {
         EntityManager em = emFactory.createEntityManager();
         
-        EmployeeDAO dao = new EmployeeDAO(em); 
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em); 
         
         TypedQuery<Employee> q = em.createQuery("SELECT e FROM Employee e",
                 Employee.class);

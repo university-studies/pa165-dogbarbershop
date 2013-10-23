@@ -25,17 +25,17 @@ import org.joda.time.LocalDate;
  *
  * @author martin
  */
-public class DogServiceDAOTest extends TestCase{
+public class DogServiceDaoImplTest extends TestCase{
     
-    DogServiceDAO dao;
+    DogServiceDaoImpl dao;
     
     private EntityManagerFactory emFactory;
 
     private EntityManager em;
     
-    private static Logger logger = Logger.getLogger(DogServiceDAOTest.class.getName());
+    private static Logger logger = Logger.getLogger(DogServiceDaoImplTest.class.getName());
     
-    public DogServiceDAOTest(String testName) {
+    public DogServiceDaoImplTest(String testName) {
         super(testName);
     }
     
@@ -48,7 +48,7 @@ public class DogServiceDAOTest extends TestCase{
         emFactory = Persistence.createEntityManagerFactory("testPU");
         em = emFactory.createEntityManager();
         
-        this.dao = new DogServiceDAO();
+        this.dao = new DogServiceDaoImpl();
         this.dao.setEntityManager(em);
     }
     

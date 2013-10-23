@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author martin
  */
-public interface IDogServiceDAO {
+public interface DogServiceDAO {
     /*
      * 
      */

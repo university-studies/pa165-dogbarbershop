@@ -4,7 +4,7 @@
  */
 package fi.muni.pa165.dao;
 
-import fi.muni.pa165.idao.IDogServiceDAO;
+import fi.muni.pa165.idao.DogServiceDAO;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.DogService;
 import fi.muni.pa165.entity.Employee;
@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  *
  * @author martin
  */
-public class DogServiceDAO implements IDogServiceDAO{
+public class DogServiceDaoImpl implements DogServiceDAO{
     
     private EntityManager em;
     

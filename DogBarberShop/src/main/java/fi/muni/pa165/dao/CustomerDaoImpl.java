@@ -4,7 +4,7 @@
  */
 package fi.muni.pa165.dao;
 
-import fi.muni.pa165.idao.ICustomerDAO;
+import fi.muni.pa165.idao.CustomerDAO;
 import fi.muni.pa165.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
  *
  * @author martin
  */
-public class CustomerDAO implements ICustomerDAO{
+public class CustomerDaoImpl implements CustomerDAO{
     
     private EntityManager em;
     

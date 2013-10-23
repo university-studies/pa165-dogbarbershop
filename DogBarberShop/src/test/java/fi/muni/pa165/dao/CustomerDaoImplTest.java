@@ -21,17 +21,17 @@ import org.joda.time.LocalDate;
  *
  * @author martin
  */
-public class CustomerDAOTest extends TestCase{
+public class CustomerDaoImplTest extends TestCase{
     
-    CustomerDAO dao;
+    CustomerDaoImpl dao;
     
     private EntityManagerFactory emFactory;
 
     private EntityManager em;
     
-    private static Logger logger = Logger.getLogger(CustomerDAOTest.class.getName());
+    private static Logger logger = Logger.getLogger(CustomerDaoImplTest.class.getName());
     
-    public CustomerDAOTest(String testName) {
+    public CustomerDaoImplTest(String testName) {
         super(testName);
     }
     
@@ -44,7 +44,7 @@ public class CustomerDAOTest extends TestCase{
         emFactory = Persistence.createEntityManagerFactory("testPU");
         em = emFactory.createEntityManager();
         
-        this.dao = new CustomerDAO();
+        this.dao = new CustomerDaoImpl();
         this.dao.setEntityManager(em);
     }
     

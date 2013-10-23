@@ -4,7 +4,7 @@
  */
 package fi.muni.pa165.dao;
 
-import fi.muni.pa165.idao.IEmployeeDAO;
+import fi.muni.pa165.idao.EmployeeDAO;
 import fi.muni.pa165.entity.Employee;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,17 +14,17 @@ import javax.persistence.TypedQuery;
  *
  * @author Pavol Loffay
  */
-public class EmployeeDAO implements IEmployeeDAO {  
+public class EmployeeDaoImpl implements EmployeeDAO {  
     
     private EntityManager em;
     public void setEntityManager(EntityManager em) {
         this.em = em;
     }
     
-    EmployeeDAO() {
+    EmployeeDaoImpl() {
     }
 
-    EmployeeDAO(EntityManager em) {
+    EmployeeDaoImpl(EntityManager em) {
         this.em = em;
     }
     

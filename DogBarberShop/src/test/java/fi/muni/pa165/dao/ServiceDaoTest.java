@@ -15,11 +15,11 @@ import org.joda.time.Duration;
  *
  *
  */
-public class ServiceDAOTest extends TestCase {
+public class ServiceDaoTest extends TestCase {
 
   EntityManagerFactory emf;
 
-  public ServiceDAOTest(String testName) {
+  public ServiceDaoTest(String testName) {
     super(testName);
   }
 
@@ -48,12 +48,12 @@ public class ServiceDAOTest extends TestCase {
   }
 
   /**
-   * Test of getServiceById method, of class ServiceDAO.
+   * Test of getServiceById method, of class ServiceDaoImpl.
    */
   public void testGetServiceById() {
     System.out.println("getServiceById");
     EntityManager em = emf.createEntityManager();
-    ServiceDAO sdao = new ServiceDAO(em);
+    ServiceDaoImpl sdao = new ServiceDaoImpl(em);
     Service s = getService("abc", new Long(50),
             // 5 days
             new Duration(5 * 24 * 60 * 60 * 1000));
@@ -69,12 +69,12 @@ public class ServiceDAOTest extends TestCase {
   }
 
   /**
-   * Test of getServiceByName method, of class ServiceDAO.
+   * Test of getServiceByName method, of class ServiceDaoImpl.
    */
   public void testGetServiceByName() {
     System.out.println("getServiceByName");
     EntityManager em = emf.createEntityManager();
-    ServiceDAO sdao = new ServiceDAO(em);
+    ServiceDaoImpl sdao = new ServiceDaoImpl(em);
     Service s = getService("low-cost-one", new Long(99),
             // 1 day
             new Duration(24 * 60 * 60 * 1000));
@@ -88,12 +88,12 @@ public class ServiceDAOTest extends TestCase {
   }
 
   /**
-   * Test of getServiceByPrice method, of class ServiceDAO.
+   * Test of getServiceByPrice method, of class ServiceDaoImpl.
    */
   public void testGetServiceByPrice() {
     System.out.println("getServiceByPrice");
     EntityManager em = emf.createEntityManager();
-    ServiceDAO sdao = new ServiceDAO(em);
+    ServiceDaoImpl sdao = new ServiceDaoImpl(em);
     Service s = getService("expensive-one", new Long(8475),
             // 7 hours
             new Duration(7 * 60 * 60 * 1000));
@@ -107,12 +107,12 @@ public class ServiceDAOTest extends TestCase {
   }
 
   /**
-   * Test of getServiceByDuration method, of class ServiceDAO.
+   * Test of getServiceByDuration method, of class ServiceDaoImpl.
    */
   public void testGetServiceByDuration() {
     System.out.println("getServiceByDuration");
     EntityManager em = emf.createEntityManager();
-    ServiceDAO sdao = new ServiceDAO(em);
+    ServiceDaoImpl sdao = new ServiceDaoImpl(em);
     Service s = getService("useless-one", new Long(135),
             // 5 minutes
             new Duration(5 * 60 * 1000));

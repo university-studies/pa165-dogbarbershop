@@ -1,6 +1,6 @@
 package fi.muni.pa165.dao;
 
-import fi.muni.pa165.idao.IDogDAO;
+import fi.muni.pa165.idao.DogDAO;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import java.util.List;
@@ -18,16 +18,16 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Oliver Pentek
  */
-public class DogDAO implements IDogDAO{
+public class DogDaoImpl implements DogDAO{
     final private EntityManager em;
 
-    public DogDAO() {
+    public DogDaoImpl() {
         super();
         final EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
         em = emf.createEntityManager();
     }
 
-    public DogDAO(@Nonnull final EntityManager em) {
+    public DogDaoImpl(@Nonnull final EntityManager em) {
         Validate.isTrue(em != null, "Entity manager should not be null");
         this.em = em;
     }

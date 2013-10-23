@@ -16,11 +16,11 @@ import org.joda.time.LocalDate;
  *
  *  @author Oliver Pentek
  */
-public class DogDAOTest extends TestCase {
+public class DogDaoImplTest extends TestCase {
     
     EntityManagerFactory emf;
     
-    public DogDAOTest(String testName) {
+    public DogDaoImplTest(String testName) {
         super(testName);
     }
     
@@ -46,7 +46,7 @@ public class DogDAOTest extends TestCase {
     
     public void testAddDog() {
         EntityManager em = emf.createEntityManager();
-        DogDAO dao = new DogDAO(em);
+        DogDaoImpl dao = new DogDaoImpl(em);
         Dog dog = new Dog();
         em.getTransaction().begin();
         dao.addDog(dog);
@@ -61,7 +61,7 @@ public class DogDAOTest extends TestCase {
     
     public void testGetDog() {
         EntityManager em = emf.createEntityManager();
-        DogDAO dao = new DogDAO(em);
+        DogDaoImpl dao = new DogDaoImpl(em);
         Dog dog = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
         Dog dog2 = newDog("druhy", "vlciak", new LocalDate(1995, 01, 21));
         Dog dog3 = newDog("treti", "vlcisko", new LocalDate(1993, 8, 26));
@@ -86,7 +86,7 @@ public class DogDAOTest extends TestCase {
    public void testUpdateDog() {
        Dog dog1 = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
         EntityManager em = emf.createEntityManager();
-        DogDAO dao = new DogDAO(em);
+        DogDaoImpl dao = new DogDaoImpl(em);
         em.getTransaction().begin();
         dao.addDog(dog1);
         em.getTransaction().commit();
@@ -131,7 +131,7 @@ public class DogDAOTest extends TestCase {
    
    public void testRemoveDog() {
        EntityManager em = emf.createEntityManager();
-        DogDAO dao = new DogDAO(em);
+        DogDaoImpl dao = new DogDaoImpl(em);
         Dog dog = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
         Dog dog2 = newDog("druhy", "vlciak", new LocalDate(1995, 01, 21));
         Dog dog3 = newDog("treti", "vlcisko", new LocalDate(1993, 8, 26));
@@ -157,7 +157,7 @@ public class DogDAOTest extends TestCase {
    
    public void testGetAllDogs() {
        EntityManager em = emf.createEntityManager();
-        DogDAO dao = new DogDAO(em);
+        DogDaoImpl dao = new DogDaoImpl(em);
         Dog dog = newDog("prvy", "vlk", new LocalDate(1998, 05, 22));
         Dog dog2 = newDog("druhy", "vlciak", new LocalDate(1995, 01, 21));
         Dog dog3 = newDog("treti", "vlcisko", new LocalDate(1993, 8, 26));
@@ -176,7 +176,7 @@ public class DogDAOTest extends TestCase {
    
    public void testGetDogsByOwner() {
        EntityManager em = emf.createEntityManager();
-       CustomerDAO custDao = new CustomerDAO();
+       CustomerDaoImpl custDao = new CustomerDaoImpl();
        custDao.setEntityManager(em);
        Customer customer1 = new Customer("Tomas", "Hehehe", "Purkynova 40", "000999111");
        Customer customer2 = new Customer("Szilard", "Nemeth", "Rozalkova 40", "9999999999");
@@ -191,7 +191,7 @@ public class DogDAOTest extends TestCase {
         Dog dog = new Dog("prvy", "vlk", new LocalDate(1998, 05, 22), customer1);
         Dog dog2 = new Dog("druhy", "vlciak", new LocalDate(1995, 01, 21), customer2);
         Dog dog3 = new Dog("treti", "vlcisko", new LocalDate(1993, 8, 26), customer2);
-        DogDAO dao = new DogDAO(em);
+        DogDaoImpl dao = new DogDaoImpl(em);
         em.getTransaction().begin();
         dao.addDog(dog);
         dao.addDog(dog2);
