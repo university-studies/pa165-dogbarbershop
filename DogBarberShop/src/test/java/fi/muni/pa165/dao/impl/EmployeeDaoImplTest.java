@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.muni.pa165.dao;
+package fi.muni.pa165.dao.impl;
 
+import fi.muni.pa165.dao.impl.EmployeeDaoImpl;
 import fi.muni.pa165.entity.Employee;
 import junit.framework.TestCase;
 import javax.persistence.EntityManager;

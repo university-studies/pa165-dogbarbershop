@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author martin
  */
-public interface CustomerDAO {
+public interface CustomerDao {
     /*
      * Create new customer
      */

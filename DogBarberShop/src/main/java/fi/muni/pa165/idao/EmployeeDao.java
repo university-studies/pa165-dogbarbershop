@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Pavol Loffay
  */
-public interface EmployeeDAO {
+public interface EmployeeDao {
     public Employee createEmployee(Employee employee);
     public Employee updateEmployee(Employee employee);
     public void deleteEmployee(Employee employee);

@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.muni.pa165.dao;
+package fi.muni.pa165.dao.impl;
 
-import fi.muni.pa165.idao.ServiceDAO;
+import fi.muni.pa165.idao.ServiceDao;
 import fi.muni.pa165.entity.Service;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,13 +15,13 @@ import org.joda.time.Duration;
 /**
  * @author Honza
  */
-public class ServiceDaoImpl implements ServiceDAO {
+public class ServiceDaoImpl implements ServiceDao {
 
   @PersistenceContext(unitName = "PO")
   // FIXME EntityManager em1 = emf.createEntityManager();
-  EntityManager em;
+  private EntityManager em;
 
-  ServiceDaoImpl(EntityManager em) {
+  public ServiceDaoImpl(EntityManager em) {
     this.em = em;
   }
 

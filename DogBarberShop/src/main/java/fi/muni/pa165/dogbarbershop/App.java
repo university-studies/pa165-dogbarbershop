@@ -1,9 +1,8 @@
 package fi.muni.pa165.dogbarbershop;
 
-import fi.muni.pa165.dao.DogServiceDaoImpl;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import fi.muni.pa165.service.ServiceClass;
 
 /**
  * Hello world!
@@ -13,9 +12,11 @@ public class App
 {
     public static void main( String[] args )
     {
-        DogServiceDaoImpl dao = new DogServiceDaoImpl();
-        dao.setEmFromEmf();
+        AbstractApplicationContext context = new ClassPathXmlApplicationContext("META-INF/context.xml");
         
-        System.out.println( "Hello World!" );
+        ServiceClass service = context.getBean(ServiceClass.class);
+        
+        service.isInjected();
+        service.isInjectedAttributesInjected();
     }
 }

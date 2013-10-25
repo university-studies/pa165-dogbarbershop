@@ -11,7 +11,7 @@ import org.joda.time.Duration;
 /**
  * @author Honza
  */
-public interface ServiceDAO {
+public interface ServiceDao {
   public Service getServiceById(Long id);
   public List<Service> getServiceByName(String name);
 

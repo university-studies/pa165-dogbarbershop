@@ -1,6 +1,6 @@
-package fi.muni.pa165.dao;
+package fi.muni.pa165.dao.impl;
 
-import fi.muni.pa165.idao.DogDAO;
+import fi.muni.pa165.idao.DogDao;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import java.util.List;
@@ -8,6 +8,8 @@ import javax.annotation.Nonnull;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,8 +20,14 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Oliver Pentek
  */
-public class DogDaoImpl implements DogDAO{
+public class DogDaoImpl implements DogDao{
+    
+    @PersistenceContext
     final private EntityManager em;
+
+    public EntityManager getEm() {
+        return em;
+    }
 
     public DogDaoImpl() {
         super();

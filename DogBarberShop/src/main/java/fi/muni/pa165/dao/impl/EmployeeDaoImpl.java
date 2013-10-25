@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.muni.pa165.dao;
+package fi.muni.pa165.dao.impl;
 
-import fi.muni.pa165.idao.EmployeeDAO;
+import fi.muni.pa165.idao.EmployeeDao;
 import fi.muni.pa165.entity.Employee;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,17 +14,17 @@ import javax.persistence.TypedQuery;
  *
  * @author Pavol Loffay
  */
-public class EmployeeDaoImpl implements EmployeeDAO {  
+public class EmployeeDaoImpl implements EmployeeDao {  
     
     private EntityManager em;
     public void setEntityManager(EntityManager em) {
         this.em = em;
     }
     
-    EmployeeDaoImpl() {
+    public EmployeeDaoImpl() {
     }
 
-    EmployeeDaoImpl(EntityManager em) {
+    public EmployeeDaoImpl(EntityManager em) {
         this.em = em;
     }
     

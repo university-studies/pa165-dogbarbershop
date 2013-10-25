@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Oliver Pentek
  */
-public interface DogDAO extends Serializable {
+public interface DogDao extends Serializable {
     public Dog addDog(Dog dog);
     
     public Dog getDog(Long id);

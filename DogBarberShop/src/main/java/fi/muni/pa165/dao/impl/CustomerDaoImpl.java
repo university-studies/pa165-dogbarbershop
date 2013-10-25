@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.muni.pa165.dao;
+package fi.muni.pa165.dao.impl;
 
-import fi.muni.pa165.idao.CustomerDAO;
+import fi.muni.pa165.idao.CustomerDao;
 import fi.muni.pa165.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
  *
  * @author martin
  */
-public class CustomerDaoImpl implements CustomerDAO{
+public class CustomerDaoImpl implements CustomerDao{
     
     private EntityManager em;
     

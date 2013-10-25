@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.muni.pa165.dao;
+package fi.muni.pa165.dao.impl;
 
+import fi.muni.pa165.dao.impl.DogServiceDaoImpl;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.DogService;
