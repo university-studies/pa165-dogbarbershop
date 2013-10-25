@@ -17,9 +17,12 @@ import org.joda.time.Duration;
  */
 public class ServiceDaoImpl implements ServiceDao {
 
-  @PersistenceContext(unitName = "PO")
+  @PersistenceContext
   // FIXME EntityManager em1 = emf.createEntityManager();
   private EntityManager em;
+
+    public ServiceDaoImpl() {
+    }
 
   public ServiceDaoImpl(EntityManager em) {
     this.em = em;

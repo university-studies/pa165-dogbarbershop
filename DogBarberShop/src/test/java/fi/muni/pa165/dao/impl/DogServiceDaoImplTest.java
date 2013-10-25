@@ -59,7 +59,7 @@ public class DogServiceDaoImplTest extends TestCase{
         logger.info("Stopping in-memory database.");
     }
     
-    private static DogService newDogService(Dog dog, Service service, Date serviceDate, Long employeeId){
+    private static DogService newDogService(Dog dog, Service service, LocalDate serviceDate, Long employeeId){
         DogService dogService = new DogService();
         dogService.setDog(dog);
         dogService.setService(service);
@@ -95,7 +95,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();
@@ -112,7 +112,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();
@@ -134,7 +134,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();
@@ -156,7 +156,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();
@@ -178,7 +178,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();
@@ -200,7 +200,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();
@@ -222,7 +222,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();
@@ -246,7 +246,7 @@ public class DogServiceDaoImplTest extends TestCase{
         em.persist(service);
         em.getTransaction().commit();
         DogService dogService = newDogService
-                (dog, service, Date.valueOf("2013-10-10"), new Long(1));
+                (dog, service, new LocalDate(2013, 10, 10), new Long(1));
         em.getTransaction().begin();
         dao.createDogService(dogService);
         em.getTransaction().commit();

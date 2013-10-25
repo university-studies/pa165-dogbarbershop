@@ -163,7 +163,7 @@ public class CustomerDaoImplTest extends TestCase{
         assertEquals(dao.getAllCustomers().size(),3);
     }
     
-    private static DogService newDogService(Dog dog, Service service, Date serviceDate, Long employeeId){
+    private static DogService newDogService(Dog dog, Service service, LocalDate serviceDate, Long employeeId){
         DogService dogService = new DogService();
         dogService.setDog(dog);
         dogService.setService(service);
@@ -187,12 +187,12 @@ public class CustomerDaoImplTest extends TestCase{
         em.getTransaction().commit();
         
         DogService dogService = newDogService
-                (dog, s, Date.valueOf("2013-10-25"), new Long(1));
+                (dog, s, new LocalDate(2013, 10, 25), new Long(1));
         dogService.setDog(dog);
         dogService.setService(s);
         
         DogService dogService2 = newDogService
-                (dog, s, Date.valueOf("2013-1-1"), new Long(1));
+                (dog, s, new LocalDate(2013, 10, 25), new Long(1));
         dogService2.setDog(dog);
         dogService2.setService(s);
         

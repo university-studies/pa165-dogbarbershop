@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,7 +19,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Oliver Pentek
  */
-public class DogDaoImpl implements DogDao{
+public final class DogDaoImpl implements DogDao{
     
     @PersistenceContext
     final private EntityManager em;

@@ -14,13 +14,18 @@
         <property name="persistenceUnitName" value="PU" />
     </bean>
 
-    <bean id="dogServiceDaoImpl" class="fi.muni.pa165.dao.impl.DogServiceDaoImpl">
+    <bean id="dogServiceDao" class="fi.muni.pa165.dao.impl.DogServiceDaoImpl">
         <property name="emf" ref="emf"/>
     </bean>
         
-    <bean id="dogDaoImpl" class="fi.muni.pa165.dao.impl.DogDaoImpl"/>
+    <bean id="dogDao" class="fi.muni.pa165.dao.impl.DogDaoImpl"/>
+    
+    <bean id="serviceDao" class="fi.muni.pa165.dao.impl.ServiceDaoImpl"/>
       
     <bean id="service" class="fi.muni.pa165.service.ServiceClass"/>
+    
+    <bean id="dogService" class="fi.muni.pa165.service.DogServing"/>
+    
 
 
 </beans>

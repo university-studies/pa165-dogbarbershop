@@ -5,13 +5,13 @@
 package fi.muni.pa165.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -33,11 +33,21 @@ public class DogService implements Serializable {
     private Service service;
     
     //@Temporal(javax.persistence.TemporalType.DATE)
-    private Date serviceDate;
+    private LocalDate serviceDate;
     
     // uchovacame aj ID zamestnanca, ktory danu sluzbu vykonal, 
     // ale nie je sucastou ziadnej vazby - chceme sa vyhnut ternarnej vazbe
     private Long servedBy;
+
+    public DogService() {
+    }
+
+    public DogService(Dog dog, Service service, LocalDate serviceDate, Long servedBy) {
+        this.dog = dog;
+        this.service = service;
+        this.serviceDate = serviceDate;
+        this.servedBy = servedBy;
+    }
     
     public Long getId() {
         return id;
@@ -63,7 +73,7 @@ public class DogService implements Serializable {
         this.id = id;
     }
 
-    public void setServiceDate(Date serviceDate) {
+    public void setServiceDate(LocalDate serviceDate) {
         this.serviceDate = serviceDate;
     }
 
@@ -71,7 +81,7 @@ public class DogService implements Serializable {
         this.servedBy = servedBy;
     }
 
-    public Date getServiceDate() {
+    public LocalDate getServiceDate() {
         return serviceDate;
     }
 
