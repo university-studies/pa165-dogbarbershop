@@ -8,19 +8,28 @@ import fi.muni.pa165.idao.CustomerDao;
 import fi.muni.pa165.entity.Customer;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author martin
  */
+
+@Repository
 public class CustomerDaoImpl implements CustomerDao{
     
+    @PersistenceContext
     private EntityManager em;
-    
-    public void setEntityManager(EntityManager em) {
+
+    public void setEm(EntityManager em) {
         this.em = em;
+    }
+
+    public EntityManager getEm() {
+        return em;
     }
     
     @Override

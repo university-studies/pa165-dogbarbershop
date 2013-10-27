@@ -179,7 +179,7 @@ public class DogDaoImplTest extends TestCase {
    public void testGetDogsByOwner() {
        EntityManager em = emf.createEntityManager();
        CustomerDaoImpl custDao = new CustomerDaoImpl();
-       custDao.setEntityManager(em);
+       custDao.setEm(em);
        Customer customer1 = new Customer("Tomas", "Hehehe", "Purkynova 40", "000999111");
        Customer customer2 = new Customer("Szilard", "Nemeth", "Rozalkova 40", "9999999999");
        Customer customer3 = new Customer("Milan", "Cajda", "Osminova 40", "888888888");

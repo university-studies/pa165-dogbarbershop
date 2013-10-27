@@ -9,11 +9,41 @@
     
     <!-- post-processors for all standard config annotations -->
     <context:annotation-config/>
+    
+    <!-- Pridal Martin -->
+    <context:component-scan base-package="fi.muni.pa165."/> 
   
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+        <property name="url" value="jdbc:derby://localhost:1527/DogBarbershop"/>
+        <property name="username" value="dogbarbershop"/>
+        <property name="password" value="dogbarbershop"/>
+    </bean>
+    
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
         <property name="persistenceUnitName" value="PU" />
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
+            </bean>
+        </property>
     </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="emf"/>
+    </bean>
+    
+    <!--  Customer -> DAO + SERVICE  -->
+    <!--bean id="customerDaoImpl" class="fi.muni.pa165.dao.impl.CustomerDaoImpl"/>
+    <bean id="customerService" class="fi.muni.pa165.service.CustomerService">
+        <property name="customerDao" ref="customerDaoImpl"/>
+    </bean-->    
+    <!-- -->
+    <!-- Koniec Martinovej casti -->
 
+    <!--  Pridal Oliver -->
     <bean id="dogServiceDao" class="fi.muni.pa165.dao.impl.DogServiceDaoImpl">
         <property name="emf" ref="emf"/>
     </bean>
@@ -25,7 +55,7 @@
     <bean id="service" class="fi.muni.pa165.service.ServiceClass"/>
     
     <bean id="dogService" class="fi.muni.pa165.service.DogServing"/>
+    <!-- -->
     
-
 
 </beans>

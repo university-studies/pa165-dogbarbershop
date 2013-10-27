@@ -46,7 +46,7 @@ public class CustomerDaoImplTest extends TestCase{
         em = emFactory.createEntityManager();
         
         this.dao = new CustomerDaoImpl();
-        this.dao.setEntityManager(em);
+        this.dao.setEm(em);
     }
     
     @Override
