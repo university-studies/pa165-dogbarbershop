@@ -30,26 +30,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
     
     @Override
     public Employee createEmployee(Employee employee) {
-        em.getTransaction().begin();
         em.persist(employee);
-        em.getTransaction().commit();
         return employee;
     }
     
     @Override
     public Employee updateEmployee(Employee employee) {
-       em.getTransaction().begin();
        em.merge(employee);
-       em.getTransaction().commit();
        return employee;
     }
     
     @Override
     public void deleteEmployee(Employee employee) {
-        em.getTransaction().begin();
         employee = em.merge(employee);
         em.remove(employee);
-        em.getTransaction().commit();
     }
     
     @Override

@@ -43,7 +43,10 @@ public class EmployeeDaoImplTest extends TestCase {
         EmployeeDaoImpl dao = new EmployeeDaoImpl(em);
         Employee emp = new Employee("Janko", "Krasny", "Zabiedovo 114/5", 
                 "0905394355", "10000");
+        
+        em.getTransaction().begin();
         dao.createEmployee(emp);
+        em.getTransaction().commit();
         
         assertNotNull(emp.getId());
         assertEquals(emp, dao.getEmployeeById(emp.getId()));
@@ -64,8 +67,11 @@ public class EmployeeDaoImplTest extends TestCase {
          * musia byt zhodne
          */
         Employee person = dao.getEmployeeByName("Pavol").get(0);
+        
+        em.getTransaction().begin();
         person.setName("ZmeneneMeno");
         dao.updateEmployee(person);
+        em.getTransaction().commit();
         
         TypedQuery<Employee> q = em.createQuery("SELECT e FROM Employee e WHERE"
                 + " e.name='ZmeneneMeno'", Employee.class);
@@ -86,7 +92,9 @@ public class EmployeeDaoImplTest extends TestCase {
         Employee person = dao.getEmployeeByName("Pavol").get(0);
         Long id = person.getId();
         
+        em.getTransaction().begin();
         dao.deleteEmployee(person);
+        em.getTransaction().commit();
         
         TypedQuery<Employee> q = em.createQuery("SELECT e FROM Employee e WHERE"
                 + " e.id = :id", Employee.class);

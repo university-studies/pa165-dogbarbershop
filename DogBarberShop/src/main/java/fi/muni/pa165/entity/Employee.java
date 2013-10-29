@@ -65,8 +65,19 @@ public class Employee implements Serializable {
         this.name = name;
         this.surname = surname;
     }
+    
     public Employee (String name, String surname, String address, 
             String phone, String salary) {
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phone = phone;
+        this.salary = salary;
+    }
+    
+    public Employee (Long id, String name, String surname, String address, 
+            String phone, String salary) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.address = address;
