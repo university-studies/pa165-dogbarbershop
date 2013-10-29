@@ -77,4 +77,34 @@ public class EmployeeService {
         
         return empDtoList;
     }
+    
+    @Transactional
+    public List<EmployeeDto> getEmployeeBySurname(String surname) {
+        List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
+        
+        for (Employee empE : employeeDao.getEmployeeBySurname(surname)) {
+            EmployeeDto empDto = new EmployeeDto(empE.getId() , empE.getName(), 
+                empE.getSurname(), empE.getAddress(), 
+                empE.getPhone(), empE.getSalary()); 
+            
+            empDtoList.add(empDto);
+        }
+        
+        return empDtoList;
+    }
+    
+    @Transactional
+    public List<EmployeeDto> getAllEmployee() {
+        List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
+        
+        for (Employee empE : employeeDao.getAllEmployee()) {
+            EmployeeDto empDto = new EmployeeDto(empE.getId() , empE.getName(), 
+                empE.getSurname(), empE.getAddress(), 
+                empE.getPhone(), empE.getSalary()); 
+            
+            empDtoList.add(empDto);
+        }
+        
+        return empDtoList;
+    }
 }

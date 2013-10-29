@@ -8,23 +8,28 @@ import fi.muni.pa165.idao.EmployeeDao;
 import fi.muni.pa165.entity.Employee;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Pavol Loffay
  */
+@Repository
 public class EmployeeDaoImpl implements EmployeeDao {  
     
+    @PersistenceContext
     private EntityManager em;
-    public void setEntityManager(EntityManager em) {
-        this.em = em;
-    }
     
     public EmployeeDaoImpl() {
     }
 
     public EmployeeDaoImpl(EntityManager em) {
+        this.em = em;
+    }
+    
+    public void setEntityManager(EntityManager em) {
         this.em = em;
     }
     
