@@ -4,16 +4,15 @@
  */
 package fi.muni.pa165.dao.impl;
 
-import fi.muni.pa165.dao.impl.CustomerDaoImpl;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.DogService;
 import fi.muni.pa165.entity.Service;
-import java.sql.Date;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import static junit.framework.Assert.assertNotNull;
 import junit.framework.TestCase;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
@@ -68,9 +67,23 @@ public class CustomerDaoImplTest extends TestCase{
     public void testCreateCustomer(){
         Customer customer = newCustomer("Andrej", "Kazisvet", "Skacelova 10", "987654321");
         em.getTransaction().begin();
+        dao.createCustomer(customer);
+        em.getTransaction().commit();
+        assertNotNull(customer.getId());
+    }
+    
+    public void testUpdateCustomer(){
+        Customer customer = newCustomer("Andrej", "Kazisvet", "Skacelova 10", "987654321");
+        em.getTransaction().begin();
         em.persist(customer);
         em.getTransaction().commit();
         assertNotNull(customer.getId());
+        
+        customer.setName("Marek");
+        em.getTransaction().begin();
+        Customer customer2 = dao.updateCustomer(customer);
+        em.getTransaction().commit();
+        assertEquals(customer.getName(), customer2.getName());
     }
     
     public void testDeleteCustomer(){
@@ -80,7 +93,7 @@ public class CustomerDaoImplTest extends TestCase{
         em.getTransaction().commit();
         assertNotNull(em.find(Customer.class, customer.getId()));
         em.getTransaction().begin();
-        em.remove(customer);
+        dao.deleteCustomer(customer);
         em.getTransaction().commit();
         assertNull(em.find(Customer.class, customer.getId()));
     }
@@ -192,7 +205,7 @@ public class CustomerDaoImplTest extends TestCase{
         dogService.setService(s);
         
         DogService dogService2 = newDogService
-                (dog, s, new LocalDate(2013, 10, 25), new Long(1));
+                (dog, s, new LocalDate(2013, 10, 26), new Long(1));
         dogService2.setDog(dog);
         dogService2.setService(s);
         
@@ -201,6 +214,6 @@ public class CustomerDaoImplTest extends TestCase{
         em.persist(dogService2);
         em.getTransaction().commit();
         
-        assertEquals(2, dao.getCustomersServices().size());
+        assertEquals(2, dao.getCustomerDogsServices(customer1.getId()).size());
     }
 }

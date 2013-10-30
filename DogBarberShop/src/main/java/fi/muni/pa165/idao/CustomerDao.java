@@ -4,6 +4,7 @@
  */
 package fi.muni.pa165.idao;
 
+import fi.muni.pa165.dto.CustomerDogServicesDto;
 import fi.muni.pa165.entity.Customer;
 import java.util.List;
 
@@ -18,9 +19,14 @@ public interface CustomerDao {
     public Customer createCustomer(Customer customer);
     
     /*
+     * Update customer
+     */
+    public Customer updateCustomer(Customer customer);
+    
+    /*
      * delete customer from DB
      */
-    public void deleteCustomer(Customer customer);
+    public Customer deleteCustomer(Customer customer);
     
     /*
      * return customer according to his ID
@@ -55,5 +61,5 @@ public interface CustomerDao {
     /*
      * 
      */
-    public List<Object[]> getCustomersServices();
+    public List<CustomerDogServicesDto> getCustomerDogsServices(Long customerId);
 }
