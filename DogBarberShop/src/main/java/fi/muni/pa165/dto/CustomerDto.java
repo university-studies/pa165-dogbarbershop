@@ -10,16 +10,30 @@ public class CustomerDto {
     private String name;
     private String surname;
     private String phone;
+    private String address;
 
-    public CustomerDto(Long id, String name, String surname, String phone) {
+    public CustomerDto(Long id, String name, String surname, String address, String phone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
+        this.address = address;
+    }
+    
+    public CustomerDto(){
+    
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setId(Long id) {

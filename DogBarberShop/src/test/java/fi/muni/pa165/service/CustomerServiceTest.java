@@ -5,19 +5,21 @@
 package fi.muni.pa165.service;
 
 import fi.muni.pa165.dao.impl.CustomerDaoImpl;
+import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.entity.Customer;
+import fi.muni.pa165.utils.CustomerConvertor;
 import org.junit.Test;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
 /**
  *
  * @author martin
@@ -48,34 +50,66 @@ public class CustomerServiceTest {
         System.err.println("Kontrola prebehla bez problemov!");
     }
     
-    @Test
-    public void addCustomerTest(){
-        
-        Customer customer = new Customer("Martin", "Sakac", "Purkynova 4", "774670609");
-        ArgumentCaptor<Customer> argument = ArgumentCaptor.forClass(Customer.class);
-        customerService.addCustomer(customer);
-        Mockito.verify(customerDaoImplMock).createCustomer(argument.capture());
-        
-        assertEquals(customer.getId(), argument.getValue().getId());
-        assertEquals(customer.getName(), argument.getValue().getName());
-        assertEquals(customer.getSurname(), argument.getValue().getSurname());
-        assertEquals(customer.getAddress(), argument.getValue().getAddress());
-        assertEquals(customer.getPhone(), argument.getValue().getPhone());
+    private static void assertCustomer(Customer customer, CustomerDto customerDto){
+        assertEquals(customerDto.getId(), customer.getId());
+        assertEquals(customerDto.getName(), customer.getName());
+        assertEquals(customerDto.getSurname(), customer.getSurname());
+        assertEquals(customerDto.getAddress(), customer.getAddress());
+        assertEquals(customerDto.getPhone(), customer.getPhone());
+    }
+    
+    private static void assertCustomerCaptor(CustomerDto customerDto, 
+            ArgumentCaptor<Customer> captor){
+        assertEquals(customerDto.getId(), captor.getValue().getId());
+        assertEquals(customerDto.getName(), captor.getValue().getName());
+        assertEquals(customerDto.getSurname(), captor.getValue().getSurname());
+        assertEquals(customerDto.getAddress(), captor.getValue().getAddress());
+        assertEquals(customerDto.getPhone(), captor.getValue().getPhone());
     }
     
     @Test
-    @Ignore
+    public void addCustomerTest(){
+        CustomerDto customerDto = new CustomerDto
+               (null, "Martin", "Sakac", "Purkynova 4", "111");
+        ArgumentCaptor<Customer> captor = ArgumentCaptor.forClass(Customer.class);
+        customerService.addCustomer(customerDto);
+        Mockito.verify(customerDaoImplMock)
+                .createCustomer(captor.capture());
+        assertCustomerCaptor(customerDto, captor);
+    }
+    
+    @Test
+    public void updateCustomerTest(){
+        CustomerDto customerDto = new CustomerDto
+                (1L, "Martin", "Sobola", "Purkynova 100", "333");
+        ArgumentCaptor<Customer> captor = ArgumentCaptor.forClass(Customer.class);
+        customerService.updateCustomer(customerDto);
+        Mockito.verify(customerDaoImplMock)
+                .updateCustomer(captor.capture());
+        assertCustomerCaptor(customerDto, captor);
+    }
+    
+    @Test
+    //@Ignore
     public void deleteCustomerTest(){
-        Customer customer = new Customer("Martin", "Sakac", "Purkynova 4", "774670609");
-        customer.setId(1L);
-        ArgumentCaptor<Customer> argument = ArgumentCaptor.forClass(Customer.class);
-        customerService.deleteCustomer(customer);
-        Mockito.verify(customerDaoImplMock).deleteCustomer(argument.capture());
-        
-        assertEquals(customer.getId(), argument.getValue().getId());
-        assertEquals(customer.getName(), argument.getValue().getName());
-        assertEquals(customer.getSurname(), argument.getValue().getSurname());
-        assertEquals(customer.getAddress(), argument.getValue().getAddress());
-        assertEquals(customer.getPhone(), argument.getValue().getPhone());
+        CustomerDto customerDto = new CustomerDto
+                (1L, "Martin", "Sobola", "Purkynova 100", "333");
+        ArgumentCaptor<Customer> captor = ArgumentCaptor.forClass(Customer.class);
+        customerService.deleteCustomer(customerDto);
+        Mockito.verify(customerDaoImplMock)
+                .deleteCustomer(captor.capture());
+        assertCustomerCaptor(customerDto, captor);
+    }
+    
+    @Test
+    public void getCustomerByIdTest(){
+        Customer customerExpected = new Customer
+               ("Martin", "Sakac", "Purkynova 4", "111");
+        customerExpected.setId(1L);
+        Mockito.stub(customerDaoImplMock.getCustomerById(Mockito.anyLong()))
+                .toReturn(customerExpected);
+        CustomerDto customerActual = customerService.getCustomerById(1L);
+        Mockito.verify(customerDaoImplMock).getCustomerById(1L);
+        assertCustomer(customerExpected, customerActual);
     }
 }
