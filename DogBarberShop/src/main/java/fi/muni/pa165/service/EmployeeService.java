@@ -7,6 +7,7 @@ package fi.muni.pa165.service;
 import fi.muni.pa165.dto.EmployeeDto;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.idao.EmployeeDao;
+import fi.muni.pa165.utils.EmployeeConvertor;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,7 @@ public class EmployeeService {
     
     @Transactional
     public EmployeeDto addEmployee(EmployeeDto empDto) {
-        Employee empE = new Employee(empDto.getName(),
-                empDto.getSurname(), empDto.getAddress(), empDto.getPhone(),
-                empDto.getSalary());
+        Employee empE = EmployeeConvertor.EmployeeDtoToEmployee(empDto);
         
         employeeDao.createEmployee(empE);
         return empDto;
@@ -35,9 +34,7 @@ public class EmployeeService {
     
     @Transactional
     public EmployeeDto updateEmloyee(EmployeeDto empDto) {
-        Employee empE = new Employee(empDto.getId(), empDto.getName(),
-                empDto.getSurname(), empDto.getAddress(), empDto.getPhone(),
-                empDto.getSalary());
+        Employee empE = EmployeeConvertor.EmployeeDtoToEmployee(empDto);
         
         employeeDao.updateEmployee(empE);
         return empDto;
@@ -45,22 +42,16 @@ public class EmployeeService {
     
     @Transactional
     public void deleteEmployee(EmployeeDto empDto) {
-        Employee empE = new Employee(empDto.getId(), empDto.getName(),
-                empDto.getSurname(), empDto.getAddress(), empDto.getPhone(),
-                empDto.getSalary());
+        Employee empE = EmployeeConvertor.EmployeeDtoToEmployee(empDto);
         
         employeeDao.deleteEmployee(empE);
     }
     
     @Transactional
     public EmployeeDto getEmployeeById(Long id){
-        Employee empE = employeeDao.getEmployeeById(id);
+        Employee empE = employeeDao.getEmployeeById(id);  
         
-        EmployeeDto empDto = new EmployeeDto(empE.getId() , empE.getName(), 
-                empE.getSurname(), empE.getAddress(), 
-                empE.getPhone(), empE.getSalary());        
-        
-        return  empDto;
+        return  EmployeeConvertor.EmployeeToEmployeeDto(empE);
     }
     
     @Transactional
@@ -68,11 +59,7 @@ public class EmployeeService {
         List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
         
         for (Employee empE : employeeDao.getEmployeeByName(name)) {
-            EmployeeDto empDto = new EmployeeDto(empE.getId() , empE.getName(), 
-                empE.getSurname(), empE.getAddress(), 
-                empE.getPhone(), empE.getSalary()); 
-            
-            empDtoList.add(empDto);
+            empDtoList.add(EmployeeConvertor.EmployeeToEmployeeDto(empE));
         }
         
         return empDtoList;
@@ -83,11 +70,8 @@ public class EmployeeService {
         List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
         
         for (Employee empE : employeeDao.getEmployeeBySurname(surname)) {
-            EmployeeDto empDto = new EmployeeDto(empE.getId() , empE.getName(), 
-                empE.getSurname(), empE.getAddress(), 
-                empE.getPhone(), empE.getSalary()); 
             
-            empDtoList.add(empDto);
+            empDtoList.add(EmployeeConvertor.EmployeeToEmployeeDto(empE));
         }
         
         return empDtoList;
@@ -98,11 +82,8 @@ public class EmployeeService {
         List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
         
         for (Employee empE : employeeDao.getAllEmployee()) {
-            EmployeeDto empDto = new EmployeeDto(empE.getId() , empE.getName(), 
-                empE.getSurname(), empE.getAddress(), 
-                empE.getPhone(), empE.getSalary()); 
             
-            empDtoList.add(empDto);
+            empDtoList.add(EmployeeConvertor.EmployeeToEmployeeDto(empE));
         }
         
         return empDtoList;
