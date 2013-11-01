@@ -55,4 +55,6 @@ public interface DogServiceDao {
      * 
      */
     public List<DogService> getDogServiceByEmployee(Employee employee);
+    
+    DogService updateDogService(DogService service) ;
 }

@@ -65,14 +65,23 @@ public final class DogServiceService {
     }
     
     @Transactional
+    public void updateDogService(@Nonnull final DogServiceDto dto) {
+        Validate.isTrue(dto != null, "Dog service DTO should not be null");
+        try {
+            dogServiceDao.deleteDogService(DogServiceConverter.convertToEntity(dto));
+        } catch(Throwable throwable) {
+            throw new DataAccessException("Error occured during updating dog service to DB", throwable) {};
+        }
+    }
+    
+    @Transactional
     public void removeDogService(@Nonnull final DogServiceDto dto) {
         Validate.isTrue(dto != null, "Dog service DTO should not be null");
         try {
             dogServiceDao.deleteDogService(DogServiceConverter.convertToEntity(dto));
         } catch(Throwable throwable) {
-            throw new DataAccessException("Error occured during adding dog service to DB", throwable) {};
+            throw new DataAccessException("Error occured during removing dog service to DB", throwable) {};
         }
-        
     }
     
     @Transactional
@@ -81,7 +90,7 @@ public final class DogServiceService {
         try {
             services = dogServiceDao.getAllDogServices();
         } catch(final Throwable throwable) {
-            throw new DataAccessException("Error occured during adding dog service to DB", throwable) {};
+            throw new DataAccessException("Error occured during getting all dogs service to DB", throwable) {};
         }
         final List<DogServiceDto> dtoServices =  new ArrayList<>();
         for (final DogService service : services) {

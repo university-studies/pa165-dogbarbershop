@@ -11,6 +11,7 @@ import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
 import java.sql.Date;
 import java.util.List;
+import javax.annotation.Nonnull;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
@@ -123,5 +124,12 @@ public class DogServiceDaoImpl implements DogServiceDao{
         }
         return query.getResultList();
     }
+
+    @Override
+    @Nonnull
+    public DogService updateDogService(@Nonnull final DogService service) {
+       return this.em.merge(service);
+    }
+    
     
 }
