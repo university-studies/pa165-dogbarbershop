@@ -141,7 +141,7 @@ public class DogServiceTest {
     }
     
     @Test
-    public void testDogsByOwner(){
+    public void testGetDogsByOwner(){
         Customer customer1 = new Customer("Martin", "Sakac", "Purkynova 4", "111");
         Customer customer2 = new Customer("Martin", "Haha", "Purkynova 55", "9999");
         Dog dog1 = new Dog

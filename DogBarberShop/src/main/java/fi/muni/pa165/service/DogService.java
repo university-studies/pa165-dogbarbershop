@@ -44,7 +44,16 @@ public class DogService {
             throw new DataAccessException("Cannot add dog, it is "
                     + "already persisted") {};
         }
-        return dogDao.addDog(DogConvertor.dogDtoToDog(dogDto));
+        
+        Dog dogResult;
+        try{
+            dogResult = dogDao.addDog
+                (DogConvertor.dogDtoToDog(dogDto));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return dogResult;
     }
     
     @Transactional
@@ -55,7 +64,15 @@ public class DogService {
         if (dogDto.getId() == null){
             throw new DataAccessException("Cannot update dog, it is not persisted") {};
         }
-        return dogDao.updateDog(DogConvertor.dogDtoToDog(dogDto));
+        
+        Dog dogResult;
+        try{
+            dogResult = dogDao.updateDog(DogConvertor.dogDtoToDog(dogDto));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return dogResult;
     }
     
     @Transactional
@@ -66,7 +83,13 @@ public class DogService {
         if (dogDto.getId() == null){
             throw new DataAccessException("Cannot delete dog, it is not persisted") {};
         }
-        dogDao.removeDog(DogConvertor.dogDtoToDog(dogDto));
+        
+        try{
+            dogDao.removeDog(DogConvertor.dogDtoToDog(dogDto));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
     }
     
     @Transactional
@@ -74,14 +97,27 @@ public class DogService {
         if (id == null) {
             throw new DataAccessException("Argument is null."){};
         }
-        return DogConvertor.dogToDogDto(dogDao.getDog(id));
+        
+        DogDto dogResult;
+        try{
+            dogResult = DogConvertor.dogToDogDto(dogDao.getDog(id));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return dogResult;
     }
     
     @Transactional
     public List<DogDto> getAllDogs(){
         List<DogDto> listAllDogs = new ArrayList<DogDto>();
-        for (Dog dog : dogDao.getAllDogs()){
-            listAllDogs.add(DogConvertor.dogToDogDto(dog));
+        try{
+            for (Dog dog : dogDao.getAllDogs()){
+                listAllDogs.add(DogConvertor.dogToDogDto(dog));
+            }
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
         }
         return listAllDogs;
     }
@@ -89,8 +125,13 @@ public class DogService {
     @Transactional
     public List<DogDto> getDogsByOwner(Customer owner){
         List<DogDto> dogsByOwner = new ArrayList<DogDto>();
-        for (Dog dog : dogDao.getDogsByOwner(owner)){
-            dogsByOwner.add(DogConvertor.dogToDogDto(dog));
+        try {
+            for (Dog dog : dogDao.getDogsByOwner(owner)){
+                dogsByOwner.add(DogConvertor.dogToDogDto(dog));
+            }
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
         }
         return dogsByOwner;
     }
