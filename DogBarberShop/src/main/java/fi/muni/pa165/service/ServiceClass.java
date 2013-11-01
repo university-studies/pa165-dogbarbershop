@@ -9,8 +9,11 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Oliver Pentek
+ * @author Oliver Pentek, Jan Pacner
  */
+
+// FIXME wtf is this class good for?
+
 public class ServiceClass {
     
     @Inject

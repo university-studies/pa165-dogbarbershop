@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Pavol Loffay <p.loffay@gmail.com>
  */
-public class EpmloyeeServiceTest {
+public class EmployeeServiceTest {
  
     @Autowired
     EmployeeDao empDaoMock; 

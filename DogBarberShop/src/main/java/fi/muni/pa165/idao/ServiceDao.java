@@ -12,10 +12,12 @@ import org.joda.time.Duration;
  * @author Honza
  */
 public interface ServiceDao {
+  public Service addService(Service s);
+  public void delService(Long id);
+  public Service updateService(Service s);
+
   public Service getServiceById(Long id);
   public List<Service> getServiceByName(String name);
-
   public List<Service> getServiceByPrice(Long price);
-
   public List<Service> getServiceByDuration(Duration duration);
 }

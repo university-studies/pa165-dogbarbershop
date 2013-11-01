@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.joda.time.Duration;
+import org.springframework.dao.DataAccessException;
 
 /**
  * @author Honza
@@ -18,14 +19,46 @@ import org.joda.time.Duration;
 public class ServiceDaoImpl implements ServiceDao {
 
   @PersistenceContext
-  // FIXME EntityManager em1 = emf.createEntityManager();
-  private EntityManager em;
+  private EntityManager em;  // emf.createEntityManager();
 
-    public ServiceDaoImpl() {
-    }
+  public ServiceDaoImpl() {
+  }
 
   public ServiceDaoImpl(EntityManager em) {
     this.em = em;
+  }
+
+  @Override
+  public Service addService(Service s) {
+    try {
+      em.persist(s);
+    }
+    catch (Exception e) {
+      throw new DataAccessException("Could not persist given Service.") {};
+    }
+    return s;
+  }
+
+  @Override
+  public void delService(Long id) {
+    try {
+      em.remove(getServiceById(id));
+    }
+    catch (Exception e) {
+      throw new DataAccessException("Could not remove Service with id " +
+              id.toString() + ".") {};
+    }
+  }
+
+  @Override
+  public Service updateService(Service s) {
+    try {
+      em.merge(s);
+    }
+    catch (Exception e) {
+      throw new DataAccessException("Could not update/merge given Service.") {};
+    }
+    return s;
   }
 
   @Override
@@ -33,7 +66,14 @@ public class ServiceDaoImpl implements ServiceDao {
     TypedQuery<Service> q = em.createQuery(
             "SELECT s FROM Service AS s WHERE s.id = :id", Service.class);
     q.setParameter("id", id);
-    return q.getSingleResult();  // throws excptn if 0 || >1 results
+    Service s = null;
+    try {
+      s = q.getSingleResult();  // throws excptn if 0 || >1 results
+    }
+    catch (Exception e) {
+      throw new DataAccessException("Could not update/merge given Service.") {};
+    }
+    return s;
   }
 
   @Override
@@ -41,7 +81,14 @@ public class ServiceDaoImpl implements ServiceDao {
     TypedQuery<Service> q = em.createQuery(
             "SELECT s FROM Service AS s where s.name = :name", Service.class);
     q.setParameter("name", name);
-    return q.getResultList();
+    List<Service> l = null;
+    try {
+      l = q.getResultList();
+    }
+    catch (Exception e) {
+      throw new DataAccessException("Could not update/merge given Service.") {};
+    }
+    return l;
   }
 
   @Override
@@ -49,7 +96,14 @@ public class ServiceDaoImpl implements ServiceDao {
     TypedQuery<Service> q = em.createQuery(
             "SELECT s FROM Service AS s where s.price = :price", Service.class);
     q.setParameter("price", price);
-    return q.getResultList();
+    List<Service> l = null;
+    try {
+      l = q.getResultList();
+    }
+    catch (Exception e) {
+      throw new DataAccessException("Could not update/merge given Service.") {};
+    }
+    return l;
   }
 
   @Override
@@ -57,6 +111,13 @@ public class ServiceDaoImpl implements ServiceDao {
     TypedQuery<Service> q = em.createQuery(
             "SELECT s FROM Service AS s where s.duration = :duration", Service.class);
     q.setParameter("duration", duration);
-    return q.getResultList();
+    List<Service> l = null;
+    try {
+      l = q.getResultList();
+    }
+    catch (Exception e) {
+      throw new DataAccessException("Could not update/merge given Service.") {};
+    }
+    return l;
   }
 }
