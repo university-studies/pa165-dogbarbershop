@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fi.muni.pa165.utils;
 
 import fi.muni.pa165.dto.DogDto;
@@ -15,14 +11,14 @@ public class DogConvertor {
     
     public static Dog dogDtoToDog(DogDto dogDto){
         Dog dog = new Dog(dogDto.getName(), dogDto.getBreed(), dogDto.getBirthDate(),
-                dogDto.getOwner());
+                CustomerConvertor.CustomerDtoToCustomer(dogDto.getOwner()));
         dog.setId(dogDto.getId());
         return dog;
     }
     
     public static DogDto dogToDogDto(Dog dog){
         DogDto dogDto = new DogDto(dog.getId(), dog.getName(), 
-                dog.getBreed(), dog.getBirth(), dog.getOwner());
+                dog.getBreed(), dog.getBirth(), CustomerConvertor.CustomerToCustomerDto(dog.getOwner()));
         return dogDto;
     }
 }

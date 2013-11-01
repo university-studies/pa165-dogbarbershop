@@ -19,11 +19,12 @@ public final class DogServiceDto {
     public DogServiceDto() {
     }
 
-    public DogServiceDto(Long id, Dog dog, Service service, LocalDate serviceDate) {
+    public DogServiceDto(Long id, Dog dog, Service service, LocalDate serviceDate, Long servedBy) {
         this.id = id;
         this.dog = dog;
         this.service = service;
         this.serviceDate = serviceDate;
+        this.servedBy = servedBy;
     }
     
     public Long getId() {
