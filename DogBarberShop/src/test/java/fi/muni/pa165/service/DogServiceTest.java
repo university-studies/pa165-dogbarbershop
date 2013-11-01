@@ -8,6 +8,7 @@ import fi.muni.pa165.dao.impl.DogDaoImpl;
 import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
+import fi.muni.pa165.utils.CustomerConvertor;
 import java.util.Arrays;
 import java.util.List;
 import org.joda.time.LocalDate;
@@ -74,7 +75,7 @@ public class DogServiceTest {
     public void testAddDog(){
         DogDto dogDto = new DogDto
                (null, "Martin", "doga", new LocalDate(1998, 05, 22),
-                new Customer("Martin", "Sakac", "Purkynova 4", "111"));
+                CustomerConvertor.CustomerToCustomerDto(new Customer("Martin", "Sakac", "Purkynova 4", "111")));
         ArgumentCaptor<Dog> captor = ArgumentCaptor.forClass(Dog.class);
         dogService.addDog(dogDto);
         Mockito.verify(dogDaoImplMock)
@@ -86,7 +87,7 @@ public class DogServiceTest {
     public void testUpdateDog(){
         DogDto dogDto = new DogDto
                (1L, "Martin", "doga", new LocalDate(1998, 05, 22),
-                new Customer("Martin", "Sakac", "Purkynova 4", "111"));
+                CustomerConvertor.CustomerToCustomerDto(new Customer("Martin", "Sakac", "Purkynova 4", "111")));
         ArgumentCaptor<Dog> captor = ArgumentCaptor.forClass(Dog.class);
         dogService.updateDog(dogDto);
         Mockito.verify(dogDaoImplMock)
@@ -98,7 +99,7 @@ public class DogServiceTest {
     public void testDeleteDog(){
         DogDto dogDto = new DogDto
                (1L, "Martin", "doga", new LocalDate(1998, 05, 22),
-                new Customer("Martin", "Sakac", "Purkynova 4", "111"));
+                CustomerConvertor.CustomerToCustomerDto(new Customer("Martin", "Sakac", "Purkynova 4", "111")));
         ArgumentCaptor<Dog> captor = ArgumentCaptor.forClass(Dog.class);
         dogService.deleteDog(dogDto);
         Mockito.verify(dogDaoImplMock)
