@@ -17,6 +17,9 @@ import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import fi.muni.pa165.utils.DogServiceConverter;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.dao.DataAccessException;
 
 /**
  *
@@ -32,12 +35,16 @@ public final class DogServiceService {
     
     @Transactional
     public void serveDog(@Nonnull final DogDto dogDto, @Nonnull final ServiceDto serviceDto, @Nullable EmployeeDto employeeDto) {
-        this.checkDaosAvailability();
-        Validate.isTrue(dogDto != null, "Dog ID should not be null");
-        Validate.isTrue(serviceDto != null, "Service ID should not be null");
+        Validate.isTrue(dogDto != null, "Dog DTO should not be null");
+        Validate.isTrue(serviceDto != null, "Service DTO should not be null");
         final Dog dog = dogDao.getDog(dogDto.getId());
         final Service service = serviceDao.getServiceById(serviceDto.getId());
-        final DogService dogService = new DogService(dog, service, LocalDate.now(), employeeDto.getId());
+        final DogService dogService;
+        if (employeeDto != null) {
+            dogService = new DogService(dog, service, LocalDate.now(), employeeDto.getId());
+        } else {
+            dogService = new DogService(dog, service, LocalDate.now(), null);
+        }
         dogServiceDao.createDogService(dogService);
     }
     
@@ -50,7 +57,37 @@ public final class DogServiceService {
     @Transactional
     public void addDogService(@Nonnull final DogServiceDto dto) {
         Validate.isTrue(dto != null, "Dog service DTO should not be null");
-        dogServiceDao.createDogService(DogServiceConverter.convertToEntity(dto));
+        try {
+            dogServiceDao.createDogService(DogServiceConverter.convertToEntity(dto));
+        } catch(Throwable throwable) {
+            throw new DataAccessException("Error occured during adding dog service to DB", throwable) {};
+        }
+    }
+    
+    @Transactional
+    public void removeDogService(@Nonnull final DogServiceDto dto) {
+        Validate.isTrue(dto != null, "Dog service DTO should not be null");
+        try {
+            dogServiceDao.deleteDogService(DogServiceConverter.convertToEntity(dto));
+        } catch(Throwable throwable) {
+            throw new DataAccessException("Error occured during adding dog service to DB", throwable) {};
+        }
+        
+    }
+    
+    @Transactional
+    public List<DogServiceDto> getAllDogServices() {
+        final List<DogService> services;
+        try {
+            services = dogServiceDao.getAllDogServices();
+        } catch(final Throwable throwable) {
+            throw new DataAccessException("Error occured during adding dog service to DB", throwable) {};
+        }
+        final List<DogServiceDto> dtoServices =  new ArrayList<>();
+        for (final DogService service : services) {
+            dtoServices.add(DogServiceConverter.convertToDto(service));
+        }
+        return dtoServices;
     }
     
     
