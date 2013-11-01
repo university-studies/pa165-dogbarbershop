@@ -8,11 +8,10 @@ import javax.annotation.Nonnull;
  *
  * @author Oliver Pentek
  */
-public final class DogServiceConverter implements Converter<DogService, DogServiceDto> {
+public final class DogServiceConverter {
 
-    @Override
     @Nonnull
-    public DogService convertToEntity(@Nonnull final DogServiceDto dto) {
+    public static DogService convertToEntity(@Nonnull final DogServiceDto dto) {
         DogService dogService =  new DogService();
         dogService.setId(dto.getId());
         dogService.setDog(dto.getDog());
@@ -22,9 +21,8 @@ public final class DogServiceConverter implements Converter<DogService, DogServi
         return dogService;
     }
 
-    @Override
     @Nonnull
-    public DogServiceDto convertToDto(@Nonnull final DogService entity) {
+    public static DogServiceDto convertToDto(@Nonnull final DogService entity) {
         DogServiceDto dto = new DogServiceDto();
         dto.setId(entity.getId());
         dto.setDog(entity.getDog());
