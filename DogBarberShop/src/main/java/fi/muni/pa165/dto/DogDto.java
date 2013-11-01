@@ -13,9 +13,9 @@ public class DogDto {
     private String name;
     private String breed;
     private LocalDate birthDate;
-    private Customer owner;
+    private CustomerDto owner;
 
-    public DogDto(Long id, String name, String breed, LocalDate birthDate, Customer owner) {
+    public DogDto(Long id, String name, String breed, LocalDate birthDate, CustomerDto owner) {
         this.id = id;
         this.name = name;
         this.breed = breed;
@@ -39,11 +39,11 @@ public class DogDto {
         this.name = name;
     }
 
-    public Customer getOwner() {
+    public CustomerDto getOwner() {
         return owner;
     }
 
-    public void setOwner(Customer owner) {
+    public void setOwner(CustomerDto owner) {
         this.owner = owner;
     }
 
