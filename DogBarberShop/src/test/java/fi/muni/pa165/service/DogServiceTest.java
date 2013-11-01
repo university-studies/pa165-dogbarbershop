@@ -60,7 +60,7 @@ public class DogServiceTest {
         assertEquals(dog.getName(), dogDto.getName());
         assertEquals(dog.getBirth(), dogDto.getBirthDate());
         assertEquals(dog.getBreed(), dogDto.getBreed());
-        assertEquals(dog.getOwner(), dogDto.getOwner());
+        assertEquals(dog.getOwner(), CustomerConvertor.CustomerDtoToCustomer(dogDto.getOwner()));
     }
     
     private static void assertDogCaptor(DogDto dogDto, ArgumentCaptor<Dog> captor){
@@ -68,7 +68,7 @@ public class DogServiceTest {
         assertEquals(dogDto.getName(), captor.getValue().getName());
         assertEquals(dogDto.getBreed(), captor.getValue().getBreed());
         assertEquals(dogDto.getBirthDate(), captor.getValue().getBirth());
-        assertEquals(dogDto.getOwner(), captor.getValue().getOwner());
+        assertEquals(CustomerConvertor.CustomerDtoToCustomer(dogDto.getOwner()), captor.getValue().getOwner());
     }
     
     @Test
