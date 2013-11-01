@@ -11,19 +11,12 @@ import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
 import java.sql.Date;
 import java.util.List;
-import javax.annotation.Resource;
-import javax.inject.Inject;
+import javax.annotation.Nonnull;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import javax.persistence.TypedQuery;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
+import org.joda.time.LocalDate;
 
 
 /**
@@ -32,17 +25,8 @@ import org.springframework.stereotype.Component;
  */
 public class DogServiceDaoImpl implements DogServiceDao{
     
+    @PersistenceContext
     private EntityManager em;
-    
-    private EntityManagerFactory emf;
-    
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
-    public EntityManagerFactory getEmf() {
-        return emf;
-    }
     
     public void setEntityManager(EntityManager em) {
         this.em = em;
@@ -102,7 +86,7 @@ public class DogServiceDaoImpl implements DogServiceDao{
     }
 
     @Override
-    public List<DogService> getDogServiceByDate(Date date) {
+    public List<DogService> getDogServiceByDate(LocalDate date) {
         TypedQuery<DogService> query = em.createQuery("select d from DogService d "
                 + "where d.serviceDate = :date", DogService.class)
                 .setParameter("date", date);
@@ -141,5 +125,12 @@ public class DogServiceDaoImpl implements DogServiceDao{
         }
         return query.getResultList();
     }
+
+    @Override
+    @Nonnull
+    public DogService updateDogService(@Nonnull final DogService service) {
+       return this.em.merge(service);
+    }
+    
     
 }

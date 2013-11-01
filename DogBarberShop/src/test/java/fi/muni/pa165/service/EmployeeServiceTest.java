@@ -13,7 +13,7 @@ import org.mockito.Mock;
  *
  * @author Pavol Loffay <p.loffay@gmail.com>
  */
-public class EpmloyeeServiceTest {
+public class EmployeeServiceTest {
  
     @Mock
     EmployeeDao empDaoMock; 

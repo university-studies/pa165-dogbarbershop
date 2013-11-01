@@ -45,8 +45,16 @@ public class CustomerService {
             throw new DataAccessException("Cannot add customer to Db, "
                     + "it already exists, id is not null") {};
         }
-        return customerDao.createCustomer
+        
+        Customer customerResult;
+        try{
+            customerResult = customerDao.createCustomer
                 (CustomerConvertor.CustomerDtoToCustomer(customerDto));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return customerResult;
     }
     
     @Transactional
@@ -54,8 +62,19 @@ public class CustomerService {
         if (customerDto == null) {
             throw new DataAccessException("Argument customerDto is null") {};
         }
-        return customerDao.updateCustomer
+        if (customerDto.getId() == null) {
+            throw new DataAccessException("Cannot update customer, "
+                    + "it is not persisted.") {};
+        }
+        Customer customerResult;
+        try{
+            customerResult = customerDao.updateCustomer
                 (CustomerConvertor.CustomerDtoToCustomer(customerDto));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return customerResult;
     }
     
     @Transactional
@@ -63,8 +82,20 @@ public class CustomerService {
         if (customerDto == null) {
             throw new DataAccessException("Argument customerDto is null") {};
         }
-        return customerDao.deleteCustomer
+        if (customerDto.getId() == null) {
+            throw new DataAccessException("Cannot delete customer, "
+                    + "it is not persisted.") {};
+        }
+        
+        Customer customerResult;
+        try{
+            customerResult = customerDao.deleteCustomer
                 (CustomerConvertor.CustomerDtoToCustomer(customerDto));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return customerResult;
     }
     
     @Transactional
@@ -72,14 +103,26 @@ public class CustomerService {
         if (id == null) {
             throw new DataAccessException("Customer id cannnot by NULL!") {};
         }
-        return CustomerConvertor.CustomerToCustomerDto(customerDao.getCustomerById(id));
+        CustomerDto customerResult;
+        try{
+            customerResult = CustomerConvertor.CustomerToCustomerDto(customerDao.getCustomerById(id));
+        }
+        catch (Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return customerResult;
     }
     
     @Transactional
     public List<CustomerDto> getAllCustomers(){
         List<CustomerDto> listCustomerDto = new ArrayList<>();
-        for (Customer customer : customerDao.getAllCustomers()){
-            listCustomerDto.add(CustomerConvertor.CustomerToCustomerDto(customer));
+        try {
+            for (Customer customer : customerDao.getAllCustomers()){
+                listCustomerDto.add(CustomerConvertor.CustomerToCustomerDto(customer));
+            }
+        }
+        catch (Exception ex) {
+            throw new DataAccessException("Error during accessing persistence layer") {};
         }
         return listCustomerDto;
     }

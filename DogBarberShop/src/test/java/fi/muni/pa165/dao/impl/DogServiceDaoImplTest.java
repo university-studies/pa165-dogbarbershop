@@ -10,7 +10,6 @@ import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.DogService;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
-import java.sql.Date;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
