@@ -2,21 +2,36 @@ package fi.muni.pa165.utils;
 
 import fi.muni.pa165.dto.DogServiceDto;
 import fi.muni.pa165.entity.DogService;
+import javax.annotation.Nonnull;
 
 /**
  *
  * @author Oliver Pentek
  */
-public class DogServiceConverter implements Converter<DogService, DogServiceDto> {
+public final class DogServiceConverter implements Converter<DogService, DogServiceDto> {
 
     @Override
-    public DogService convertToEntity(DogServiceDto dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Nonnull
+    public DogService convertToEntity(@Nonnull final DogServiceDto dto) {
+        DogService dogService =  new DogService();
+        dogService.setId(dto.getId());
+        dogService.setDog(dto.getDog());
+        dogService.setServedBy(dto.getServedBy());
+        dogService.setService(dto.getService());
+        dogService.setServiceDate(dto.getServiceDate());
+        return dogService;
     }
 
     @Override
-    public DogServiceDto convertToDto(DogService entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Nonnull
+    public DogServiceDto convertToDto(@Nonnull final DogService entity) {
+        DogServiceDto dto = new DogServiceDto();
+        dto.setId(entity.getId());
+        dto.setDog(entity.getDog());
+        dto.setServedBy(entity.getServedBy());
+        dto.setService(entity.getService());
+        dto.setServiceDate(entity.getServiceDate());
+        return dto;
     }
     
 }

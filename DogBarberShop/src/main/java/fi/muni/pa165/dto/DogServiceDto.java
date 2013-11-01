@@ -16,6 +16,9 @@ public final class DogServiceDto {
     private LocalDate serviceDate;
     private Long servedBy;
 
+    public DogServiceDto() {
+    }
+
     public DogServiceDto(Long id, Dog dog, Service service, LocalDate serviceDate) {
         this.id = id;
         this.dog = dog;
