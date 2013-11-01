@@ -78,14 +78,14 @@ public final class DogServiceService {
     @Nonnull
     public List<DogServiceDto> getAllDogServices() {
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
-        final List<DogService> services;
+         List<DogService> services = new ArrayList<>();
         try {
             services = dogServiceDao.getAllDogServices();
-        } catch(final Throwable throwable) {
+        } catch (final Throwable throwable) {
             throw new DataAccessException("Error occured during getting all dogs service from DB", throwable) {};
         }
-        final List<DogServiceDto> dtoServices =  new ArrayList<>();
-        for (final DogService service : services) {
+         List<DogServiceDto> dtoServices =  new ArrayList<>();
+        for (DogService service : services) {
             dtoServices.add(DogServiceConverter.convertToDto(service));
         }
         return dtoServices;
@@ -93,7 +93,7 @@ public final class DogServiceService {
     
     @Transactional
     @Nonnull
-    public DogService getDogService(@Nonnull final DogServiceDto dto) {
+    public DogServiceDto getDogService(@Nonnull final DogServiceDto dto) {
         Validate.isTrue(dto != null, "Dog service DTO should not be null");
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
         DogService service = new DogService();
@@ -101,64 +101,82 @@ public final class DogServiceService {
             service = dogServiceDao.getDogServiceById(dto.getId());
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
-        }
-        return service;
+        }    
+        return DogServiceConverter.convertToDto(service);
     }
     
     @Transactional
     @Nonnull
-    public List<DogService> getDogServiceByDate(@Nonnull final LocalDate date) {
+    public List<DogServiceDto> getDogServiceByDate(@Nonnull final LocalDate date) {
         Validate.isTrue(date != null, "Date should not be null");
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
-        List<DogService> service = new ArrayList<>();
+        List<DogService> services = new ArrayList<>();
         try {
-            service = dogServiceDao.getDogServiceByDate(date);
+            services = dogServiceDao.getDogServiceByDate(date);
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
         }
-        return service;
+        List<DogServiceDto> dtoServices =  new ArrayList<>();
+        for (DogService service : services) {
+            dtoServices.add(DogServiceConverter.convertToDto(service));
+        }
+        return dtoServices;
     }
     
     @Transactional
     @Nonnull
-    public List<DogService> getDogServiceByDog(@Nonnull final DogDto dog) {
+    public List<DogServiceDto> getDogServiceByDog(@Nonnull final DogDto dog) {
         Validate.isTrue(dog != null, "Dog DTO should not be null");
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
-        List<DogService> service = new ArrayList<>();
+        List<DogService> services = new ArrayList<>();
         try {
-            service = dogServiceDao.getDogServiceByDog(DogConvertor.dogDtoToDog(dog));
+            services = dogServiceDao.getDogServiceByDog(DogConvertor.dogDtoToDog(dog));
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
-        }
-        return service;
+            }
+        
+            List<DogServiceDto> dtoServices =  new ArrayList<>();
+            for (DogService service : services) {
+            dtoServices.add(DogServiceConverter.convertToDto(service));
+            }
+        
+        return dtoServices;
     }
     
     @Transactional
     @Nonnull
-    public List<DogService> getDogServiceByEmployee(@Nonnull final EmployeeDto employee) {
+    public List<DogServiceDto> getDogServiceByEmployee(@Nonnull final EmployeeDto employee) {
         Validate.isTrue(employee != null, "Employee DTO should not be null");
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
-        List<DogService> service = new ArrayList<>();
+        List<DogService> services = new ArrayList<>();
         try {
-            service = dogServiceDao.getDogServiceByEmployee(EmployeeConvertor.EmployeeDtoToEmployee(employee));
+            services = dogServiceDao.getDogServiceByEmployee(EmployeeConvertor.EmployeeDtoToEmployee(employee));
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
         }
-        return service;
+        List<DogServiceDto> dtoServices =  new ArrayList<>();
+            for (DogService service : services) {
+            dtoServices.add(DogServiceConverter.convertToDto(service));
+            }
+        return dtoServices;
     }
     
     @Transactional
     @Nonnull
-    public List<DogService> getDogServiceByService(@Nonnull final ServiceDto service) {
+    public List<DogServiceDto> getDogServiceByService(@Nonnull final ServiceDto service) {
         Validate.isTrue(service != null, "Service DTO should not be null");
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
-        List<DogService> serviceList = new ArrayList<>();
+        List<DogService> services = new ArrayList<>();
         try {
-            serviceList = dogServiceDao.getDogServiceByService(ServiceConverter.convertToEntity(service));
+            services = dogServiceDao.getDogServiceByService(ServiceConverter.convertToEntity(service));
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
         }
-        return serviceList;
+        List<DogServiceDto> dtoServices =  new ArrayList<>();
+            for (DogService servis : services) {
+            dtoServices.add(DogServiceConverter.convertToDto(servis));
+            }
+        return dtoServices;
     }
 
 }
