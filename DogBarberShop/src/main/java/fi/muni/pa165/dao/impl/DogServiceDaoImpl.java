@@ -11,19 +11,10 @@ import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
 import java.sql.Date;
 import java.util.List;
-import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import javax.persistence.TypedQuery;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 
 /**
@@ -32,17 +23,8 @@ import org.springframework.stereotype.Component;
  */
 public class DogServiceDaoImpl implements DogServiceDao{
     
+    @PersistenceContext
     private EntityManager em;
-    
-    private EntityManagerFactory emf;
-    
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
-    public EntityManagerFactory getEmf() {
-        return emf;
-    }
     
     public void setEntityManager(EntityManager em) {
         this.em = em;
