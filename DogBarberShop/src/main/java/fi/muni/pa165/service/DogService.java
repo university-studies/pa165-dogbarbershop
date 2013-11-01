@@ -5,6 +5,7 @@
 package fi.muni.pa165.service;
 
 import fi.muni.pa165.dto.DogDto;
+import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.idao.DogDao;
 import fi.muni.pa165.utils.DogConvertor;
@@ -69,9 +70,28 @@ public class DogService {
     }
     
     @Transactional
+    public DogDto getDogById(Long id){
+        if (id == null) {
+            throw new DataAccessException("Argument is null."){};
+        }
+        return DogConvertor.dogToDogDto(dogDao.getDog(id));
+    }
+    
+    @Transactional
     public List<DogDto> getAllDogs(){
         List<DogDto> listAllDogs = new ArrayList<DogDto>();
-        //for (Dog )
+        for (Dog dog : dogDao.getAllDogs()){
+            listAllDogs.add(DogConvertor.dogToDogDto(dog));
+        }
         return listAllDogs;
+    }
+    
+    @Transactional
+    public List<DogDto> getDogsByOwner(Customer owner){
+        List<DogDto> dogsByOwner = new ArrayList<DogDto>();
+        for (Dog dog : dogDao.getDogsByOwner(owner)){
+            dogsByOwner.add(DogConvertor.dogToDogDto(dog));
+        }
+        return dogsByOwner;
     }
 }

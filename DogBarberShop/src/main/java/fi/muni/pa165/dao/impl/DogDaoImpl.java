@@ -19,7 +19,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Oliver Pentek
  */
-public final class DogDaoImpl implements DogDao{
+public class DogDaoImpl implements DogDao{
     
     @PersistenceContext
     final private EntityManager em;
