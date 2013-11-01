@@ -37,7 +37,7 @@ public final class DogServiceService {
     private ServiceDao serviceDao;
 
     @Transactional
-    public void createDogService(@Nonnull final DogDto dogDto, @Nonnull final ServiceDto serviceDto, @Nullable EmployeeDto employeeDto) {
+    public DogServiceDto createDogService(@Nonnull final DogDto dogDto, @Nonnull final ServiceDto serviceDto, @Nullable EmployeeDto employeeDto) {
         Validate.notNull(DogDao.class, "Dog dao was not injected properly", dogDao);
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
         Validate.notNull(ServiceDao.class, "Service dao was not injected properly", serviceDao);
@@ -45,12 +45,9 @@ public final class DogServiceService {
         Validate.isTrue(serviceDto != null, "Service DTO should not be null");
         final Dog dog;
         final Service service;
-        try {
-            dog = dogDao.getDog(dogDto.getId());
-            service = serviceDao.getServiceById(serviceDto.getId());
-        } catch (final Throwable throwable) {
-            throw new DataAccessException("Error occured during getting dog and servicefrom DB", throwable) {};
-        }
+        
+            dog = DogConvertor.dogDtoToDog(dogDto);
+            service = ServiceConverter.convertToEntity(serviceDto);
        
         final DogService dogService;
         if (employeeDto != null) {
@@ -63,7 +60,7 @@ public final class DogServiceService {
         } catch (final Throwable throwable) {
             throw new DataAccessException("Error occured during adding dog service to DB", throwable) {};
         }
-        
+        return DogServiceConverter.convertToDto(dogService);
     }
     
     @Transactional
