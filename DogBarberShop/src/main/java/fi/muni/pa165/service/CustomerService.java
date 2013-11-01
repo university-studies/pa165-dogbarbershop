@@ -54,6 +54,10 @@ public class CustomerService {
         if (customerDto == null) {
             throw new DataAccessException("Argument customerDto is null") {};
         }
+        if (customerDto.getId() == null) {
+            throw new DataAccessException("Cannot update customer, "
+                    + "it is not persisted.") {};
+        }
         return customerDao.updateCustomer
                 (CustomerConvertor.CustomerDtoToCustomer(customerDto));
     }
@@ -62,6 +66,10 @@ public class CustomerService {
     public Customer deleteCustomer(CustomerDto customerDto){
         if (customerDto == null) {
             throw new DataAccessException("Argument customerDto is null") {};
+        }
+        if (customerDto.getId() == null) {
+            throw new DataAccessException("Cannot delete customer, "
+                    + "it is not persisted.") {};
         }
         return customerDao.deleteCustomer
                 (CustomerConvertor.CustomerDtoToCustomer(customerDto));

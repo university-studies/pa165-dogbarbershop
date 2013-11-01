@@ -139,7 +139,7 @@ public class CustomerDaoImpl implements CustomerDao{
     public List<CustomerDogServicesDto> getCustomerDogsServices(Long customerId){
        
         TypedQuery<CustomerDogServicesDto> query = em.createQuery(
-                "select new fi.muni.pa165.dto.CustomerDogServices"
+                "select new fi.muni.pa165.dto.CustomerDogServicesDto"
                 + "(d.name, s.name, ds.serviceDate) "
                 + "from Customer c, Dog d, DogService ds, Service s "
                 + "where c.id = d.owner.id and d.id = ds.dog.id "
