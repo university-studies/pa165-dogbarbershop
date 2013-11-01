@@ -32,7 +32,6 @@ public class DogService implements Serializable {
     @ManyToOne
     private Service service;
     
-    //@Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate serviceDate;
     
     // uchovacame aj ID zamestnanca, ktory danu sluzbu vykonal, 

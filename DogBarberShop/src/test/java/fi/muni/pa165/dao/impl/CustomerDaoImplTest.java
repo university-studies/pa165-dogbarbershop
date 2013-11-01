@@ -214,6 +214,8 @@ public class CustomerDaoImplTest extends TestCase{
         em.persist(dogService2);
         em.getTransaction().commit();
         
+        System.err.println("Pocet zaznamov " + dao.getCustomerDogsServices(customer1.getId()).size());
+        
         assertEquals(2, dao.getCustomerDogsServices(customer1.getId()).size());
     }
 }

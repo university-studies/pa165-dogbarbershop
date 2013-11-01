@@ -19,7 +19,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Oliver Pentek
  */
-public final class DogDaoImpl implements DogDao{
+public class DogDaoImpl implements DogDao{
     
     @PersistenceContext
     final private EntityManager em;
@@ -42,6 +42,8 @@ public final class DogDaoImpl implements DogDao{
     @Override
     @Nonnull
     public Dog addDog(@Nonnull final Dog dog) {
+        Validate.isTrue(dog != null, "dog cannot be null!");
+        Validate.isTrue(dog.getId() == null, "dog's ID must be null!");
         em.persist(dog);
         return dog;
     }
@@ -55,11 +57,15 @@ public final class DogDaoImpl implements DogDao{
     @Override
     @Nonnull
     public Dog updateDog(@Nonnull final Dog dog) {
+        Validate.isTrue(dog != null, "dog cannot be null!");
+        Validate.isTrue(dog.getId() != null, "dog's ID cannot be null!");
        return this.em.merge(dog);
     }
 
     @Override
     public void removeDog(@Nonnull Dog dog) {
+        Validate.isTrue(dog != null, "dog cannot be null!");
+        Validate.isTrue(dog.getId() != null, "dog's ID cannot be null!");
         dog = this.em.merge(dog);
         em.remove(dog);
     }
@@ -84,6 +90,7 @@ public final class DogDaoImpl implements DogDao{
     @Nonnull
     public List<Dog> getDogsByOwner(@Nonnull final Customer owner) {
         Validate.isTrue(owner != null, "Owner should not be null");
+        Validate.isTrue(owner.getId() != null, "Owner's ID cannot be null!");
         final CriteriaBuilder cb = this.em.getCriteriaBuilder();
         final CriteriaQuery cqry = cb.createQuery();
         final Root<Dog> root = cqry.from(Dog.class);
