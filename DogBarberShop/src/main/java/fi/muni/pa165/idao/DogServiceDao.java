@@ -8,8 +8,8 @@ import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.DogService;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
-import java.sql.Date;
 import java.util.List;
+import org.joda.time.LocalDate;
 
 /**
  *
@@ -49,7 +49,7 @@ public interface DogServiceDao {
     /*
      * 
      */
-    public List<DogService> getDogServiceByDate(Date date);
+    public List<DogService> getDogServiceByDate(LocalDate date);
     
     /*
      * 

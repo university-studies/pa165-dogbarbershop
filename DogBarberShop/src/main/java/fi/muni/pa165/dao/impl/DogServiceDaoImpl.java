@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import org.joda.time.LocalDate;
 
 
 /**
@@ -85,7 +86,7 @@ public class DogServiceDaoImpl implements DogServiceDao{
     }
 
     @Override
-    public List<DogService> getDogServiceByDate(Date date) {
+    public List<DogService> getDogServiceByDate(LocalDate date) {
         TypedQuery<DogService> query = em.createQuery("select d from DogService d "
                 + "where d.serviceDate = :date", DogService.class)
                 .setParameter("date", date);
