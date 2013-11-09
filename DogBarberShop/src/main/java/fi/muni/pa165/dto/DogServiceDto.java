@@ -2,6 +2,7 @@ package fi.muni.pa165.dto;
 
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.Service;
+import java.util.Objects;
 import org.joda.time.LocalDate;
 
 /**
@@ -66,5 +67,27 @@ public final class DogServiceDto {
     public void setServedBy(Long servedBy) {
         this.servedBy = servedBy;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DogServiceDto other = (DogServiceDto) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
 }

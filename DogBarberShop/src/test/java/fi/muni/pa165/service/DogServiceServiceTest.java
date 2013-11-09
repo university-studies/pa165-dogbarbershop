@@ -1,18 +1,13 @@
 package fi.muni.pa165.service;
 
-import fi.muni.pa165.dao.impl.CustomerDaoImpl;
 import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.dto.DogServiceDto;
 import fi.muni.pa165.dto.ServiceDto;
-import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
-import fi.muni.pa165.idao.DogDao;
 import fi.muni.pa165.idao.DogServiceDao;
-import fi.muni.pa165.idao.ServiceDao;
-import fi.muni.pa165.utils.CustomerConvertor;
 import fi.muni.pa165.utils.DogConvertor;
 import fi.muni.pa165.utils.DogServiceConverter;
 import fi.muni.pa165.utils.EmployeeConvertor;
@@ -45,10 +40,10 @@ public class DogServiceServiceTest {
     
     @Autowired
     @InjectMocks
-    DogServiceService dogServiceService;
+    private DogServiceService dogServiceService;
     
     @Mock
-    DogServiceDao daoMock;
+    private DogServiceDao daoMock;
     
     @Before
     public void setUp(){
@@ -97,28 +92,29 @@ public class DogServiceServiceTest {
         assertEquals(DogServiceConverter.convertToEntity(dto), captor.getValue());
     }
     
-//    @Test
-//    public void getAllDogServicesTest() {
-//        CustomerDto customer = createCustomer();
-//        Dog dog =DogConvertor.dogDtoToDog(createDog(customer));
-//        Service service = ServiceConverter.convertToEntity(createService());
-//        DogServiceDto dto = new DogServiceDto(1l, dog, service, LocalDate.now(), null);
-//        DogServiceDto dto2 = new DogServiceDto(2l,dog, service, LocalDate.now(), null);
-//        
-//        List<DogServiceDto> list1 = Arrays.asList(dto, dto2);
-//        List<fi.muni.pa165.entity.DogService> services = daoMock.getAllDogServices();
-//        List <DogServiceDto> dtos = new ArrayList<>();
-//        for (fi.muni.pa165.entity.DogService servis : services) {
-//            dtos.add(ServiceConverter.convertToDto(servis));
-//        }
-//        Mockito.stub(dtos).toReturn(list1);
-//        List<DogServiceDto> list2 = dogServiceService.getAllDogServices();
-//        Mockito.verify(daoMock).getAllDogServices();
-//        
-//        for (int i = 0; i < 2; i++) {
-//            assertEquals(list1.get(i), list2.get(i));
-//        }
-//    }
+    @Test
+    public void getAllDogServicesTest() {
+        CustomerDto customer = createCustomer();
+        Dog dog =DogConvertor.dogDtoToDog(createDog(customer));
+        Service service = ServiceConverter.convertToEntity(createService());
+        DogServiceDto dto = new DogServiceDto(1l, dog, service, LocalDate.now(), null);
+        DogServiceDto dto2 = new DogServiceDto(2l,dog, service, LocalDate.now(), null);
+        
+        fi.muni.pa165.entity.DogService entity = DogServiceConverter.convertToEntity(dto);
+        fi.muni.pa165.entity.DogService entity2 = DogServiceConverter.convertToEntity(dto2);
+        
+        
+        List<DogServiceDto> dtos = Arrays.asList(dto, dto2);
+        List<fi.muni.pa165.entity.DogService> entities = Arrays.asList(entity, entity2);
+
+        Mockito.stub(daoMock.getAllDogServices()).toReturn(entities);
+        List<DogServiceDto> returnedList = dogServiceService.getAllDogServices();
+        Mockito.verify(daoMock).getAllDogServices();
+        
+        for (int i = 0; i < 2; i++) {
+            assertEquals(dtos.get(i), returnedList.get(i));
+        }
+    }
     
     
 }

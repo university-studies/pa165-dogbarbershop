@@ -28,6 +28,7 @@ import org.springframework.dao.DataAccessException;
  *
  * @author Oliver Pentek
  */
+@org.springframework.stereotype.Service
 public final class DogServiceService {
     @Autowired
     private DogDao dogDao;
