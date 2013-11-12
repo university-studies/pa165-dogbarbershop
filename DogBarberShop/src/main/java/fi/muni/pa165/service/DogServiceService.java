@@ -65,14 +65,16 @@ public final class DogServiceService {
     }
     
     @Transactional
-    public void updateDogService(@Nonnull final DogServiceDto dto) {
+    public DogServiceDto updateDogService(@Nonnull final DogServiceDto dto) {
         Validate.isTrue(dto != null, "Dog service DTO should not be null");
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
+        DogService dogService;
         try {
-            dogServiceDao.deleteDogService(DogServiceConverter.convertToEntity(dto));
+            dogService = dogServiceDao.updateDogService(DogServiceConverter.convertToEntity(dto));
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during updating dog service in DB", throwable) {};
         }
+        return DogServiceConverter.convertToDto(dogService);
     }
     
     @Transactional
