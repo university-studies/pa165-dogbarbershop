@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue Nov 12 14:39:24 CET 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0142-4c89-bbe1-000003430cb8 
+Tue Nov 12 14:45:11 CET 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0142-4c8f-0942-000003433858 
 on database directory memory:/home/grcko/NetBeansProjects/pa165/DogBarberShop/Backend/unit-testing-jpa with class loader sun.misc.Launcher$AppClassLoader@167198e 
 Loaded from file:/home/grcko/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
