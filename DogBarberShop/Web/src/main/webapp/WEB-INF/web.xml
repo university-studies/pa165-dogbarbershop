@@ -1,0 +1,15 @@
+<web-app>
+    <display-name>DogBarberShop</display-name>
+    <filter>
+        <filter-name>DogBarberShopApplication</filter-name>
+        <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+        <init-param>
+          <param-name>applicationClassName</param-name>
+          <param-value>fi.muni.pa165.web.DogBarberShopApplication</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DogBarberShopApplication</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
