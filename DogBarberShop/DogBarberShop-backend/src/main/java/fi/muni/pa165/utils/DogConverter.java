@@ -10,9 +10,14 @@ import fi.muni.pa165.entity.Dog;
 public class DogConverter {
     
     public static Dog dogDtoToDog(DogDto dogDto){
-        Dog dog = new Dog(dogDto.getName(), dogDto.getBreed(), dogDto.getBirthDate(),
-                CustomerConverter.CustomerDtoToCustomer(dogDto.getOwner()));
-        dog.setId(dogDto.getId());
+        Dog dog = new Dog();
+        if (dogDto.getId() != null) {
+            dog.setId(dogDto.getId());
+        }
+        dog.setName(dogDto.getName());
+        dog.setBreed(dogDto.getBreed());
+        dog.setBirth(dogDto.getBirthDate());
+        dog.setOwner(CustomerConverter.CustomerDtoToCustomer(dogDto.getOwner()));
         return dog;
     }
     

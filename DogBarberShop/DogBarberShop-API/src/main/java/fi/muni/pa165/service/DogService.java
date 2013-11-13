@@ -9,11 +9,11 @@ import java.util.List;
  * @author Oliver Pentek
  */
 public interface DogService {
-    DogDto addDog(DogDto dogDto);
-    DogDto updateDog(DogDto dogDto);
-    void deleteDog(DogDto dogDto);
-    DogDto getDog(DogDto dogDto);
-    List<DogDto> getAllDogs();
-    List<DogDto> getDogsByOwner(CustomerDto owner);
+    public void addDog(DogDto dogDto);
+    public void updateDog(DogDto dogDto);
+    public void deleteDog(DogDto dogDto);
+    public DogDto getDogById(Long id);
+    public List<DogDto> getAllDogs();
+    public List<DogDto> getDogsByOwner(CustomerDto owner);
     
 }

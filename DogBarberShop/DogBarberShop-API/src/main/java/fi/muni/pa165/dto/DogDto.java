@@ -21,6 +21,13 @@ public class DogDto {
         this.birthDate = birthDate;
         this.owner = owner;
     }
+    
+    public DogDto(String name, String breed, LocalDate birthDate, CustomerDto owner) {
+        this.name = name;
+        this.breed = breed;
+        this.birthDate = birthDate;
+        this.owner = owner;
+    }
 
     public Long getId() {
         return id;

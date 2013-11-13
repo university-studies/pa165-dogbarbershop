@@ -71,7 +71,7 @@ public class CustomerServiceTest {
     @Test
     public void addCustomerTest(){
         CustomerDto customerDto = new CustomerDto
-               (null, "Martin", "Sakac", "Purkynova 4", "111");
+               ("Martin", "Sakac", "Purkynova 4", "111");
         ArgumentCaptor<Customer> captor = ArgumentCaptor.forClass(Customer.class);
         customerService.addCustomer(customerDto);
         Mockito.verify(customerDaoImplMock)

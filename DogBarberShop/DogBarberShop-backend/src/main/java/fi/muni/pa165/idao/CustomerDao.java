@@ -16,17 +16,17 @@ public interface CustomerDao {
     /*
      * Create new customer
      */
-    public Customer createCustomer(Customer customer);
+    public void createCustomer(Customer customer);
     
     /*
      * Update customer
      */
-    public Customer updateCustomer(Customer customer);
+    public void updateCustomer(Customer customer);
     
     /*
      * delete customer from DB
      */
-    public Customer deleteCustomer(Customer customer);
+    public void deleteCustomer(Customer customer);
     
     /*
      * return customer according to his ID

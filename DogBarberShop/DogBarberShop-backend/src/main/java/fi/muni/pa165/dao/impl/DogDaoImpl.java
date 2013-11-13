@@ -1,8 +1,10 @@
 package fi.muni.pa165.dao.impl;
 
+import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.idao.DogDao;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
+import fi.muni.pa165.utils.CustomerConverter;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.persistence.EntityManager;
@@ -41,11 +43,11 @@ public class DogDaoImpl implements DogDao{
 
     @Override
     @Nonnull
-    public Dog addDog(@Nonnull final Dog dog) {
+    public void addDog(@Nonnull final Dog dog) {
         Validate.isTrue(dog != null, "dog cannot be null!");
         Validate.isTrue(dog.getId() == null, "dog's ID must be null!");
         em.persist(dog);
-        return dog;
+        //return dog;
     }
 
     @Override
@@ -56,10 +58,11 @@ public class DogDaoImpl implements DogDao{
 
     @Override
     @Nonnull
-    public Dog updateDog(@Nonnull final Dog dog) {
+    public void updateDog(@Nonnull final Dog dog) {
         Validate.isTrue(dog != null, "dog cannot be null!");
         Validate.isTrue(dog.getId() != null, "dog's ID cannot be null!");
-       return this.em.merge(dog);
+        this.em.merge(dog);
+        //return this.em.merge(dog);
     }
 
     @Override
@@ -88,14 +91,14 @@ public class DogDaoImpl implements DogDao{
      */
     @Override
     @Nonnull
-    public List<Dog> getDogsByOwner(@Nonnull final Customer owner) {
+    public List<Dog> getDogsByOwner(@Nonnull final CustomerDto owner) {
         Validate.isTrue(owner != null, "Owner should not be null");
         Validate.isTrue(owner.getId() != null, "Owner's ID cannot be null!");
         final CriteriaBuilder cb = this.em.getCriteriaBuilder();
         final CriteriaQuery cqry = cb.createQuery();
         final Root<Dog> root = cqry.from(Dog.class);
         cqry.select(root);
-        cqry.where(cb.equal(root.get("owner"), owner));
+        cqry.where(cb.equal(root.get("owner"), CustomerConverter.CustomerDtoToCustomer(owner)));
         final Query qry = em.createQuery(cqry);
         return  qry.getResultList();
     }

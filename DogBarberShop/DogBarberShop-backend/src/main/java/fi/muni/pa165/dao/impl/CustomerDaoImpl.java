@@ -35,27 +35,27 @@ public class CustomerDaoImpl implements CustomerDao{
     }
     
     @Override
-    public Customer createCustomer(Customer customer) {
+    public void createCustomer(Customer customer) {
         Validate.isTrue(customer != null, "Customer cannot be null!");
         Validate.isTrue(customer.getId() == null, "Customer's ID must be null!");
         em.persist(customer);
-        return customer;
+        //return customer;
     }
     
     @Override
-    public Customer updateCustomer(Customer customer){
+    public void updateCustomer(Customer customer){
         Validate.isTrue(customer != null, "Customer cannot be null!");
         Validate.isTrue(customer.getId() != null, "Customer's ID cannot be null!");
         em.merge(customer);
-        return customer;
+        //return customer;
     }
 
     @Override
-    public Customer deleteCustomer(Customer customer) {
+    public void deleteCustomer(Customer customer) {
         Validate.isTrue(customer != null, "Customer cannot be null!");
         Validate.isTrue(customer.getId() != null, "Customer's ID cannot be null!");
         em.remove(customer);
-        return customer;
+        //return customer;
     }
     
     @Override

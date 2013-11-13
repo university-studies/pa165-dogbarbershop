@@ -3,9 +3,11 @@ package fi.muni.pa165.service.impl;
 import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.idao.CustomerDao;
+import fi.muni.pa165.service.CustomerService;
 import fi.muni.pa165.utils.CustomerConverter;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service
-public class CustomerServiceImpl {
+public class CustomerServiceImpl implements CustomerService{
     
     @Autowired
     private CustomerDao customerDao;
@@ -33,65 +35,39 @@ public class CustomerServiceImpl {
     }
     
     @Transactional
-    public Customer addCustomer(CustomerDto customerDto){
-        if (customerDto == null) {
-            throw new DataAccessException("Argument customerDto is null") {};
-        }
-        if (customerDto.getId() != null) {
-            throw new DataAccessException("Cannot add customer to Db, "
-                    + "it already exists, id is not null") {};
-        }
-        
-        Customer customerResult;
+    public void addCustomer(CustomerDto customerDto){
+        Validate.isTrue(customerDto != null, "CustomerDto is null!");
+        Validate.isTrue(customerDto.getId() == null, "CustomerDto ID is not null!");
         try{
-            customerResult = customerDao.createCustomer
-                (CustomerConverter.CustomerDtoToCustomer(customerDto));
+            customerDao.createCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer") {};
+        catch(Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer", ex) {};
         }
-        return customerResult;
     }
     
     @Transactional
-    public Customer updateCustomer(CustomerDto customerDto){
-        if (customerDto == null) {
-            throw new DataAccessException("Argument customerDto is null") {};
-        }
-        if (customerDto.getId() == null) {
-            throw new DataAccessException("Cannot update customer, "
-                    + "it is not persisted.") {};
-        }
-        Customer customerResult;
+    public void updateCustomer(CustomerDto customerDto){
+        Validate.isTrue(customerDto != null, "CustomerDto is null!");
+        Validate.isTrue(customerDto.getId() != null, "CustomerDto ID is null!");
         try{
-            customerResult = customerDao.updateCustomer
-                (CustomerConverter.CustomerDtoToCustomer(customerDto));
+            customerDao.updateCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer") {};
+        catch(Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer", ex) {};
         }
-        return customerResult;
     }
     
     @Transactional
-    public Customer deleteCustomer(CustomerDto customerDto){
-        if (customerDto == null) {
-            throw new DataAccessException("Argument customerDto is null") {};
-        }
-        if (customerDto.getId() == null) {
-            throw new DataAccessException("Cannot delete customer, "
-                    + "it is not persisted.") {};
-        }
-        
-        Customer customerResult;
+    public void deleteCustomer(CustomerDto customerDto){
+        Validate.isTrue(customerDto != null, "CustomerDto is null!");
+        Validate.isTrue(customerDto.getId() != null, "CustomerDto ID is null!");
         try{
-            customerResult = customerDao.deleteCustomer
-                (CustomerConverter.CustomerDtoToCustomer(customerDto));
+            customerDao.deleteCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer") {};
+        catch(Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer", ex) {};
         }
-        return customerResult;
     }
     
     @Transactional

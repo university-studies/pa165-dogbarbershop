@@ -37,6 +37,15 @@ public class Dog implements Serializable {
         this.birth = birth;
         this.owner = owner;
     }
+    
+    public Dog(Long id, String name, String breed, LocalDate birth, @Nonnull Customer owner) {
+        Validate.isTrue(owner != null, "Owner should not be null");
+        this.id = id;
+        this.name = name;
+        this.breed = breed;
+        this.birth = birth;
+        this.owner = owner;
+    }
 
     public Long getId() {
         return id;

@@ -20,6 +20,13 @@ public class CustomerDto {
         this.address = address;
     }
     
+    public CustomerDto(String name, String surname, String address, String phone) {
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.address = address;
+    }
+    
     public CustomerDto(){
     
     }

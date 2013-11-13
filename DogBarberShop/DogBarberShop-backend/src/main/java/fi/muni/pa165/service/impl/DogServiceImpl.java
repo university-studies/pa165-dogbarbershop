@@ -4,13 +4,17 @@
  */
 package fi.muni.pa165.service.impl;
 
+import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.idao.DogDao;
+import fi.muni.pa165.service.DogService;
+import fi.muni.pa165.utils.CustomerConverter;
 import fi.muni.pa165.utils.DogConverter;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -22,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service
-public class DogServiceImpl {
+public class DogServiceImpl implements DogService{
     
     @Autowired
     private DogDao dogDao;
@@ -36,59 +40,38 @@ public class DogServiceImpl {
     }
     
     @Transactional
-    public Dog addDog(DogDto dogDto){
-        if (dogDto == null) {
-            throw new DataAccessException("Argument dogDto je null") {};
-        }
-        if (dogDto.getId() != null){
-            throw new DataAccessException("Cannot add dog, it is "
-                    + "already persisted") {};
-        }
-        
-        Dog dogResult;
+    public void addDog(DogDto dogDto){
+        Validate.isTrue(dogDto != null, "DogDto is null!");
+        Validate.isTrue(dogDto.getId() == null, "DogDto ID is not null!");
         try{
-            dogResult = dogDao.addDog
-                (DogConverter.dogDtoToDog(dogDto));
+            dogDao.addDog(DogConverter.dogDtoToDog(dogDto));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer") {};
+        catch(Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer", ex) {};
         }
-        return dogResult;
     }
     
     @Transactional
-    public Dog updateDog(DogDto dogDto){
-        if (dogDto == null) {
-            throw new DataAccessException("Argument dogDto je null") {};
-        }
-        if (dogDto.getId() == null){
-            throw new DataAccessException("Cannot update dog, it is not persisted") {};
-        }
-        
-        Dog dogResult;
+    public void updateDog(DogDto dogDto){
+        Validate.isTrue(dogDto != null, "DogDto is null!");
+        Validate.isTrue(dogDto.getId() != null, "DogDto ID is null!");
         try{
-            dogResult = dogDao.updateDog(DogConverter.dogDtoToDog(dogDto));
+            dogDao.updateDog(DogConverter.dogDtoToDog(dogDto));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer") {};
+        catch(Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer", ex) {};
         }
-        return dogResult;
     }
     
     @Transactional
     public void deleteDog(DogDto dogDto){
-        if (dogDto == null) {
-            throw new DataAccessException("Argument dogDto je null") {};
-        }
-        if (dogDto.getId() == null){
-            throw new DataAccessException("Cannot delete dog, it is not persisted") {};
-        }
-        
+        Validate.isTrue(dogDto != null, "DogDto is null!");
+        Validate.isTrue(dogDto.getId() != null, "DogDto ID is null!");
         try{
             dogDao.removeDog(DogConverter.dogDtoToDog(dogDto));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer") {};
+        catch(Exception ex){
+            throw new DataAccessException("Error during accessing persistence layer", ex) {};
         }
     }
     
@@ -123,7 +106,7 @@ public class DogServiceImpl {
     }
     
     @Transactional
-    public List<DogDto> getDogsByOwner(Customer owner){
+    public List<DogDto> getDogsByOwner(CustomerDto owner){
         List<DogDto> dogsByOwner = new ArrayList<DogDto>();
         try {
             for (Dog dog : dogDao.getDogsByOwner(owner)){

@@ -81,9 +81,13 @@ public class CustomerDaoImplTest extends TestCase{
         
         customer.setName("Marek");
         em.getTransaction().begin();
-        Customer customer2 = dao.updateCustomer(customer);
+        dao.updateCustomer(customer);
         em.getTransaction().commit();
-        assertEquals(customer.getName(), customer2.getName());
+        
+        Customer customerUpdated;
+        customerUpdated = em.find(Customer.class, customer.getId());
+        
+        assertEquals(customer.getName(), customerUpdated.getName());
     }
     
     public void testDeleteCustomer(){
