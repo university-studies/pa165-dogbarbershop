@@ -2,6 +2,7 @@ package fi.muni.pa165.service.impl;
 
 import fi.muni.pa165.dto.ServiceDto;
 import fi.muni.pa165.idao.ServiceDao;
+import fi.muni.pa165.service.ServiceService;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.Duration;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author honza
  */
 @Service
-public class ServiceServiceImpl {
+public class ServiceServiceImpl implements ServiceService {
   @Autowired
   private ServiceDao sd;
 
@@ -29,8 +30,8 @@ public class ServiceServiceImpl {
   }
 
   @Transactional
-  public void delService(Long id) {
-    sd.delService(id);
+  public void delService(ServiceDto s) {
+    sd.delService(s.getId());
   }
 
   @Transactional
@@ -40,6 +41,15 @@ public class ServiceServiceImpl {
     e.setDuration(s.getDuration());
     e.setPrice(s.getPrice());
     sd.updateService(e);
+    return s;
+  }
+
+  @Transactional
+  public ServiceDto updateDto(ServiceDto s) {
+    fi.muni.pa165.entity.Service e = sd.getServiceById(s.getId());
+    s.setName(e.getName());
+    s.setPrice(e.getPrice());
+    s.setDuration(e.getDuration());
     return s;
   }
 

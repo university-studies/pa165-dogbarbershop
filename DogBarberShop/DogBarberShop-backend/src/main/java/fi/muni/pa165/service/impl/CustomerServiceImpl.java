@@ -3,7 +3,7 @@ package fi.muni.pa165.service.impl;
 import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.idao.CustomerDao;
-import fi.muni.pa165.utils.CustomerConvertor;
+import fi.muni.pa165.utils.CustomerConverter;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class CustomerServiceImpl {
         Customer customerResult;
         try{
             customerResult = customerDao.createCustomer
-                (CustomerConvertor.CustomerDtoToCustomer(customerDto));
+                (CustomerConverter.CustomerDtoToCustomer(customerDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -65,7 +65,7 @@ public class CustomerServiceImpl {
         Customer customerResult;
         try{
             customerResult = customerDao.updateCustomer
-                (CustomerConvertor.CustomerDtoToCustomer(customerDto));
+                (CustomerConverter.CustomerDtoToCustomer(customerDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -86,7 +86,7 @@ public class CustomerServiceImpl {
         Customer customerResult;
         try{
             customerResult = customerDao.deleteCustomer
-                (CustomerConvertor.CustomerDtoToCustomer(customerDto));
+                (CustomerConverter.CustomerDtoToCustomer(customerDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -101,7 +101,7 @@ public class CustomerServiceImpl {
         }
         CustomerDto customerResult;
         try{
-            customerResult = CustomerConvertor.CustomerToCustomerDto(customerDao.getCustomerById(id));
+            customerResult = CustomerConverter.CustomerToCustomerDto(customerDao.getCustomerById(id));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -114,7 +114,7 @@ public class CustomerServiceImpl {
         List<CustomerDto> listCustomerDto = new ArrayList<>();
         try {
             for (Customer customer : customerDao.getAllCustomers()){
-                listCustomerDto.add(CustomerConvertor.CustomerToCustomerDto(customer));
+                listCustomerDto.add(CustomerConverter.CustomerToCustomerDto(customer));
             }
         }
         catch (Exception ex) {

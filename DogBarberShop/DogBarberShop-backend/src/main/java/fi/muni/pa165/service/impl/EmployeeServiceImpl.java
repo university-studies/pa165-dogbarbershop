@@ -7,7 +7,7 @@ package fi.muni.pa165.service.impl;
 import fi.muni.pa165.dto.EmployeeDto;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.idao.EmployeeDao;
-import fi.muni.pa165.utils.EmployeeConvertor;
+import fi.muni.pa165.utils.EmployeeConverter;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class EmployeeServiceImpl {
         }
         
         try {
-            Employee empE = EmployeeConvertor.EmployeeDtoToEmployee(empDto);
+            Employee empE = EmployeeConverter.EmployeeDtoToEmployee(empDto);
             employeeDao.createEmployee(empE);
         }
         catch (Exception ex){
@@ -57,7 +57,7 @@ public class EmployeeServiceImpl {
         }
         
         try {
-            Employee empE = EmployeeConvertor.EmployeeDtoToEmployee(empDto);
+            Employee empE = EmployeeConverter.EmployeeDtoToEmployee(empDto);
             employeeDao.updateEmployee(empE);
         }
         catch (Exception ex){
@@ -74,7 +74,7 @@ public class EmployeeServiceImpl {
         }
         
         try {
-            Employee empE = EmployeeConvertor.EmployeeDtoToEmployee(empDto);
+            Employee empE = EmployeeConverter.EmployeeDtoToEmployee(empDto);
             employeeDao.deleteEmployee(empE);
         }
         catch (Exception ex){
@@ -96,7 +96,7 @@ public class EmployeeServiceImpl {
             throw new DataAccessException("Error during getEmployeeById") {};
         } 
         
-        return  EmployeeConvertor.EmployeeToEmployeeDto(empE);
+        return  EmployeeConverter.EmployeeToEmployeeDto(empE);
     }
     
     @Transactional
@@ -108,7 +108,7 @@ public class EmployeeServiceImpl {
         List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
         try {
             for (Employee empE : employeeDao.getEmployeeByName(name)) {
-                empDtoList.add(EmployeeConvertor.EmployeeToEmployeeDto(empE));
+                empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
             }
         }
         catch (Exception ex){
@@ -127,7 +127,7 @@ public class EmployeeServiceImpl {
         List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
         try {
             for (Employee empE : employeeDao.getEmployeeBySurname(surname)) {    
-                empDtoList.add(EmployeeConvertor.EmployeeToEmployeeDto(empE));
+                empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
             }
         }
         catch (Exception ex){
@@ -142,7 +142,7 @@ public class EmployeeServiceImpl {
         List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
         try {
             for (Employee empE : employeeDao.getAllEmployee()) {
-                empDtoList.add(EmployeeConvertor.EmployeeToEmployeeDto(empE));
+                empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
             }
         }
         catch (Exception ex){

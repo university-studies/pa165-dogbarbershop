@@ -63,7 +63,7 @@ public class ServiceServiceTest {
 
   @Test
   public void delServiceTest() {
-    s.delService(5L);
+    s.delService(new ServiceDto(5L, "ble", 55L, new Duration(777)));
 
     ArgumentCaptor<Long> cap = ArgumentCaptor.forClass(Long.class);
     Mockito.verify(sd).delService(cap.capture());

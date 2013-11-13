@@ -11,7 +11,7 @@ import fi.muni.pa165.entity.Customer;
  *
  * @author martin
  */
-public class CustomerConvertor {
+public class CustomerConverter {
     
     public static CustomerDto CustomerToCustomerDto(Customer customer){
         CustomerDto customerDto = new CustomerDto();

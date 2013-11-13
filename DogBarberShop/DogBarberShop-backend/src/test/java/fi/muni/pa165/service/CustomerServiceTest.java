@@ -8,7 +8,7 @@ import fi.muni.pa165.service.impl.CustomerServiceImpl;
 import fi.muni.pa165.dao.impl.CustomerDaoImpl;
 import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.entity.Customer;
-import fi.muni.pa165.utils.CustomerConvertor;
+import fi.muni.pa165.utils.CustomerConverter;
 import org.junit.Test;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.junit.runner.RunWith;

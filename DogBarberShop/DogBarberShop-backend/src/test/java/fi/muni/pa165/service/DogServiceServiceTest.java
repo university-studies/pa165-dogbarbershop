@@ -9,9 +9,9 @@ import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
 import fi.muni.pa165.idao.DogServiceDao;
-import fi.muni.pa165.utils.DogConvertor;
+import fi.muni.pa165.utils.DogConverter;
 import fi.muni.pa165.utils.DogServiceConverter;
-import fi.muni.pa165.utils.EmployeeConvertor;
+import fi.muni.pa165.utils.EmployeeConverter;
 import fi.muni.pa165.utils.ServiceConverter;
 import java.util.Arrays;
 import java.util.List;
@@ -71,7 +71,7 @@ public class DogServiceServiceTest {
     
     private DogServiceDto createDogServiceWithEmployee(DogDto dog, ServiceDto service) {
         Employee employee =  new Employee("Jozko", "Hubona", "Ceska 44, Kosice", "93232323", "24000");
-        return dogServiceService.createDogService(dog, service, EmployeeConvertor.EmployeeToEmployeeDto(employee));
+        return dogServiceService.createDogService(dog, service, EmployeeConverter.EmployeeToEmployeeDto(employee));
     }
     
      @Test
@@ -176,8 +176,8 @@ public class DogServiceServiceTest {
     @Test
     public void getDogServiceByDogTest() {
         CustomerDto customer = createCustomer();
-        Dog dog =DogConvertor.dogDtoToDog(createDog(customer));
-        DogDto dogDto = DogConvertor.dogToDogDto(dog);
+        Dog dog =DogConverter.dogDtoToDog(createDog(customer));
+        DogDto dogDto = DogConverter.dogToDogDto(dog);
         ServiceDto service = createService();
         ServiceDto service2 = new ServiceDto(2l, "kupanie", 400l, Duration.standardHours(2));
         DogServiceDto dto = new DogServiceDto(1l, dogDto, service, LocalDate.now(), null);

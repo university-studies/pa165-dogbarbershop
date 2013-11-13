@@ -8,7 +8,7 @@ import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.idao.DogDao;
-import fi.muni.pa165.utils.DogConvertor;
+import fi.muni.pa165.utils.DogConverter;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class DogServiceImpl {
         Dog dogResult;
         try{
             dogResult = dogDao.addDog
-                (DogConvertor.dogDtoToDog(dogDto));
+                (DogConverter.dogDtoToDog(dogDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -67,7 +67,7 @@ public class DogServiceImpl {
         
         Dog dogResult;
         try{
-            dogResult = dogDao.updateDog(DogConvertor.dogDtoToDog(dogDto));
+            dogResult = dogDao.updateDog(DogConverter.dogDtoToDog(dogDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -85,7 +85,7 @@ public class DogServiceImpl {
         }
         
         try{
-            dogDao.removeDog(DogConvertor.dogDtoToDog(dogDto));
+            dogDao.removeDog(DogConverter.dogDtoToDog(dogDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -100,7 +100,7 @@ public class DogServiceImpl {
         
         DogDto dogResult;
         try{
-            dogResult = DogConvertor.dogToDogDto(dogDao.getDog(id));
+            dogResult = DogConverter.dogToDogDto(dogDao.getDog(id));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during accessing persistence layer") {};
@@ -113,7 +113,7 @@ public class DogServiceImpl {
         List<DogDto> listAllDogs = new ArrayList<DogDto>();
         try{
             for (Dog dog : dogDao.getAllDogs()){
-                listAllDogs.add(DogConvertor.dogToDogDto(dog));
+                listAllDogs.add(DogConverter.dogToDogDto(dog));
             }
         }
         catch (Exception ex){
@@ -127,7 +127,7 @@ public class DogServiceImpl {
         List<DogDto> dogsByOwner = new ArrayList<DogDto>();
         try {
             for (Dog dog : dogDao.getDogsByOwner(owner)){
-                dogsByOwner.add(DogConvertor.dogToDogDto(dog));
+                dogsByOwner.add(DogConverter.dogToDogDto(dog));
             }
         }
         catch (Exception ex){

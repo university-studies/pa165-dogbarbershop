@@ -11,7 +11,7 @@ import fi.muni.pa165.idao.DogDao;
 import fi.muni.pa165.idao.DogServiceDao;
 import fi.muni.pa165.idao.ServiceDao;
 import fi.muni.pa165.service.DogServiceService;
-import fi.muni.pa165.utils.DogConvertor;
+import fi.muni.pa165.utils.DogConverter;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.Validate;
@@ -19,7 +19,7 @@ import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import fi.muni.pa165.utils.DogServiceConverter;
-import fi.muni.pa165.utils.EmployeeConvertor;
+import fi.muni.pa165.utils.EmployeeConverter;
 import fi.muni.pa165.utils.ServiceConverter;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +46,10 @@ public final class DogServiceServiceImpl implements DogServiceService {
         Validate.notNull(ServiceDao.class, "Service dao was not injected properly", serviceDao);
         Validate.isTrue(dogDto != null, "Dog DTO should not be null");
         Validate.isTrue(serviceDto != null, "Service DTO should not be null");
-        final Dog dog;
-        final Service service;
+
+        final Dog dog = DogConverter.dogDtoToDog(dogDto);
+        final Service service = ServiceConverter.convertToEntity(serviceDto);
         
-            dog = DogConvertor.dogDtoToDog(dogDto);
-            service = ServiceConverter.convertToEntity(serviceDto);
-       
         final DogService dogService;
         if (employeeDto != null) {
             dogService = new DogService(dog, service, LocalDate.now(), employeeDto.getId());
@@ -140,7 +138,7 @@ public final class DogServiceServiceImpl implements DogServiceService {
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
         List<DogService> services = new ArrayList<>();
         try {
-            services = dogServiceDao.getDogServiceByDog(DogConvertor.dogDtoToDog(dog));
+            services = dogServiceDao.getDogServiceByDog(DogConverter.dogDtoToDog(dog));
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
             }
@@ -161,7 +159,7 @@ public final class DogServiceServiceImpl implements DogServiceService {
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
         List<DogService> services = new ArrayList<>();
         try {
-            services = dogServiceDao.getDogServiceByEmployee(EmployeeConvertor.EmployeeDtoToEmployee(employee));
+            services = dogServiceDao.getDogServiceByEmployee(EmployeeConverter.EmployeeDtoToEmployee(employee));
         } catch(Throwable throwable) {
             throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
         }

@@ -1,2 +1,4 @@
-DogBarberShop/Backend/target/
-DogBarberShop/Web/target/
+/DogBarberShop/DogBarberShop-API/target/
+/DogBarberShop/DogBarberShop-backend/target/
+/DogBarberShop/DogBarberShop-web/target/
+/*/derby.log

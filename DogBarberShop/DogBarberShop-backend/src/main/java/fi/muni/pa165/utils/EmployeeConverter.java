@@ -11,7 +11,7 @@ import fi.muni.pa165.entity.Employee;
  *
  * @author Pavol Loffay <p.loffay@gmail.com>
  */
-public class EmployeeConvertor {
+public class EmployeeConverter {
     public static EmployeeDto EmployeeToEmployeeDto(Employee empE)
     {
         EmployeeDto empDto = new EmployeeDto();

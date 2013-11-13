@@ -4,7 +4,7 @@ import org.joda.time.Duration;
 
 /**
  * 
- * @author Oliver Pentek, Jan Pacner
+ * @author Jan Pacner, Oliver Pentek
  */
 public class ServiceDto {
   private Long id;
@@ -12,10 +12,6 @@ public class ServiceDto {
   private Long price;
   private Duration duration;
   
-  public ServiceDto() {
-
-    }
-
   public ServiceDto(Long id, String name, Long price, Duration duration) {
     if (id == null) throw new RuntimeException("id == null");
     if (name == null) throw new RuntimeException("name == null");

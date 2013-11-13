@@ -14,7 +14,7 @@ public final class DogServiceConverter {
     public static DogService convertToEntity(@Nonnull final DogServiceDto dto) {
         DogService dogService =  new DogService();
         dogService.setId(dto.getId());
-        dogService.setDog(DogConvertor.dogDtoToDog(dto.getDog()));
+        dogService.setDog(DogConverter.dogDtoToDog(dto.getDog()));
         dogService.setServedBy(dto.getServedBy());
         dogService.setService(ServiceConverter.convertToEntity(dto.getService()));
         dogService.setServiceDate(dto.getServiceDate());
@@ -25,7 +25,7 @@ public final class DogServiceConverter {
     public static DogServiceDto convertToDto(@Nonnull final DogService entity) {
         DogServiceDto dto = new DogServiceDto();
         dto.setId(entity.getId());
-        dto.setDog(DogConvertor.dogToDogDto(entity.getDog()));
+        dto.setDog(DogConverter.dogToDogDto(entity.getDog()));
         dto.setServedBy(entity.getServedBy());
         dto.setService(ServiceConverter.convertToDto(entity.getService()));
         dto.setServiceDate(entity.getServiceDate());

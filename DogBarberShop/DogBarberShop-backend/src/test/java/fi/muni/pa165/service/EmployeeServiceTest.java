@@ -8,7 +8,7 @@ import fi.muni.pa165.service.impl.EmployeeServiceImpl;
 import fi.muni.pa165.dao.impl.EmployeeDaoImpl;
 import fi.muni.pa165.dto.EmployeeDto;
 import fi.muni.pa165.entity.Employee;
-import fi.muni.pa165.utils.EmployeeConvertor;
+import fi.muni.pa165.utils.EmployeeConverter;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -69,10 +69,10 @@ public class EmployeeServiceTest {
         Mockito.verify(empDaoMock)
                 .createEmployee(captor.capture());
         
-        assertEquals(EmployeeConvertor.EmployeeDtoToEmployee(empDto), captor.getValue());
+        assertEquals(EmployeeConverter.EmployeeDtoToEmployee(empDto), captor.getValue());
   
         //toto nejde assertEqual(expected, actual);
-        //assertEquals(empDto, EmployeeConvertor.EmployeeToEmployeeDto(captor.getValue()));
+        //assertEquals(empDto, EmployeeConverter.EmployeeToEmployeeDto(captor.getValue()));
     }
     
     @Test 
@@ -86,7 +86,7 @@ public class EmployeeServiceTest {
         Mockito.verify(empDaoMock)
                 .updateEmployee(captor.capture());
         
-        assertEquals(EmployeeConvertor.EmployeeDtoToEmployee(empDto), captor.getValue());
+        assertEquals(EmployeeConverter.EmployeeDtoToEmployee(empDto), captor.getValue());
     }
     
     @Test
@@ -100,7 +100,7 @@ public class EmployeeServiceTest {
         Mockito.verify(empDaoMock)
                 .deleteEmployee(captor.capture());
         
-        assertEquals(EmployeeConvertor.EmployeeDtoToEmployee(empDto), captor.getValue());
+        assertEquals(EmployeeConverter.EmployeeDtoToEmployee(empDto), captor.getValue());
     }
     
     @Test 
@@ -113,7 +113,7 @@ public class EmployeeServiceTest {
         EmployeeDto empDto = empService.getEmployeeById(1L);
         Mockito.verify(empDaoMock).getEmployeeById(1L);
         
-        assertEquals(EmployeeConvertor.EmployeeDtoToEmployee(empDto), empE);
+        assertEquals(EmployeeConverter.EmployeeDtoToEmployee(empDto), empE);
     }
     
     @Test
@@ -130,7 +130,7 @@ public class EmployeeServiceTest {
         Mockito.verify(empDaoMock).getAllEmployee();
         
         for (int i = 0; i < empDtoList.size(); i++) {
-            assertEquals(EmployeeConvertor.EmployeeDtoToEmployee(empDtoList.get(i)),
+            assertEquals(EmployeeConverter.EmployeeDtoToEmployee(empDtoList.get(i)),
                     empEList.get(i));
         }
     }
@@ -149,7 +149,7 @@ public class EmployeeServiceTest {
         Mockito.verify(empDaoMock).getEmployeeByName(Mockito.anyString());
         
         for (int i = 0; i < empDtoList.size(); i++) {
-            assertEquals(EmployeeConvertor.EmployeeDtoToEmployee(empDtoList.get(i)),
+            assertEquals(EmployeeConverter.EmployeeDtoToEmployee(empDtoList.get(i)),
                     empEList.get(i));
         }
     }
@@ -168,7 +168,7 @@ public class EmployeeServiceTest {
         Mockito.verify(empDaoMock).getEmployeeBySurname(Mockito.anyString());
         
         for (int i = 0; i < empDtoList.size(); i++) {
-            assertEquals(EmployeeConvertor.EmployeeDtoToEmployee(empDtoList.get(i)),
+            assertEquals(EmployeeConverter.EmployeeDtoToEmployee(empDtoList.get(i)),
                     empEList.get(i));
         }
     }    
