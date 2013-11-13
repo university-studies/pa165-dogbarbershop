@@ -7,9 +7,10 @@
     <packaging>pom</packaging>
     <name>DogBarberShop</name>
     <modules>
-        <module>Backend</module>
-        <module>Web</module>
-    </modules>
+        <module>DogBarberShop-backend</module>
+        <module>DogBarberShop-web</module>
+    <module>DogBarberShop-API</module>
+  </modules>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -21,8 +22,12 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
                 <version>3.0.6.RELEASE</version>
-                <type>jar</type>
             </dependency>
+            <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
+        </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
