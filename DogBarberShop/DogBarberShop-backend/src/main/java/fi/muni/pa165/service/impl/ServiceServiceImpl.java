@@ -20,6 +20,7 @@ public class ServiceServiceImpl implements ServiceService {
   private ServiceDao sd;
 
   @Transactional
+  @Override
   public ServiceDto addService(ServiceDto s) {
     fi.muni.pa165.entity.Service e = new fi.muni.pa165.entity.Service();
     e.setName(s.getName());
@@ -30,11 +31,13 @@ public class ServiceServiceImpl implements ServiceService {
   }
 
   @Transactional
+  @Override
   public void delService(ServiceDto s) {
     sd.delService(s.getId());
   }
 
   @Transactional
+  @Override
   public ServiceDto updateService(ServiceDto s) {
     fi.muni.pa165.entity.Service e = sd.getServiceById(s.getId());
     e.setName(s.getName());
@@ -45,6 +48,7 @@ public class ServiceServiceImpl implements ServiceService {
   }
 
   @Transactional
+  @Override
   public ServiceDto updateDto(ServiceDto s) {
     fi.muni.pa165.entity.Service e = sd.getServiceById(s.getId());
     s.setName(e.getName());
@@ -54,12 +58,14 @@ public class ServiceServiceImpl implements ServiceService {
   }
 
   @Transactional
+  @Override
   public ServiceDto getServiceById(Long id) {
     fi.muni.pa165.entity.Service e = sd.getServiceById(id);
     return new ServiceDto(e.getId(), e.getName(), e.getPrice(), e.getDuration());
   }
 
   @Transactional
+  @Override
   public List<ServiceDto> getServiceByName(String name) {
     List<fi.muni.pa165.entity.Service> l = sd.getServiceByName(name);
     List<ServiceDto> res = new ArrayList<>();
@@ -69,6 +75,7 @@ public class ServiceServiceImpl implements ServiceService {
   }
 
   @Transactional
+  @Override
   public List<ServiceDto> getServiceByPrice(Long price) {
     List<fi.muni.pa165.entity.Service> l = sd.getServiceByPrice(price);
     List<ServiceDto> res = new ArrayList<>();
@@ -78,6 +85,7 @@ public class ServiceServiceImpl implements ServiceService {
   }
 
   @Transactional
+  @Override
   public List<ServiceDto> getServiceByDuration(Duration d) {
     List<fi.muni.pa165.entity.Service> l = sd.getServiceByDuration(d);
     List<ServiceDto> res = new ArrayList<>();
