@@ -12,14 +12,14 @@ http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
 >
  
-<!--    <context:component-scan base-package="fi.muni.pa165.web"/>
+    <context:component-scan base-package="fi.muni.pa165.web"/>
     <context:annotation-config/>
-    <tx:annotation-driven/>-->
+    <tx:annotation-driven/>
 
-<!--     setup wicket application 
+<!--     setup wicket application -->
     <bean id="wicketApplication" class="fi.muni.pa165.web.DogBarberShopApplication">
-        property name="customerManager" ref="customerManager"/
-    </bean>
+<!--        property name="customerManager" ref="customerManager"/-->
+    </bean><!--
 
     <bean id="employeeservice" class="fi.muni.pa165.service.EmployeeService">
     </bean> -->
