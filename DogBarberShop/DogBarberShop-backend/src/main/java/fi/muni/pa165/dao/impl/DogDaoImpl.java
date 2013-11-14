@@ -16,11 +16,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.Validate;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Oliver Pentek
  */
+@Repository
 public class DogDaoImpl implements DogDao{
     
     @PersistenceContext

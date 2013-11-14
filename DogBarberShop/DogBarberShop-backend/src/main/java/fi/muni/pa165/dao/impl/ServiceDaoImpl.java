@@ -12,10 +12,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.joda.time.Duration;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Honza
  */
+@Repository
 public class ServiceDaoImpl implements ServiceDao {
 
   @PersistenceContext

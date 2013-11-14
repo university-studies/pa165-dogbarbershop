@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fi.muni.pa165.dao.impl;
 
 import fi.muni.pa165.idao.DogServiceDao;
@@ -17,12 +13,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.joda.time.LocalDate;
+import org.springframework.stereotype.Repository;
 
 
 /**
  *
  * @author martin
  */
+@Repository
 public class DogServiceDaoImpl implements DogServiceDao{
     
     @PersistenceContext

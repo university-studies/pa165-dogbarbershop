@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fi.muni.pa165.service.impl;
 
 import fi.muni.pa165.dto.EmployeeDto;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.idao.EmployeeDao;
+import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.utils.EmployeeConverter;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Pavol Loffay <p.loffay@gmail.com>
  */
 @Service
-public class EmployeeServiceImpl {
+public class EmployeeServiceImpl implements EmployeeService{
     
     @Autowired
-    EmployeeDao employeeDao;
+    private EmployeeDao employeeDao;
 
     public EmployeeDao getEmployeeDao() {
         return employeeDao;
@@ -34,6 +31,7 @@ public class EmployeeServiceImpl {
     }
     
     @Transactional
+    @Override
     public EmployeeDto addEmployee(EmployeeDto empDto) {
         if (empDto == null || empDto.getId() == null) {
             throw new DataAccessException("Argument empDto je null") {};
@@ -51,6 +49,7 @@ public class EmployeeServiceImpl {
     }
     
     @Transactional
+    @Override
     public EmployeeDto updateEmloyee(EmployeeDto empDto) {
         if (empDto == null || empDto.getId() == null) {
             throw new DataAccessException("Argument empDto je null") {};
@@ -68,6 +67,7 @@ public class EmployeeServiceImpl {
     }
     
     @Transactional
+    @Override
     public void deleteEmployee(EmployeeDto empDto) {
         if (empDto == null || empDto.getId() == null) {
             throw new DataAccessException("Argument empDto je null") {};
@@ -100,12 +100,13 @@ public class EmployeeServiceImpl {
     }
     
     @Transactional
+    @Override
     public List<EmployeeDto> getEmployeeByName(String name) {
         if (name == null) {
             throw new DataAccessException("name si null") {};
         }
         
-        List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
+        List<EmployeeDto> empDtoList = new ArrayList<>();
         try {
             for (Employee empE : employeeDao.getEmployeeByName(name)) {
                 empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
@@ -119,12 +120,13 @@ public class EmployeeServiceImpl {
     }
     
     @Transactional
+    @Override
     public List<EmployeeDto> getEmployeeBySurname(String surname) {
         if (surname == null) {
             throw new DataAccessException("surname si null") {};
         }
         
-        List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
+        List<EmployeeDto> empDtoList = new ArrayList<>();
         try {
             for (Employee empE : employeeDao.getEmployeeBySurname(surname)) {    
                 empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
@@ -138,8 +140,9 @@ public class EmployeeServiceImpl {
     }
     
     @Transactional
+    @Override
     public List<EmployeeDto> getAllEmployee() {
-        List<EmployeeDto> empDtoList = new ArrayList<EmployeeDto>();
+        List<EmployeeDto> empDtoList = new ArrayList<>();
         try {
             for (Employee empE : employeeDao.getAllEmployee()) {
                 empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
@@ -150,5 +153,10 @@ public class EmployeeServiceImpl {
         }
                 
         return empDtoList;
+    }
+
+    @Override
+    public EmployeeDto getEmployee(EmployeeDto empDto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
