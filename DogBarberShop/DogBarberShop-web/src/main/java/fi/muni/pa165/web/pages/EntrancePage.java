@@ -28,6 +28,7 @@ public class EntrancePage extends WebPage {
         this.add(employeeLink);
               
     }
+    
     /**
      *  Zoznam komponent vramci tejto
      */

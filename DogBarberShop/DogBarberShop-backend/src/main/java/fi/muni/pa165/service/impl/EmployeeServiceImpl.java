@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Transactional
     @Override
     public EmployeeDto addEmployee(EmployeeDto empDto) {
-        if (empDto == null || empDto.getId() == null) {
+        if (empDto == null) {
             throw new DataAccessException("Argument empDto je null") {};
         }
         
