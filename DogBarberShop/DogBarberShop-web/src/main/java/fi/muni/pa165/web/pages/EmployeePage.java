@@ -131,13 +131,12 @@ public class EmployeePage extends WebPage {
         
         tableForm.setOutputMarkupId(true);
         tableForm.add(listView);
-        tableForm.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(TABLE_RELOAD_INTERVAL)));
+ //       tableForm.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(TABLE_RELOAD_INTERVAL)));
         add(tableForm);
         add(whatToDoLabel = new Label(ComponentIDs.ADD_EDIT_LABEL, new Model()));
         setNewCustomerLabel();
         
     }
-    
     
     private void setNewCustomerLabel() {
         whatToDoLabel.setDefaultModelObject("Novy zakaznik");
@@ -152,24 +151,6 @@ public class EmployeePage extends WebPage {
         @Override
         protected List<EmployeeDto> load() {
             return EmployeePage.this.service.getAllEmployee();
-        }
-    }
-    
-    private class InnerCustomerModel implements IModel<List<EmployeeDto>>{
-
-        @Override
-        public void detach() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public List<EmployeeDto> getObject() {
-            return EmployeePage.this.service.getAllEmployee();
-        }
-
-        @Override
-        public void setObject(List<EmployeeDto> object) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }
     
