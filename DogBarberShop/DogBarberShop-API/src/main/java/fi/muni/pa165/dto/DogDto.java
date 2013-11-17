@@ -1,5 +1,6 @@
 package fi.muni.pa165.dto;
 
+import java.io.Serializable;
 import org.joda.time.LocalDate;
 
 /**
@@ -7,7 +8,7 @@ import org.joda.time.LocalDate;
  * 
  * @author Oliver Pentek
  */
-public class DogDto {
+public class DogDto implements Serializable {
     private Long id;
     private String name;
     private String breed;

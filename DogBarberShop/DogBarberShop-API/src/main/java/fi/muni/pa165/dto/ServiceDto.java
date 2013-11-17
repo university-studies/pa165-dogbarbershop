@@ -1,12 +1,13 @@
 package fi.muni.pa165.dto;
 
+import java.io.Serializable;
 import org.joda.time.Duration;
 
 /**
  * 
  * @author Jan Pacner, Oliver Pentek
  */
-public class ServiceDto {
+public class ServiceDto implements Serializable {
   private Long id;
   private String name;
   private Long price;

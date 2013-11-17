@@ -1,5 +1,6 @@
 package fi.muni.pa165.web;
 
+import fi.muni.pa165.service.DogService;
 import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.web.pages.EntrancePage;
 import javax.annotation.Nonnull;
@@ -16,6 +17,13 @@ public class DogBarberShopApplication extends WebApplication {
 
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private DogService dog_service;
+
+    @Nonnull
+    public DogService getDog_service() {
+      return dog_service;
+    }
 
     @Nonnull
     public static DogBarberShopApplication get() {
