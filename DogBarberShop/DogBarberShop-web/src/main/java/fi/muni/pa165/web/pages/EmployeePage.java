@@ -83,7 +83,7 @@ public class EmployeePage extends WebPage {
                     editableForm.setModelObject(new EmployeeDto());
                 } else {                                                        //update
                     editableForm.setModelObject(employee);
-                    setUpdateCustomerlabel(employee.getId());
+                    setUpdateCustomerlabel();
                 }
             }
         };
@@ -139,11 +139,11 @@ public class EmployeePage extends WebPage {
     }
     
     private void setNewCustomerLabel() {
-        whatToDoLabel.setDefaultModelObject("Novy zakaznik");
+        whatToDoLabel.setDefaultModelObject(this.getLocalizer().getString("EmployeePage.label.newEmployee", this));
     }
 
-    private void setUpdateCustomerlabel(Long id) {
-        whatToDoLabel.setDefaultModelObject("Uprava zakaznika s ID: " + id);
+    private void setUpdateCustomerlabel() {
+        whatToDoLabel.setDefaultModelObject(this.getLocalizer().getString("EmployeePage.label.editEmployee", this));
     }
 
     private class InnerLoadableCustomerModel extends LoadableDetachableModel<List<EmployeeDto>> {
