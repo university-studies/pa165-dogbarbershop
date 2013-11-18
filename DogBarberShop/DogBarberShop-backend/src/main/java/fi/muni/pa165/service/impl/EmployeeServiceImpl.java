@@ -7,6 +7,7 @@ import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.utils.EmployeeConverter;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -32,50 +33,40 @@ public class EmployeeServiceImpl implements EmployeeService{
     
     @Transactional
     @Override
-    public EmployeeDto addEmployee(EmployeeDto empDto) {
-        if (empDto == null) {
-            throw new DataAccessException("Argument empDto je null") {};
-        }
+    public void addEmployee(EmployeeDto empDto) {
+        Validate.isTrue(empDto != null, "empDto is null!");
+        Validate.isTrue(empDto.getId() == null, "empDto.id is not null!");
         
         try {
-            Employee empE = EmployeeConverter.EmployeeDtoToEmployee(empDto);
-            employeeDao.createEmployee(empE);
+            employeeDao.createEmployee(EmployeeConverter.EmployeeDtoToEmployee(empDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during addEmployee") {};
         }
-      
-        return empDto;
     }
     
     @Transactional
     @Override
-    public EmployeeDto updateEmloyee(EmployeeDto empDto) {
-        if (empDto == null || empDto.getId() == null) {
-            throw new DataAccessException("Argument empDto je null") {};
-        }
+    public void updateEmloyee(EmployeeDto empDto) {
+        Validate.isTrue(empDto != null, "empDto is null!");
+        Validate.isTrue(empDto.getId() != null, "emoDto.id is null!");
         
         try {
-            Employee empE = EmployeeConverter.EmployeeDtoToEmployee(empDto);
-            employeeDao.updateEmployee(empE);
+            employeeDao.updateEmployee(EmployeeConverter.EmployeeDtoToEmployee(empDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during updateEmployee") {};
         }
-        
-        return empDto;
     }
     
     @Transactional
     @Override
     public void deleteEmployee(EmployeeDto empDto) {
-        if (empDto == null || empDto.getId() == null) {
-            throw new DataAccessException("Argument empDto je null") {};
-        }
+        Validate.isTrue(empDto != null, "empDto is null!");
+        Validate.isTrue(empDto.getId() != null, "empDto.id is null!");
         
         try {
-            Employee empE = EmployeeConverter.EmployeeDtoToEmployee(empDto);
-            employeeDao.deleteEmployee(empE);
+            employeeDao.deleteEmployee(EmployeeConverter.EmployeeDtoToEmployee(empDto));
         }
         catch (Exception ex){
             throw new DataAccessException("Error during deleteEmployee") {};
@@ -83,10 +74,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     
     @Transactional
+    @Override
     public EmployeeDto getEmployeeById(Long id){
-        if (id == null) {
-            throw new DataAccessException("id si null") {};
-        }
+        Validate.isTrue(id != null, "id is null!");
         
         Employee empE;
         try {
@@ -102,9 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Transactional
     @Override
     public List<EmployeeDto> getEmployeeByName(String name) {
-        if (name == null) {
-            throw new DataAccessException("name si null") {};
-        }
+        Validate.isTrue(name != null, "name si null");
         
         List<EmployeeDto> empDtoList = new ArrayList<>();
         try {
@@ -122,9 +110,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Transactional
     @Override
     public List<EmployeeDto> getEmployeeBySurname(String surname) {
-        if (surname == null) {
-            throw new DataAccessException("surname si null") {};
-        }
+        Validate.isTrue(surname != null, "surname is null!");
         
         List<EmployeeDto> empDtoList = new ArrayList<>();
         try {
@@ -153,10 +139,5 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
                 
         return empDtoList;
-    }
-
-    @Override
-    public EmployeeDto getEmployee(EmployeeDto empDto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

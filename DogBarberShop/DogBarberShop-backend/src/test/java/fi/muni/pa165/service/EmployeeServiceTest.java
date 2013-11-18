@@ -60,7 +60,7 @@ public class EmployeeServiceTest {
     
     @Test
     public void testAddEmployee() {
-        EmployeeDto empDto = new EmployeeDto(new Long(0), "Pavol", "Loffay", "Zapad 1144",
+        EmployeeDto empDto = new EmployeeDto(null , "Pavol", "Loffay", "Zapad 1144",
                 "090526955", "15666");
         
         ArgumentCaptor<Employee> captor = ArgumentCaptor.forClass(Employee.class);
