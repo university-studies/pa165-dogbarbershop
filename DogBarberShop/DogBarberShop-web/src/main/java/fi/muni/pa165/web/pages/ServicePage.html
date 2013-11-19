@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <h1><wicket:message key="ServicePage.title"/></h1>
+        <form wicket:id="servicesTable">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th><wicket:message key="ServicePage.service.name"/></th>
+                        <th><wicket:message key="ServicePage.service.price"/></th>
+                        <th><wicket:message key="ServicePage.service.duration"/></th>
+                    </tr>
+                </thead>
+                <span wicket:id="services">
+                    <tr>
+                        <td><span wicket:id="listName"></span></td>
+                        <td><span wicket:id="listPrice"></span></td>
+                        <td><span wicket:id="listDuration"></span></td>
+                        <td><input wicket:id="deleteButton" type="submit" wicket:message="value:ServicePage.button.delete"/></td>  
+                        <td><input wicket:id="editButton" type="submit" wicket:message="value:ServicePage.button.edit"/></td>
+                    </tr>
+                </span>
+            </table>
+        </form>
+        <h2 wicket:id="whatToDo">Novy zakaznik</h2>
+        <span wicket:id="feedback"/>
+        <table>
+            <form wicket:id="addServiceForm">
+                <tr>
+                    <th><wicket:message key="ServicePage.service.name"/></th>
+                    <td><input wicket:id="name" type="text"/></td>
+                </tr>
+                <tr>
+                    <th><wicket:message key="ServicePage.service.price"/></th>
+                    <td><input wicket:id="price" type="text"/></td>
+                </tr>
+                <tr>
+                    <th><wicket:message key="ServicePage.service.duration"/></th>
+                    <td><input wicket:id="duration" type="text"/></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><input wicket:id="submitButton" type="submit" wicket:message="value:ServicePage.button.submit"/></td>
+                </tr>
+            </form>
+        </table>   
+    </body>
+</html>

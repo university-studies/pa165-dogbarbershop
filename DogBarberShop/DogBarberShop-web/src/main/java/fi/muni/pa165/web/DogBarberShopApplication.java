@@ -2,6 +2,7 @@ package fi.muni.pa165.web;
 
 import fi.muni.pa165.service.DogService;
 import fi.muni.pa165.service.EmployeeService;
+import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.pages.EntrancePage;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.Validate;
@@ -19,6 +20,8 @@ public class DogBarberShopApplication extends WebApplication {
     private EmployeeService employeeService;
     @Autowired
     private DogService dog_service;
+    @Autowired
+    private ServiceService serviceService;
 
     @Nonnull
     public DogService getDog_service() {
@@ -34,6 +37,11 @@ public class DogBarberShopApplication extends WebApplication {
     public EmployeeService getemployeeService() {
         return this.employeeService;
     }
+    
+    @Nonnull
+    public ServiceService getServiceService(){
+        return this.serviceService;
+    }
 
     @Override
     public Class<? extends Page> getHomePage() {
@@ -44,5 +52,6 @@ public class DogBarberShopApplication extends WebApplication {
     protected void init() {
         super.init();
         Validate.notNull(employeeService);
+        Validate.notNull(serviceService);
     }
 }

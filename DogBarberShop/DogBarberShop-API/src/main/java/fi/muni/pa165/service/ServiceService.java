@@ -6,7 +6,7 @@ import org.joda.time.Duration;
 
 /**
  *
- * @author Oliver Pentek, Jan Pacner
+ * @author Oliver Pentek, Jan Pacner, martin
  */
 public interface ServiceService {
   ServiceDto addService(ServiceDto s);
@@ -17,4 +17,6 @@ public interface ServiceService {
   List<ServiceDto> getServiceByName(String name);
   List<ServiceDto> getServiceByPrice(Long price);
   List<ServiceDto> getServiceByDuration(Duration d);
+  //hosi zabudli ste na tuto metodu ;)
+  List<ServiceDto> getAllServices();
 }

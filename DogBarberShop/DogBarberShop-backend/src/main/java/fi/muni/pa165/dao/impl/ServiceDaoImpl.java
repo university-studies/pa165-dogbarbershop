@@ -122,4 +122,17 @@ public class ServiceDaoImpl implements ServiceDao {
     }
     return l;
   }
+
+  // doplnena
+    @Override
+    public List<Service> getAllServices() {
+        TypedQuery<Service> query = em.createQuery("select s from Service s ", Service.class);
+        if (query.getResultList() == null){
+            throw new IllegalArgumentException("Query returned null.");
+        }
+        if (query.getResultList().size() < 0) {
+            throw new IllegalArgumentException("No record found");        
+        }
+        return query.getResultList();
+    }
 }
