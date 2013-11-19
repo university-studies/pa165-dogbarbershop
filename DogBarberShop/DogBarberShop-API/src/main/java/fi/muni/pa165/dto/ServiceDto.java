@@ -13,12 +13,23 @@ public class ServiceDto implements Serializable {
   private Long price;
   private Duration duration;
   
+  public ServiceDto(){
+  }
+  
   public ServiceDto(Long id, String name, Long price, Duration duration) {
-    if (id == null) throw new RuntimeException("id == null");
     if (name == null) throw new RuntimeException("name == null");
     if (price == null) throw new RuntimeException("price == null");
     if (duration == null) throw new RuntimeException("duration == null");
     this.id = id;
+    this.name = name;
+    this.price = price;
+    this.duration = duration;
+  }
+  
+  public ServiceDto(String name, Long price, Duration duration) {
+    if (name == null) throw new RuntimeException("name == null");
+    if (price == null) throw new RuntimeException("price == null");
+    if (duration == null) throw new RuntimeException("duration == null");
     this.name = name;
     this.price = price;
     this.duration = duration;

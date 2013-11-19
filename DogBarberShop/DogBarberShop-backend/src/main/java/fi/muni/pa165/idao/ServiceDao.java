@@ -20,4 +20,6 @@ public interface ServiceDao {
   public List<Service> getServiceByName(String name);
   public List<Service> getServiceByPrice(Long price);
   public List<Service> getServiceByDuration(Duration duration);
+  // doplnena
+  public List<Service> getAllServices();
 }

@@ -4,7 +4,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
 
 /**
- * @author Oliver Pentek, Jan Pacner
+ * @author Oliver Pentek, Jan Pacner, martin
  */
 public class EntrancePage extends WebPage {
     public EntrancePage() {
@@ -31,11 +31,18 @@ public class EntrancePage extends WebPage {
                 this.getRequestCycle().setResponsePage(CustomerPage.class);
             }
         });
+        this.add(new Link(ComponentIDs.SERVICE_LINK) { 
+            @Override
+            public void onClick() {
+                this.getRequestCycle().setResponsePage(ServicePage.class);
+            }
+        });
     }
     
     private static class ComponentIDs {
         private static final String EMPLOYEE_LINK = "employeeLink";
         private static final String A_DOG = "a_dog";
         private static final String A_CUSTOMER = "a_customer";
+        private static final String SERVICE_LINK = "serviceLink";
     }
 }

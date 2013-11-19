@@ -3,16 +3,18 @@ package fi.muni.pa165.service.impl;
 import fi.muni.pa165.dto.ServiceDto;
 import fi.muni.pa165.idao.ServiceDao;
 import fi.muni.pa165.service.ServiceService;
+import fi.muni.pa165.utils.ServiceConverter;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author honza
+ * @author honza, martin
  */
 @Service
 public class ServiceServiceImpl implements ServiceService {
@@ -93,4 +95,20 @@ public class ServiceServiceImpl implements ServiceService {
       res.add(new ServiceDto(e.getId(), e.getName(), e.getPrice(), e.getDuration()));
     return res;
   }
+  
+  // Honzo, na tuto metodu sa pozabudlo ;) Martin
+    @Transactional
+    @Override
+    public List<ServiceDto> getAllServices() {
+        List<ServiceDto> listServicesDto = new ArrayList<>();
+        try {
+            for (fi.muni.pa165.entity.Service service : sd.getAllServices()){
+                listServicesDto.add(ServiceConverter.convertToDto(service));
+            }
+        }
+        catch (Exception ex) {
+            throw new DataAccessException("Error during accessing persistence layer") {};
+        }
+        return listServicesDto;
+    }
 }
