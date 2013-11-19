@@ -4,6 +4,7 @@ import fi.muni.pa165.dto.EmployeeDto;
 import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import java.util.List;
+import javax.faces.validator.LengthValidator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -20,6 +21,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.time.Duration;
+import org.apache.wicket.validation.validator.StringValidator;
 
 /**
  *
@@ -39,13 +41,22 @@ public class EmployeePage extends WebPage {
     }
     
     private void initComponents() {
+        /*
+         * Panel pre zobrazenie sprav, napriklad ak sa nepodari validacia
+         */
         final FeedbackPanel feedback = new FeedbackPanel(ComponentIDs.FEEDBACK_PANEL);
-        add(feedback);
+        this.add(feedback);
+        
         final RequiredTextField name = new RequiredTextField<>(ComponentIDs.NAME);
         final RequiredTextField surname = new RequiredTextField<>(ComponentIDs.SURNAME);
         final RequiredTextField address = new RequiredTextField<>(ComponentIDs.ADDRESS);
         final RequiredTextField phone = new RequiredTextField<>(ComponentIDs.PHONE);
         final RequiredTextField salary = new RequiredTextField<>(ComponentIDs.SALARY);
+        
+        /*
+         * Kontrola vstupnych dat - ak sa nepodari zobrazi sa FeedBackPanel
+         */
+        phone.add(new StringValidator(6, 9));
         
         final Form<EmployeeDto> editableForm = new Form<EmployeeDto>(ComponentIDs.ADD_EDIT_FORM, new CompoundPropertyModel<EmployeeDto>(new EmployeeDto())) {
             @Override
@@ -132,8 +143,8 @@ public class EmployeePage extends WebPage {
         tableForm.setOutputMarkupId(true);
         tableForm.add(listView);
  //       tableForm.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(TABLE_RELOAD_INTERVAL)));
-        add(tableForm);
-        add(whatToDoLabel = new Label(ComponentIDs.ADD_EDIT_LABEL, new Model()));
+        this.add(tableForm);
+        this.add(whatToDoLabel = new Label(ComponentIDs.ADD_EDIT_LABEL, new Model()));
         setNewCustomerLabel();
         
     }
