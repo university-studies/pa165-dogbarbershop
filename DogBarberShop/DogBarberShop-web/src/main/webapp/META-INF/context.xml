@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/DogBarberShop-web"/>
+<Context reloadable="true" antiJARLocking="true" antiResourceLocking="true" path="/pa165">
+    <Manager className="org.apache.catalina.session.PersistentManager" saveOnRestart="false" />
+</Context>
