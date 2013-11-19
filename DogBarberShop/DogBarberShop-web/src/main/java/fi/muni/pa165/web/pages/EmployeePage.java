@@ -4,6 +4,7 @@ import fi.muni.pa165.dto.EmployeeDto;
 import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import java.util.List;
+import javax.faces.validator.LengthValidator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -20,6 +21,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.time.Duration;
+import org.apache.wicket.validation.validator.StringValidator;
 
 /**
  *
@@ -45,6 +47,7 @@ public class EmployeePage extends WebPage {
         final RequiredTextField surname = new RequiredTextField<>(ComponentIDs.SURNAME);
         final RequiredTextField address = new RequiredTextField<>(ComponentIDs.ADDRESS);
         final RequiredTextField phone = new RequiredTextField<>(ComponentIDs.PHONE);
+        phone.add(new StringValidator(6, 9));
         final RequiredTextField salary = new RequiredTextField<>(ComponentIDs.SALARY);
         
         final Form<EmployeeDto> editableForm = new Form<EmployeeDto>(ComponentIDs.ADD_EDIT_FORM, new CompoundPropertyModel<EmployeeDto>(new EmployeeDto())) {
