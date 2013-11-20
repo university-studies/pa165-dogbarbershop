@@ -26,7 +26,7 @@ import org.joda.time.Duration;
  * @author martin
  */
 
-public class ServicePage extends WebPage {
+public class ServicePage extends TemplatePage {
     private final int TABLE_RELOAD_INTERVAL = 5;
     private boolean isUpdateButton;
     private Label whatToDoLabel;

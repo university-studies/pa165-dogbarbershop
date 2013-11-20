@@ -5,15 +5,16 @@
         <title></title>
     </head>
     <body>
+    <wicket:extend>
         <h1><wicket:message key="ServicePage.title"/></h1>
         <form wicket:id="servicesTable">
             <table border="1">
                 <thead>
                     <tr>
                         <th><wicket:message key="ServicePage.service.name"/></th>
-                        <th><wicket:message key="ServicePage.service.price"/></th>
-                        <th><wicket:message key="ServicePage.service.duration"/></th>
-                    </tr>
+                <th><wicket:message key="ServicePage.service.price"/></th>
+                <th><wicket:message key="ServicePage.service.duration"/></th>
+                </tr>
                 </thead>
                 <span wicket:id="services">
                     <tr>
@@ -32,15 +33,15 @@
             <form wicket:id="addServiceForm">
                 <tr>
                     <th><wicket:message key="ServicePage.service.name"/></th>
-                    <td><input wicket:id="name" type="text"/></td>
+                <td><input wicket:id="name" type="text"/></td>
                 </tr>
                 <tr>
                     <th><wicket:message key="ServicePage.service.price"/></th>
-                    <td><input wicket:id="price" type="text"/></td>
+                <td><input wicket:id="price" type="text"/></td>
                 </tr>
                 <tr>
                     <th><wicket:message key="ServicePage.service.duration"/></th>
-                    <td><input wicket:id="duration" type="text"/></td>
+                <td><input wicket:id="duration" type="text"/></td>
                 </tr>
                 <tr>
                     <th></th>
@@ -48,5 +49,6 @@
                 </tr>
             </form>
         </table>   
-    </body>
+    </wicket:extend>    
+</body>
 </html>

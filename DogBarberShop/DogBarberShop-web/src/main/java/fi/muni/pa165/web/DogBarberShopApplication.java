@@ -22,7 +22,7 @@ public class DogBarberShopApplication extends WebApplication {
     private DogService dog_service;
     @Autowired
     private ServiceService serviceService;
-
+    
     @Nonnull
     public DogService getDog_service() {
       return dog_service;

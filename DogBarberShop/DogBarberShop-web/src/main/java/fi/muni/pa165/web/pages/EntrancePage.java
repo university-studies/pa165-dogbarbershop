@@ -1,22 +1,23 @@
 package fi.muni.pa165.web.pages;
 
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.StatelessLink;
 
 /**
  * @author Oliver Pentek, Jan Pacner, martin
  */
-public class EntrancePage extends WebPage {
+public class EntrancePage extends TemplatePage {
     public EntrancePage() {
         super();
         this.initComponents();
     }
     
     private void initComponents() {
-        this.add(new Link(ComponentIDs.EMPLOYEE_LINK) {
+        
+        this.add(new Link<EmployeePage>(ComponentIDs.EMPLOYEE_LINK) {
             @Override
             public void onClick() {
-                this.getRequestCycle().setResponsePage(EmployeePage.class);
+                this.setResponsePage(EmployeePage.class);
             }
         });
         this.add(new Link(ComponentIDs.A_DOG) {

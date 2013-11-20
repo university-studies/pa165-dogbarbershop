@@ -5,17 +5,19 @@
         <title></title>
     </head>
     <body>
+    <wicket:extend>
+
         <h1><wicket:message key="EmployeePage.title"/></h1>
         <form wicket:id="employeesTable">
             <table border="1">
                 <thead>
                     <tr>
                         <th><wicket:message key="EmployeePage.employee.name"/></th>
-                        <th><wicket:message key="EmployeePage.employee.surname"/></th>
-                        <th><wicket:message key="EmployeePage.employee.address"/></th>
-                        <th><wicket:message key="EmployeePage.employee.phone"/></th>
-                        <th><wicket:message key="EmployeePage.employee.salary"/></th>
-                    </tr>
+                <th><wicket:message key="EmployeePage.employee.surname"/></th>
+                <th><wicket:message key="EmployeePage.employee.address"/></th>
+                <th><wicket:message key="EmployeePage.employee.phone"/></th>
+                <th><wicket:message key="EmployeePage.employee.salary"/></th>
+                </tr>
                 </thead>
                 <span wicket:id="employees">
                     <tr>
@@ -36,23 +38,23 @@
             <form wicket:id="addEmployeeForm">
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.name"/></th>
-                    <td><input wicket:id="name" type="text"/></td>
+                <td><input wicket:id="name" type="text"/></td>
                 </tr>
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.surname"/></th>
-                    <td><input wicket:id="surname" type="text"/></td>
+                <td><input wicket:id="surname" type="text"/></td>
                 </tr>
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.address"/></th>
-                    <td><input wicket:id="address" type="text"/></td>
+                <td><input wicket:id="address" type="text"/></td>
                 </tr>
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.phone"/></th>
-                    <td><input wicket:id="phone" type="text"/></td>
+                <td><input wicket:id="phone" type="text"/></td>
                 </tr>
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.salary"/></th>
-                    <td><input wicket:id="salary" type="text"/></td>
+                <td><input wicket:id="salary" type="text"/></td>
                 </tr>
                 <tr>
                     <th></th>
@@ -60,5 +62,7 @@
                 </tr>
             </form>
         </table>   
-    </body>
+    </wicket:extend>    
+
+</body>
 </html>

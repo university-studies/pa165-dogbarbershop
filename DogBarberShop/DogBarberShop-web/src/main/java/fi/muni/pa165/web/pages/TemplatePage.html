@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <link rel="stylesheet" type="text/css" href="css/style.css" /> 
+    </head>
+    <body>
+        <!-- container... to je div v ktorom je vsetko a je centrovany na stred -->
+        <div id="container">
+            <div class="header" wicket:id="headerPanel">
+                Header Panel - logo
+                <!--<img src="#" alt="odkaz na obrazok" />-->
+            </div>
+            <div id="menu_buttons" wicket:id="menuPanel">
+                Menu Buttons
+            </div>
+            <div class="content">
+                <wicket:child/>
+            </div>
+            <p class="footer">(c) Dog Barbershop</p>
+        </div>
+    </body>
+</html>

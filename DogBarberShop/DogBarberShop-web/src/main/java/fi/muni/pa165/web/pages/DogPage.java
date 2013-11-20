@@ -20,7 +20,7 @@ import org.joda.time.LocalDate;
 /**
  * @author Jan Pacner
  */
-public class DogPage extends WebPage {
+public class DogPage extends TemplatePage {
   /* HTML element IDs */
   //private static final String FEEDBACK_PANEL = "feedback";
   private static final String FORM_LISTING    = "form_listing";

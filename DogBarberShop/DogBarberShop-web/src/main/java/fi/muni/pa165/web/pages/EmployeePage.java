@@ -28,7 +28,7 @@ import org.apache.wicket.validation.validator.StringValidator;
  * @author Oliver Pentek
  */
 
-public class EmployeePage extends WebPage {
+public class EmployeePage extends TemplatePage {
     private final int TABLE_RELOAD_INTERVAL = 5;
     private boolean isUpdateButton;
     private Label whatToDoLabel;
@@ -36,11 +36,13 @@ public class EmployeePage extends WebPage {
 
 
     public EmployeePage() {
+        super();
         service = DogBarberShopApplication.get().getemployeeService();
         this.initComponents();
     }
     
     private void initComponents() {
+
         /*
          * Panel pre zobrazenie sprav, napriklad ak sa nepodari validacia
          */
