@@ -1,17 +1,23 @@
 package fi.muni.pa165.web.pages;
 
 import fi.muni.pa165.dto.EmployeeDto;
+import fi.muni.pa165.dto.ServiceDto;
 import fi.muni.pa165.service.EmployeeService;
+import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.DogBarberShopApplication;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.validator.LengthValidator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.form.palette.Palette;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -20,6 +26,8 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.util.CollectionModel;
+import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.validation.validator.StringValidator;
 
@@ -33,11 +41,16 @@ public class EmployeePage extends TemplatePage {
     private boolean isUpdateButton;
     private Label whatToDoLabel;
     private final EmployeeService service;
+    private final ServiceService serviceService;
+    private List<ServiceDto> selectedServices;
+    private List<ServiceDto> unselectedServices;
+    private Palette<ServiceDto> palette= null;
 
 
     public EmployeePage() {
         super();
         service = DogBarberShopApplication.get().getemployeeService();
+        serviceService = DogBarberShopApplication.get().getServiceService();
         this.initComponents();
     }
     
@@ -60,12 +73,13 @@ public class EmployeePage extends TemplatePage {
          */
         phone.add(new StringValidator(6, 9));
         
-        final Form<EmployeeDto> editableForm = new Form<EmployeeDto>(ComponentIDs.ADD_EDIT_FORM, new CompoundPropertyModel<EmployeeDto>(new EmployeeDto())) {
+        final Form<EmployeeDto> editableForm = new Form<EmployeeDto>(ComponentIDs.ADD_EDIT_FORM, new CompoundPropertyModel<>(new EmployeeDto())) {
             @Override
             protected void onSubmit() {
                 IModel<EmployeeDto> model = this.getModel();
                 EmployeeDto employee = model.getObject();
                 if (!EmployeePage.this.isUpdateButton) {                        //adding
+                    employee.setServices(new ArrayList(palette.getModelCollection()));;
                     service.addEmployee(employee);
                     this.setModelObject(new EmployeeDto());
                 } else {                                                        //updating
@@ -85,6 +99,18 @@ public class EmployeePage extends TemplatePage {
         editableForm.add(phone);
         editableForm.add(salary);
         add(editableForm);
+        
+        // paleta
+        selectedServices = new ArrayList<>();
+        unselectedServices = serviceService.getAllServices();
+        IChoiceRenderer<ServiceDto> renderer = new ChoiceRenderer<>();
+		
+		palette = new Palette<>(ComponentIDs.PALETTE,
+				new ListModel<>(selectedServices),
+				new CollectionModel<>(unselectedServices),
+				renderer, 10, true);
+		
+		editableForm.add(palette);
         
         final Form tableForm = new Form<EmployeeDto>(ComponentIDs.TABLE_FORM, new Model<EmployeeDto>()) {
             @Override
@@ -190,5 +216,6 @@ public class EmployeePage extends TemplatePage {
         private static final String SALARY_LIST_ITEM = "listSalary";
         private static final String REFRESH_LINK = "refresh";
         private static final String ADD_EDIT_LABEL = "whatToDo";
+        public static final String PALETTE = "palette";
     }
 }

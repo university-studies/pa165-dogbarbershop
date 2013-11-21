@@ -39,12 +39,12 @@ public class Service implements Serializable {
   }
 
   public List<Employee> getEmployees() {
-    return employees;
+    return new ArrayList(employees);
   }
 
   public void setEmployees(List<Employee> employees) {
     this.employees = employees;
-  }
+      }
 
   public String getName() {
     return name;

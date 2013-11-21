@@ -100,9 +100,9 @@ public class Employee implements Serializable {
     public void setServices(List<Service> services) {
         this.services = services;
     }
-
+    
     public List<Service> getServices() {
-        return services;
+        return new ArrayList(services);
     }
 
     public String getSalary() {

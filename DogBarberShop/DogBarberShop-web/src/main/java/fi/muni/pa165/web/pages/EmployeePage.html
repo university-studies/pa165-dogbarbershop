@@ -34,8 +34,8 @@
         </form>
         <h2 wicket:id="whatToDo">Novy zakaznik</h2>
         <span wicket:id="feedback"/>
+        <form wicket:id="addEmployeeForm">
         <table>
-            <form wicket:id="addEmployeeForm">
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.name"/></th>
                 <td><input wicket:id="name" type="text"/></td>
@@ -60,8 +60,9 @@
                     <th></th>
                     <td><input wicket:id="submitButton" type="submit" wicket:message="value:EmployeePage.button.submit"/></td>
                 </tr>
-            </form>
-        </table>   
+            </table> 
+            <div wicket:id="palette"/>
+        </form>
     </wicket:extend>    
 
 </body>
