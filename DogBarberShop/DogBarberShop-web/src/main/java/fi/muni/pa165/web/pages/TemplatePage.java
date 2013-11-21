@@ -12,7 +12,7 @@ import org.apache.wicket.markup.html.basic.Label;
  *
  * @author Pavol Loffay <p.loffay@gmail.com>
  */
-public class TemplatePage extends WebPage {
+public abstract class TemplatePage extends WebPage {
     private Component menuPanel;
     private Component headerPanel;
     
