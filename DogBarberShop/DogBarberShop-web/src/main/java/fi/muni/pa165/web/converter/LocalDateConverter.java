@@ -3,7 +3,7 @@ package fi.muni.pa165.web.converter;
 import java.util.Locale;
 import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -11,15 +11,20 @@ import org.joda.time.format.DateTimeFormatter;
  *
  * @author Oliver Pentek
  */
-public class DateTimeConverter implements IConverter<DateTime> {
+public class LocalDateConverter implements IConverter<LocalDate> {
+    
+    public static final LocalDateConverter INSTANCE = new LocalDateConverter();
     
     private static final String STYLE = "M-";          //pri zmene stylu musim zmenit aj style v datepickery!!!
-    
+
+    private LocalDateConverter() {
+    }
+
     @Override
-    public DateTime convertToObject(String value, Locale locale) {
-        DateTime date = new DateTime();
+    public LocalDate convertToObject(String value, Locale locale) {
+        LocalDate date = new LocalDate();
         try {
-            date = this.prepareFormatter(locale).parseDateTime(value);
+            LocalDate.parse(value, prepareFormatter(locale));
         } catch (IllegalArgumentException ex) {
             ConversionException ce = new ConversionException(value);
             String dateFormat = DateTimeFormat.patternForStyle(STYLE, locale);
@@ -30,7 +35,7 @@ public class DateTimeConverter implements IConverter<DateTime> {
     }
 
     @Override
-    public String convertToString(DateTime value, Locale locale) {
+    public String convertToString(LocalDate value, Locale locale) {
         return this.prepareFormatter(locale).print(value);
     }
 

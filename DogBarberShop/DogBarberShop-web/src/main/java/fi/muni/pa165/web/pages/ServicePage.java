@@ -3,6 +3,7 @@ package fi.muni.pa165.web.pages;
 import fi.muni.pa165.dto.ServiceDto;
 import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.DogBarberShopApplication;
+import fi.muni.pa165.web.converter.DurationConverter;
 import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
