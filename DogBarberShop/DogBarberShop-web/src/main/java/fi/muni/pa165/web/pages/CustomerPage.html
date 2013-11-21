@@ -34,33 +34,30 @@
                     </span>
                 </table>
             </form>
-            <h2 wicket:id="headline_action">Novy zakaznik</h2>
-            <!--span wicket:id="feedback"/-->
-            <table>
-                <form wicket:id="form_dog_whole">
-                    <tr>
-                        <th><wicket:message key="CustomerPage.dog.name"/></th>
-                        <td><input wicket:id="input_name" type="text"/></td>
-                    </tr>
-                    <tr>
-                        <th><wicket:message key="CustomerPage.dog.breed"/></th>
-                        <td><input wicket:id="input_breed" type="text"/></td>
-                    </tr>
-                    <tr>
-                        <th><wicket:message key="CustomerPage.dog.birthdate"/></th>
-                        <td><input wicket:id="input_birthdate" type="text"/></td>
-                    </tr>
-                    <tr>
-                        <th><wicket:message key="CustomerPage.dog.owner"/></th>
-                        <!-- FIXME should be a choose-list of existing Customers -->
-                        <td><input wicket:id="input_owner" type="text"/></td>
-                    </tr>
-                    <tr>
-                        <td><input wicket:id="btn_submit" type="submit"
-                                   wicket:message="value:CustomerPage.btn.submit"/></td>
-                    </tr>
-                </form>
-            </table>
+            <h2 wicket:id="headline_action">THIS SHOULD BE SOLVED IN A BETTER WAY BECAUSE OF TRANSLATIONS</h2>
+            <form wicket:id="form_dog_whole">
+              <table>
+                <tr>
+                  <th><wicket:message key="CustomerPage.dog.name"/></th>
+                  <td><input wicket:id="input_name" type="text"/></td>
+                </tr>
+                <tr>
+                  <th><wicket:message key="CustomerPage.dog.breed"/></th>
+                  <td><input wicket:id="input_breed" type="text"/></td>
+                </tr>
+                <tr>
+                  <th><wicket:message key="CustomerPage.dog.birthdate"/></th>
+                  <td><input wicket:id="input_birthdate" type="text"/></td>
+                </tr>
+                <tr>
+                  <th><wicket:message key="CustomerPage.dog.owner"/></th>
+                  <!-- FIXME should be a choose-list of existing Customers -->
+                  <td><input wicket:id="input_owner" type="text"/></td>
+                </tr>
+              </table>
+              <input wicket:id="btn_submit" type="submit"
+                     wicket:message="value:CustomerPage.btn.submit"/>
+            </form>
         </wicket:extend>    
     </body>
 </html>
