@@ -5,8 +5,8 @@ import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.service.CustomerService;
 import fi.muni.pa165.service.DogService;
 import fi.muni.pa165.web.DogBarberShopApplication;
+import fi.muni.pa165.web.validator.LocalDateValidator;
 import java.util.List;
-import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -18,6 +18,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.joda.time.LocalDate;
+
+
 
 /**
  * @author Jan Pacner
@@ -41,8 +43,6 @@ public class DogPage extends TemplatePage {
   private static final String BTN_SUBMIT      = "btn_submit";
   private static final String H2_ACTION       = "h2_action";
 
-  //FIXME find translatable solution
-  //private Button btn_submit;
   private final Label action;
   private final Form form_dog_whole;
   private final Form form_listing;
@@ -51,12 +51,11 @@ public class DogPage extends TemplatePage {
   private State st = State.NEW_DOG;
   private final DogService dogser;
   private final CustomerService custser;
-  //private DogDto to_edit = null;
   private DropDownChoice select_owner;
-  //private DropDownChoice<CustomerDto> select_owner;
   private RequiredTextField input_name;
   private RequiredTextField input_breed;
-  private DateTextField input_birthdate;
+  private RequiredTextField input_birthdate;
+  //private DateTextField input_birthdate;
 
   private static DogDto newDogDto() {
     return new DogDto("Alik", "yorkshire", new LocalDate(2013, 1, 1), null);
@@ -130,10 +129,12 @@ public class DogPage extends TemplatePage {
     add(form_dog_whole = new Form<DogDto>(FORM_DOG_WHOLE, new Model()) {
       @Override
       protected void onModelChanged() {
-        if (input_name != null) input_name.setModelObject(form_dog_whole.getModelObject());
-        if (input_breed != null) input_breed.setModelObject(form_dog_whole.getModelObject());
+        if (input_name != null) input_name.setModelObject(
+                form_dog_whole.getModelObject());
+        if (input_breed != null) input_breed.setModelObject(
+                form_dog_whole.getModelObject());
         if (input_birthdate != null) input_birthdate.setModelObject(
-                ((DogDto)form_dog_whole.getModelObject()).getBirthDate().toDate());
+                form_dog_whole.getModelObject());
         if (select_owner != null) select_owner.setModelObject(form_dog_whole.getModelObject());
       }
 
@@ -148,12 +149,16 @@ public class DogPage extends TemplatePage {
                 new PropertyModel(form_dog_whole.getModelObject(), "name")));
         add(input_breed = new RequiredTextField(INPUT_BREED,
                 new PropertyModel(form_dog_whole.getModelObject(), "breed")));
-        //FIXME datepicker
-        add(input_birthdate = new DateTextField(
-                INPUT_BIRTHDATE,
+        add(input_birthdate = new RequiredTextField(INPUT_BIRTHDATE,
                 new PropertyModel(form_dog_whole.getModelObject(), "birthDate")));
+        //add(input_birthdate = new DateTextField(INPUT_BIRTHDATE,
+        //        new PropertyModel(form_dog_whole.getModelObject(), "birthDate"),
+        //        new StyleDateConverter(true)));
                 //(DateConverter)new fi.muni.pa165.web.converter.LocalDateConverter()));
                 //(DateConverter)new LocalDateConverter()));
+        //add(input_birthdate = new RequiredTextField(INPUT_BIRTHDATE, DateTime.class));
+        //input_birthdate.setRequired(true);
+        input_birthdate.add(new LocalDateValidator());
         add(select_owner = new DropDownChoice(
                 SELECT_OWNER,
                 new PropertyModel(form_dog_whole.getModelObject(), "owner"),
@@ -174,7 +179,6 @@ public class DogPage extends TemplatePage {
               return;
             }
 
-            //FIXME validate inputs
             switch (st) {
               case EDIT_DOG:
                 st = State.NEW_DOG;

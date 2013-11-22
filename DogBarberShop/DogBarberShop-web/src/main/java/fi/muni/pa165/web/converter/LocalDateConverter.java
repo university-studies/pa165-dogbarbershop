@@ -23,14 +23,15 @@ public class LocalDateConverter implements IConverter<LocalDate> {
     @Override
     public LocalDate convertToObject(String value, Locale locale) {
         LocalDate date = new LocalDate();
-        try {
+        // don't re-throw because we want to see the original one!
+        //try {
             LocalDate.parse(value, prepareFormatter(locale));
-        } catch (IllegalArgumentException ex) {
-            ConversionException ce = new ConversionException(value);
-            String dateFormat = DateTimeFormat.patternForStyle(STYLE, locale);
-            ce.setVariable("date-format", dateFormat);
-            throw ce;
-        }
+        //} catch (IllegalArgumentException ex) {
+        //    ConversionException ce = new ConversionException(value);
+        //    String dateFormat = DateTimeFormat.patternForStyle(STYLE, locale);
+        //    ce.setVariable("date-format", dateFormat);
+        //    throw ce;
+        //}
         return date;
     }
 
