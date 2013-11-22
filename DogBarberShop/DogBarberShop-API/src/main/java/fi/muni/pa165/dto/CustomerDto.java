@@ -1,11 +1,13 @@
 package fi.muni.pa165.dto;
 
+import java.io.Serializable;
+
 /**
  *  @TODO doplnit vsade validaciu aby sme nemali v DTO null hodnoty
  * 
  * @author Oliver Pentek
  */
-public class CustomerDto {
+public class CustomerDto implements Serializable {
     private Long id;
     private String name;
     private String surname;

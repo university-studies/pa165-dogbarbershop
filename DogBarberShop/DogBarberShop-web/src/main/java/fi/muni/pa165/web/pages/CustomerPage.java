@@ -1,11 +1,11 @@
 package fi.muni.pa165.web.pages;
 
 import fi.muni.pa165.dto.CustomerDto;
-import fi.muni.pa165.dto.DogDto;
-import fi.muni.pa165.service.DogService;
+import fi.muni.pa165.idao.CustomerDao;
+import fi.muni.pa165.service.CustomerService;
+import fi.muni.pa165.utils.CustomerConverter;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import java.util.List;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -15,7 +15,6 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
-import org.joda.time.LocalDate;
 
 /**
  * @author Jan Pacner
@@ -25,100 +24,101 @@ public class CustomerPage extends TemplatePage {
   private static final String FORM_LISTING    = "form_listing";
   private static final String SPAN_ROW00      = "span_row00";
   private static final String SPAN_NAME       = "span_name";
-  private static final String SPAN_BREED      = "span_breed";
-  private static final String SPAN_BIRTHDATE  = "span_birthdate";
-  private static final String SPAN_OWNER      = "span_owner";
+  private static final String SPAN_SURNAME    = "span_surname";
+  private static final String SPAN_PHONE      = "span_phone";
+  private static final String SPAN_ADDR       = "span_addr";
   private static final String BTN_DEL         = "btn_del";
   private static final String BTN_EDIT        = "btn_edit";
 
-  private static final String FORM_DOG_WHOLE  = "form_dog_whole";
+  private static final String FORM_WHOLE      = "form_whole";
   private static final String INPUT_NAME      = "input_name";
-  private static final String INPUT_BREED     = "input_breed";
-  private static final String INPUT_BIRTHDATE = "input_birthdate";
-  private static final String INPUT_OWNER     = "input_owner";
+  private static final String INPUT_SURNAME   = "input_surname";
+  private static final String INPUT_PHONE     = "input_phone";
+  private static final String INPUT_ADDR      = "input_addr";
   private static final String BTN_SUBMIT      = "btn_submit";
   //private static final String REFRESH_LINK = "refresh";
-  private static final String HEADLINE_ACTION = "headline_action";
+  private static final String H2_ACTION = "h2_action";
 
-  //FIXME find translatable solution
-  private static final String LBL_NEW_CUST = "Novy pes";
   private Label actionLbl;
-
   private boolean isUpdateButton;
-  private final DogService serv;
-
-  private static DogDto newDogDto() {
-    //FIXME CustomerDao() must already exist!
-    return new DogDto("name", "breed", new LocalDate(1999, 5, 26), new CustomerDto());
-  }
+  private final CustomerService serv;
 
   public CustomerPage() {
-    serv = DogBarberShopApplication.get().getDogService();
+    serv = DogBarberShopApplication.get().getCustomerService();
 
-    CompoundPropertyModel<DogDto> mod = new CompoundPropertyModel<>(newDogDto());
-    final Form<DogDto> form_dog_whole = new Form<DogDto>(FORM_DOG_WHOLE, mod) {
+    CompoundPropertyModel<CustomerDto> mod = new CompoundPropertyModel<>(new CustomerDto());
+    final Form<CustomerDto> form_whole = new Form<CustomerDto>(FORM_WHOLE, mod) {
       @Override
       protected void onSubmit() {
         super.onSubmit();
         if (CustomerPage.this.isUpdateButton) {
           //serv.updateDog(this.getModel().getObject());
-          serv.updateDog(this.getModelObject());
-          this.setModelObject(newDogDto());
-          actionLbl.setDefaultModelObject(LBL_NEW_CUST);
+          serv.updateCustomer(this.getModelObject());
+          this.setModelObject(new CustomerDto());
+          actionLbl.setDefaultModelObject(CustomerPage.this.getLocalizer()
+                  .getString("CustomerPage.action.new_cust", CustomerPage.this));
           isUpdateButton = false;
         }
         else {
-          serv.addDog(this.getModelObject());
-          this.setModelObject(newDogDto());
+          serv.addCustomer(this.getModelObject());
+          this.setModelObject(new CustomerDto());
         }
       }
     };
 
-    //add(new FeedbackPanel(FEEDBACK_PANEL));
-    // RequiredTextField("ID_from_HTML", mod.bind("class_attr_name")));
-    form_dog_whole.add(new RequiredTextField(INPUT_NAME, mod.bind("name")));
-    form_dog_whole.add(new RequiredTextField(INPUT_BREED, mod.bind("breed")));
-    form_dog_whole.add(new RequiredTextField(INPUT_BIRTHDATE, mod.bind("birthDate")));
-    form_dog_whole.add(new RequiredTextField(INPUT_OWNER, mod.bind("owner")));
-    form_dog_whole.add(new Button(BTN_SUBMIT));
-    add(form_dog_whole);
+    form_whole.add(new RequiredTextField(INPUT_NAME, mod.bind("name")));
+    form_whole.add(new RequiredTextField(INPUT_SURNAME, mod.bind("surname")));
+    form_whole.add(new RequiredTextField(INPUT_PHONE, mod.bind("phone")));
+    form_whole.add(new RequiredTextField(INPUT_ADDR, mod.bind("address")));
+    form_whole.add(new Button(BTN_SUBMIT));
+    add(form_whole);
 
-    final Form form_listing = new Form<DogDto>(
-            FORM_LISTING, new Model<DogDto>()) {
+    final Form form_listing = new Form<CustomerDto>(FORM_LISTING, new Model()) {
       @Override
       protected void onSubmit() {
         super.onSubmit();
         if (CustomerPage.this.isUpdateButton) {
-          form_dog_whole.setModelObject(this.getModelObject());
-          actionLbl.setDefaultModelObject("Uprava psa [" +
-                  this.getModelObject().getId() + "]");
+          form_whole.setModelObject(this.getModelObject());
+          actionLbl.setDefaultModelObject(CustomerPage.this.getLocalizer()
+                  .getString("CustomerPage.action.edit_cust", CustomerPage.this));
         }
         else {
-          serv.deleteDog(this.getModelObject());
-          form_dog_whole.setModelObject(newDogDto());
+          boolean fail = false;
+          try { serv.deleteCustomer(this.getModelObject()); }
+          catch (Exception e) {
+            fail = true;
+            actionLbl.setDefaultModelObject(CustomerPage.this.getLocalizer()
+                    .getString("CustomerPage.action.del_failed", CustomerPage.this));
+          }
+          if (! fail) form_whole.setModelObject(new CustomerDto());
         }
       }
     };
 
     form_listing.setOutputMarkupId(true);
-    form_listing.add(new ListView<DogDto>(SPAN_ROW00,
-            new InnerLoadableCustomerModel()) {
+    form_listing.add(new ListView<CustomerDto>(SPAN_ROW00,
+            new LoadableDetachableModel<List<CustomerDto>>() {
+              @Override
+              protected List<CustomerDto> load() {
+                return CustomerPage.this.serv.getAllCustomers();
+              }
+            })
+    {
       @Override
-      protected void populateItem(ListItem<DogDto> li) {
-        final DogDto dto = li.getModelObject();
+      protected void populateItem(ListItem<CustomerDto> li) {
+        final CustomerDto dto = li.getModelObject();
         li.add(new Label(SPAN_NAME, dto.getName()));
-        li.add(new Label(SPAN_BREED, dto.getBreed()));
-        li.add(new Label(SPAN_BIRTHDATE, dto.getBirthDate()));
-        //FIXME
-        //li.add(new Label(SPAN_OWNER, dto.getOwner()));
-        li.add(new Label(SPAN_OWNER, "FIXME!!!!!!!"));
+        li.add(new Label(SPAN_SURNAME, dto.getSurname()));
+        li.add(new Label(SPAN_PHONE, dto.getPhone()));
+        li.add(new Label(SPAN_ADDR, dto.getAddress()));
         li.add(new Button(BTN_DEL) {
           @Override
           public void onSubmit() {
             super.onSubmit();
             isUpdateButton = false;
             form_listing.setModelObject(dto);
-            actionLbl.setDefaultModelObject(LBL_NEW_CUST);
+            actionLbl.setDefaultModelObject(CustomerPage.this.getLocalizer()
+                    .getString("CustomerPage.action.new_cust", CustomerPage.this));
           }
         });
         li.add(new Button(BTN_EDIT) {
@@ -132,27 +132,9 @@ public class CustomerPage extends TemplatePage {
       }
     });
 
-    /*
-    form_listing.add(new AjaxLink(REFRESH_LINK) {
-      @Override
-      public void onClick(AjaxRequestTarget target) {
-        target.add(tableForm);
-        tableForm.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(5)));
-      }
-    });
-    */
-
-    //form_listing.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(5)));
     add(form_listing);
-    add(actionLbl = new Label(HEADLINE_ACTION, new Model()));
-    actionLbl.setDefaultModelObject(LBL_NEW_CUST);
-  }
-
-  private class InnerLoadableCustomerModel extends
-          LoadableDetachableModel<List<DogDto>> {
-    @Override
-    protected List<DogDto> load() {
-      return CustomerPage.this.serv.getAllDogs();
-    }
+    add(actionLbl = new Label(H2_ACTION, new Model()));
+    actionLbl.setDefaultModelObject(CustomerPage.this.getLocalizer()
+            .getString("CustomerPage.action.new_cust", CustomerPage.this));
   }
 }

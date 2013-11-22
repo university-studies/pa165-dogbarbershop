@@ -67,7 +67,8 @@ public class ServiceDaoImpl implements ServiceDao {
           employee.removeService(service);
           em.merge(employee);
       }
-      em.remove(service);
+      // merge first to prevent entity detaching
+      em.remove(em.merge(service));
     }
     catch (Exception e) {
       throw new DataAccessException("Could not remove Service with id " +

@@ -55,7 +55,7 @@ public class CustomerDaoImpl implements CustomerDao{
     public void deleteCustomer(Customer customer) {
         Validate.isTrue(customer != null, "Customer cannot be null!");
         Validate.isTrue(customer.getId() != null, "Customer's ID cannot be null!");
-        em.remove(customer);
+        em.remove(em.merge(customer));
         //return customer;
     }
     

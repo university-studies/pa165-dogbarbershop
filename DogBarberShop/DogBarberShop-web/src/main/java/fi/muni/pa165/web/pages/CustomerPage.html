@@ -13,19 +13,19 @@
                 <table border="1">
                     <thead>
                         <tr>
-                            <th><wicket:message key="CustomerPage.dog.name"/></th>
-                            <th><wicket:message key="CustomerPage.dog.breed"/></th>
-                            <th><wicket:message key="CustomerPage.dog.birthdate"/></th>
-                            <th><wicket:message key="CustomerPage.dog.owner"/></th>
+                            <th><wicket:message key="CustomerPage.cust.name"/></th>
+                            <th><wicket:message key="CustomerPage.cust.surname"/></th>
+                            <th><wicket:message key="CustomerPage.cust.phone"/></th>
+                            <th><wicket:message key="CustomerPage.cust.addr"/></th>
                         </tr>
                     </thead>
                     <span wicket:id="span_row00">
                         <tr>
                             <td><span wicket:id="span_name"></span></td>
-                            <td><span wicket:id="span_breed"></span></td>
-                            <td><span wicket:id="span_birthdate"></span></td>
+                            <td><span wicket:id="span_surname"></span></td>
+                            <td><span wicket:id="span_phone"></span></td>
                             <!-- FIXME should a link to the corresponding CustomerPage -->
-                            <td><span wicket:id="span_owner"></span></td>
+                            <td><span wicket:id="span_addr"></span></td>
                             <td><input wicket:id="btn_del" type="submit"
                                        wicket:message="value:CustomerPage.btn.del"/></td>
                             <td><input wicket:id="btn_edit" type="submit"
@@ -35,28 +35,28 @@
                 </table>
             </form>
             <h2 wicket:id="h2_action">THIS SHOULD BE SOLVED IN A BETTER WAY BECAUSE OF TRANSLATIONS</h2>
-            <form wicket:id="form_dog_whole">
+            <form wicket:id="form_whole">
               <table>
                 <tr>
-                  <th><wicket:message key="CustomerPage.dog.name"/></th>
+                  <th><wicket:message key="CustomerPage.cust.name"/></th>
                   <td><input wicket:id="input_name" type="text"/></td>
                 </tr>
                 <tr>
-                  <th><wicket:message key="CustomerPage.dog.breed"/></th>
-                  <td><input wicket:id="input_breed" type="text"/></td>
+                  <th><wicket:message key="CustomerPage.cust.surname"/></th>
+                  <td><input wicket:id="input_surname" type="text"/></td>
                 </tr>
                 <tr>
-                  <th><wicket:message key="CustomerPage.dog.birthdate"/></th>
-                  <td><input wicket:id="input_birthdate" type="text"/></td>
+                  <th><wicket:message key="CustomerPage.cust.phone"/></th>
+                  <td><input wicket:id="input_phone" type="text"/></td>
                 </tr>
                 <tr>
-                  <th><wicket:message key="CustomerPage.dog.owner"/></th>
+                  <th><wicket:message key="CustomerPage.cust.addr"/></th>
                   <!-- FIXME should be a choose-list of existing Customers -->
-                  <td><input wicket:id="input_owner" type="text"/></td>
+                  <td><input wicket:id="input_addr" type="text"/></td>
                 </tr>
               </table>
-              <input wicket:id="btn_submit" type="submit"
-                     wicket:message="value:CustomerPage.btn.submit"/>
+              <th><input wicket:id="btn_submit" type="submit"
+                         wicket:message="value:CustomerPage.btn.submit"/></th>
             </form>
         </wicket:extend>    
     </body>

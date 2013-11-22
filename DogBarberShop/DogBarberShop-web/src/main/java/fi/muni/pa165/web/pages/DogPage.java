@@ -5,8 +5,6 @@ import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.service.CustomerService;
 import fi.muni.pa165.service.DogService;
 import fi.muni.pa165.web.DogBarberShopApplication;
-import fi.muni.pa165.web.converter.LocalDateConverter;
-import java.util.Date;
 import java.util.List;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.basic.Label;
@@ -19,7 +17,6 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.util.convert.converter.DateConverter;
 import org.joda.time.LocalDate;
 
 /**

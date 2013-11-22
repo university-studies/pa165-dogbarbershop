@@ -96,19 +96,14 @@ public class ServiceServiceImpl implements ServiceService {
     return res;
   }
   
-  // Honzo, na tuto metodu sa pozabudlo ;) Martin
-    @Transactional
-    @Override
-    public List<ServiceDto> getAllServices() {
-        List<ServiceDto> listServicesDto = new ArrayList<>();
-        try {
-            for (fi.muni.pa165.entity.Service service : sd.getAllServices()){
-                listServicesDto.add(ServiceConverter.convertToDto(service));
-            }
-        }
-        catch (Exception ex) {
-            throw new DataAccessException("Error during accessing persistence layer") {};
-        }
-        return listServicesDto;
+  @Transactional
+  @Override
+  public List<ServiceDto> getAllServices() {
+    List<fi.muni.pa165.entity.Service> l = sd.getAllServices();
+    List<ServiceDto> res = new ArrayList<>();
+    for (fi.muni.pa165.entity.Service e : l) {
+      res.add(ServiceConverter.convertToDto(e));
     }
+    return res;
+  }
 }
