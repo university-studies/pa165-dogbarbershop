@@ -72,18 +72,16 @@ public class EmployeePage extends TemplatePage {
             protected void onSubmit() {
                 IModel<EmployeeDto> model = this.getModel();
                 EmployeeDto employee = model.getObject();
+                employee.setServices(new ArrayList<>(palette.getModelCollection()));
                 if (!EmployeePage.this.isUpdateButton) {                        //adding
-                    employee.setServices(new ArrayList<>(palette.getModelCollection()));
                     service.addEmployee(employee);
-                    palette.setModel(new ListModel(new ArrayList<ServiceDto>()));
-                    this.setModelObject(new EmployeeDto());
-                } else {                                                        //updating
+                } else {                                                        //updating   
                     service.updateEmloyee(employee);
-                    this.setModelObject(new EmployeeDto());
                     setNewCustomerLabel();
                     isUpdateButton = false;
-                    palette.setModel(new ListModel(new ArrayList<ServiceDto>()));
                 }
+                this.setModelObject(new EmployeeDto());
+                palette.setModel(new ListModel(new ArrayList<ServiceDto>()));
             }
         };
 
@@ -104,7 +102,7 @@ public class EmployeePage extends TemplatePage {
 		palette = new Palette<>(ComponentIDs.PALETTE,
 				new ListModel<>(selectedServices),
 				new CollectionModel<>(unselectedServices),
-				renderer, 10, true);
+				renderer, 10, Boolean.FALSE);
 		
 		editableForm.add(palette);
         //tabulka
