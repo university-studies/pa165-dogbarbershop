@@ -6,6 +6,7 @@ import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.faces.validator.LengthValidator;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -79,8 +80,9 @@ public class EmployeePage extends TemplatePage {
                 IModel<EmployeeDto> model = this.getModel();
                 EmployeeDto employee = model.getObject();
                 if (!EmployeePage.this.isUpdateButton) {                        //adding
-                    employee.setServices(new ArrayList(palette.getModelCollection()));;
+                    employee.setServices(new ArrayList<>(palette.getModelCollection()));
                     service.addEmployee(employee);
+                    palette.setModel(new ListModel(new ArrayList<ServiceDto>()));
                     this.setModelObject(new EmployeeDto());
                 } else {                                                        //updating
                     service.updateEmloyee(employee);
@@ -103,7 +105,7 @@ public class EmployeePage extends TemplatePage {
         // paleta
         selectedServices = new ArrayList<>();
         unselectedServices = serviceService.getAllServices();
-        IChoiceRenderer<ServiceDto> renderer = new ChoiceRenderer<>();
+        IChoiceRenderer<ServiceDto> renderer = new ChoiceRenderer<>("name", "id");
 		
 		palette = new Palette<>(ComponentIDs.PALETTE,
 				new ListModel<>(selectedServices),
