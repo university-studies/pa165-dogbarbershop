@@ -1,5 +1,6 @@
 package fi.muni.pa165.web;
 
+import fi.muni.pa165.service.CustomerService;
 import fi.muni.pa165.service.DogService;
 import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.service.ServiceService;
@@ -18,20 +19,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Oliver Pentek
+ * @author Oliver Pentek, Jan Pacner
  */
 public class DogBarberShopApplication extends WebApplication {
 
     @Autowired
     private EmployeeService employeeService;
     @Autowired
-    private DogService dog_service;
+    private DogService dogService;
     @Autowired
     private ServiceService serviceService;
+    @Autowired
+    private CustomerService customerService;
+
+    @Nonnull
+    public CustomerService getCustomerService() {
+      return customerService;
+    }
     
     @Nonnull
-    public DogService getDog_service() {
-      return dog_service;
+    public DogService getDogService() {
+      return dogService;
     }
 
     @Nonnull
@@ -40,7 +48,7 @@ public class DogBarberShopApplication extends WebApplication {
     }
     
     @Nonnull
-    public EmployeeService getemployeeService() {
+    public EmployeeService getEmployeeService() {
         return this.employeeService;
     }
     
@@ -59,6 +67,9 @@ public class DogBarberShopApplication extends WebApplication {
         super.init();
         Validate.notNull(employeeService);
         Validate.notNull(serviceService);
+        Validate.notNull(dogService);
+        Validate.notNull(serviceService);
+        Validate.notNull(customerService);
     }
 
     @Override

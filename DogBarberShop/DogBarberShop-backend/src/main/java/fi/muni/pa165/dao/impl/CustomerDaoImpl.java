@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.Validate;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -61,13 +62,14 @@ public class CustomerDaoImpl implements CustomerDao{
     @Override
     public List<Customer> getAllCustomers(){
         TypedQuery<Customer> query = em.createQuery("select c from Customer c ", Customer.class);
-        if (query.getResultList() == null){
-            throw new IllegalArgumentException("Query returned null.");
+        List<Customer> l = null;
+        try {
+          l = query.getResultList();
         }
-//        if (query.getResultList().size() < 1) {
-//            throw new IllegalArgumentException("No record found");        
-//        }
-        return query.getResultList();
+        catch (Exception e) {
+          throw new DataAccessException("TypeQuery.getResultList() threw exception.") {};
+        }
+        return l;
     }
 
     @Override

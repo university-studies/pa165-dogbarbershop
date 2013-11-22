@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.muni.pa165.web.pages;
+package fi.muni.pa165.web.components;
 
 import org.apache.wicket.markup.html.panel.Panel;
 

@@ -38,12 +38,8 @@ public class EmployeeServiceImpl implements EmployeeService{
         Validate.isTrue(empDto.getId() == null, "empDto.id is not null!");
         
         try {
-            Employee employee = EmployeeConverter.EmployeeDtoToEmployee(empDto);
-            List<fi.muni.pa165.entity.Service> services = employee.getServices();
-            employee.setServices(null);
+            final Employee employee = EmployeeConverter.EmployeeDtoToEmployee(empDto);
             employeeDao.createEmployee(employee);
-            employee.setServices(services);
-            employeeDao.updateEmployee(employee);
         }
         catch (Exception ex){
             throw new DataAccessException("Error during addEmployee") {};

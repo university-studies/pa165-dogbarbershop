@@ -22,7 +22,6 @@ import org.joda.time.LocalDate;
  */
 public class CustomerPage extends TemplatePage {
   /* HTML element IDs */
-  //private static final String FEEDBACK_PANEL = "feedback";
   private static final String FORM_LISTING    = "form_listing";
   private static final String SPAN_ROW00      = "span_row00";
   private static final String SPAN_NAME       = "span_name";
@@ -54,7 +53,7 @@ public class CustomerPage extends TemplatePage {
   }
 
   public CustomerPage() {
-    serv = DogBarberShopApplication.get().getDog_service();
+    serv = DogBarberShopApplication.get().getDogService();
 
     CompoundPropertyModel<DogDto> mod = new CompoundPropertyModel<>(newDogDto());
     final Form<DogDto> form_dog_whole = new Form<DogDto>(FORM_DOG_WHOLE, mod) {

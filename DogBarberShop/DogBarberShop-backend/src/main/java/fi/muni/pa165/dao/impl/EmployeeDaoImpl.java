@@ -2,6 +2,7 @@ package fi.muni.pa165.dao.impl;
 
 import fi.muni.pa165.idao.EmployeeDao;
 import fi.muni.pa165.entity.Employee;
+import fi.muni.pa165.entity.Service;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,7 +32,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
     
     @Override
     public Employee createEmployee(Employee employee) {
-        em.persist(employee);
+        final List<Service> services = employee.getServices();
+        if (services != null) {
+            employee.setServices(null);
+            em.persist(employee);
+            employee.setServices(services);
+            em.merge(employee);
+        } else {
+            em.persist(employee);
+        }
         return employee;
     }
     
