@@ -19,8 +19,8 @@
                             <th><wicket:message key="DogPage.dog.owner"/></th>
                         </tr>
                     </thead>
-                    <span wicket:id="span_row00">
-                        <tr>
+                    <!--span wicket:id="span_row00"-->
+                        <tr wicket:id="span_row00">
                             <td><span wicket:id="span_name"></span></td>
                             <td><span wicket:id="span_breed"></span></td>
                             <td><span wicket:id="span_birthdate"></span></td>
@@ -31,11 +31,13 @@
                             <td><input wicket:id="btn_edit" type="submit"
                                        wicket:message="value:DogPage.btn.edit"/></td>
                         </tr>
-                    </span>
+                    <!--/span-->
                 </table>
             </form>
-            <h2 wicket:id="headline_action">THIS SHOULD BE SOLVED IN A BETTER WAY BECAUSE OF TRANSLATIONS</h2>
+            <h2><wicket:message wicket:id="h2_action" key="DogPage.action.init"/></h2>
             <form wicket:id="form_dog_whole">
+            <!-- form wicket:id="form_dog_whole" style="display:none;"-->
+            <!-- FIXME form wicket:id="form_dog_whole" style="display: inline;"-->
               <table>
                 <tr>
                   <th><wicket:message key="DogPage.dog.name"/></th>
@@ -51,8 +53,7 @@
                 </tr>
                 <tr>
                   <th><wicket:message key="DogPage.dog.owner"/></th>
-                  <!-- FIXME should be a drop-down list of existing Customers -->
-                  <td><input wicket:id="input_owner" type="text"/></td>
+                  <td><select wicket:id="select_owner"></select></td>
                 </tr>
               </table>
               <input wicket:id="btn_submit" type="submit"
