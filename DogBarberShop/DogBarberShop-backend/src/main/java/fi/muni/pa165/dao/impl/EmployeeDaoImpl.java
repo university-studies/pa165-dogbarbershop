@@ -36,7 +36,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
         if (services != null) {
             employee.setServices(null);
             em.persist(employee);
-            employee.setServices(services);
+            for(Service ser : services){
+                employee.addService(ser);
+            }
             em.merge(employee);
         } else {
             em.persist(employee);

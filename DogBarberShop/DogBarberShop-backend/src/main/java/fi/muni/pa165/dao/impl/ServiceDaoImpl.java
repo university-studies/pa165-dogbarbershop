@@ -4,6 +4,7 @@
  */
 package fi.muni.pa165.dao.impl;
 
+import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.idao.ServiceDao;
 import fi.muni.pa165.entity.Service;
 import java.util.List;
@@ -32,8 +33,19 @@ public class ServiceDaoImpl implements ServiceDao {
 
   @Override
   public Service addService(Service s) {
+    List<Employee> employees = s.getEmployees();
     try {
-      em.persist(s);
+        if(employees != null){
+            s.setEmployees(null);
+            em.persist(s);
+            for (Employee e : employees){
+                s.addEmployee(e);
+            }
+            em.merge(s);
+        }
+        else {
+            em.persist(s);
+        }
     }
     catch (Exception e) {
       throw new DataAccessException("Could not persist given Service.") {};

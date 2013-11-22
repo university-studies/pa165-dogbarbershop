@@ -47,7 +47,19 @@ public class Service implements Serializable {
 
   public void setEmployees(List<Employee> employees) {
     this.employees = employees;
+  }
+  
+  public void addEmployee(Employee employee){
+      if(!employees.contains(employee)){
+          employees.add(employee);
       }
+  }
+  
+  public void removeEmployee(Employee employee){
+      if(employees.contains(employee)){
+          employees.remove(employee);
+      }
+  }
 
   public String getName() {
     return name;
