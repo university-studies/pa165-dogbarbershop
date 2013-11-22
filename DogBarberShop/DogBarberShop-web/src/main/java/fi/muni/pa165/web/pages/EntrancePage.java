@@ -4,7 +4,6 @@ import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.dto.ServiceDto;
 import fi.muni.pa165.service.DogService;
 import fi.muni.pa165.service.DogServiceService;
-import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import org.apache.wicket.markup.html.form.Button;
@@ -38,6 +37,8 @@ public final class EntrancePage extends TemplatePage {
             protected void onSubmit() {
                 super.onSubmit();
                 dogServiceService.createDogService(dogDropDownChoice.getModelObject(), serviceDownChoice.getModelObject(), null);
+                dogDropDownChoice.setModelObject(null);
+                serviceDownChoice.setModelObject(null);
             }
             
         };
