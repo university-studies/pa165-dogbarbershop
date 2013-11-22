@@ -17,7 +17,7 @@ public class LocalDateConverter implements IConverter<LocalDate> {
     
     private static final String STYLE = "M-";          //pri zmene stylu musim zmenit aj style v datepickery!!!
 
-    private LocalDateConverter() {
+    public LocalDateConverter() {
     }
 
     @Override

@@ -31,6 +31,11 @@ public class CustomerDto {
     
     }
 
+    @Override
+    public String toString() {
+      return name + " " + surname;
+    }
+
     public String getAddress() {
         return address;
     }
