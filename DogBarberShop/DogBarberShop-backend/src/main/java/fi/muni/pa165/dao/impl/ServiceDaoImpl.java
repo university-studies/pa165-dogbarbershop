@@ -73,7 +73,8 @@ public class ServiceDaoImpl implements ServiceDao {
       s = q.getSingleResult();  // throws excptn if 0 || >1 results
     }
     catch (Exception e) {
-      throw new DataAccessException("Could not update/merge given Service.") {};
+      throw new DataAccessException(
+              "Select unexpectedly returned 0 || >1 results.") {};
     }
     return s;
   }
@@ -88,7 +89,7 @@ public class ServiceDaoImpl implements ServiceDao {
       l = q.getResultList();
     }
     catch (Exception e) {
-      throw new DataAccessException("Could not update/merge given Service.") {};
+      throw new DataAccessException("TypeQuery.getResultList() threw exception.") {};
     }
     return l;
   }
@@ -103,7 +104,7 @@ public class ServiceDaoImpl implements ServiceDao {
       l = q.getResultList();
     }
     catch (Exception e) {
-      throw new DataAccessException("Could not update/merge given Service.") {};
+      throw new DataAccessException("TypeQuery.getResultList() threw exception.") {};
     }
     return l;
   }
@@ -111,28 +112,30 @@ public class ServiceDaoImpl implements ServiceDao {
   @Override
   public List<Service> getServiceByDuration(Duration duration) {
     TypedQuery<Service> q = em.createQuery(
-            "SELECT s FROM Service AS s where s.duration = :duration", Service.class);
+            "SELECT s FROM Service AS s where s.duration = :duration",
+            Service.class);
     q.setParameter("duration", duration);
     List<Service> l = null;
     try {
       l = q.getResultList();
     }
     catch (Exception e) {
-      throw new DataAccessException("Could not update/merge given Service.") {};
+      throw new DataAccessException("TypeQuery.getResultList() threw exception.") {};
     }
     return l;
   }
 
-  // doplnena
-    @Override
-    public List<Service> getAllServices() {
-        TypedQuery<Service> query = em.createQuery("select s from Service s ", Service.class);
-        if (query.getResultList() == null){
-            throw new IllegalArgumentException("Query returned null.");
-        }
-        if (query.getResultList().size() < 0) {
-            throw new IllegalArgumentException("No record found");        
-        }
-        return query.getResultList();
+  @Override
+  public List<Service> getAllServices() {
+    TypedQuery<Service> q = em.createQuery(
+            "select s from Service s", Service.class);
+    List<Service> l = null;
+    try {
+      l = q.getResultList();
     }
+    catch (Exception e) {
+      throw new DataAccessException("TypeQuery.getResultList() threw exception.") {};
+    }
+    return l;
+  }
 }
