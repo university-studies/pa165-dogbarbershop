@@ -2,6 +2,7 @@ package fi.muni.pa165.web;
 
 import fi.muni.pa165.service.CustomerService;
 import fi.muni.pa165.service.DogService;
+import fi.muni.pa165.service.DogServiceService;
 import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.converter.DurationConverter;
@@ -31,7 +32,14 @@ public class DogBarberShopApplication extends WebApplication {
     private ServiceService serviceService;
     @Autowired
     private CustomerService customerService;
-
+    @Autowired
+    private DogServiceService dogServiceService;
+    
+    @Nonnull
+    public DogServiceService getDogServiceService() {
+        return dogServiceService;
+    }
+    
     @Nonnull
     public CustomerService getCustomerService() {
       return customerService;
