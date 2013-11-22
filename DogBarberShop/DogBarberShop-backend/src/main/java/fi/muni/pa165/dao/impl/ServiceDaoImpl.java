@@ -42,6 +42,8 @@ public class ServiceDaoImpl implements ServiceDao {
             s.setEmployees(new ArrayList<Employee>());
             for (Employee e : employees){
                 s.addEmployee(e);
+                e.addService(s);
+                em.merge(e);
             }
             //s.setEmployees(employees);
             em.merge(s);
@@ -58,8 +60,14 @@ public class ServiceDaoImpl implements ServiceDao {
 
   @Override
   public void delService(Long id) {
+    Service service = null;  
     try {
-      em.remove(getServiceById(id));
+      service = getServiceById(id);
+      for (Employee employee : service.getEmployees()){
+          employee.removeService(service);
+          em.merge(employee);
+      }
+      em.remove(service);
     }
     catch (Exception e) {
       throw new DataAccessException("Could not remove Service with id " +

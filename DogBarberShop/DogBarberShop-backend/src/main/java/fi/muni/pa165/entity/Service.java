@@ -27,7 +27,7 @@ public class Service implements Serializable {
   private Long price;  // CZK
   private Duration duration;  // ms
   
-  @ManyToMany(mappedBy = "services", cascade={CascadeType.PERSIST, CascadeType.MERGE})
+  @ManyToMany(mappedBy = "services", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   private List<Employee> employees = new ArrayList<>();
 
   public Service() {

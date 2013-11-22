@@ -40,6 +40,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
             employee.setServices(new ArrayList<Service>());
             for(Service ser : services){
                 employee.addService(ser);
+                ser.addEmployee(employee);
+                em.merge(ser);
             }
             //employee.setServices(services);
             em.merge(employee);
@@ -58,6 +60,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public void deleteEmployee(Employee employee) {
         employee = em.merge(employee);
+        for (Service service : employee.getServices()){
+            service.removeEmployee(employee);
+            em.merge(service);
+        }
         em.remove(employee);
     }
     
