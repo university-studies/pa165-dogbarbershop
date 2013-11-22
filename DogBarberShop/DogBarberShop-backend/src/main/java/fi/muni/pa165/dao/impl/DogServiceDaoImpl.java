@@ -63,9 +63,9 @@ public class DogServiceDaoImpl implements DogServiceDao{
         if (query.getResultList() == null){
             throw new RuntimeException("Query returned null.");
         }
-        if (query.getResultList().size() < 1) {
-            throw new RuntimeException("No record found");        
-        }
+//        if (query.getResultList().size() < 1) {
+//            throw new RuntimeException("No record found");        
+//        }
         return query.getResultList();
     }
 
@@ -77,9 +77,9 @@ public class DogServiceDaoImpl implements DogServiceDao{
         if (query.getResultList() == null){
             throw new RuntimeException("Query returned null.");
         }
-        if (query.getResultList().size() < 1) {
-            throw new RuntimeException("No record found");        
-        }
+//        if (query.getResultList().size() < 1) {
+//            throw new RuntimeException("No record found");        
+//        }
         return query.getResultList();
     }
 
@@ -105,9 +105,9 @@ public class DogServiceDaoImpl implements DogServiceDao{
         if (query.getResultList() == null){
             throw new RuntimeException("Query returned null.");
         }
-        if (query.getResultList().size() < 1) {
-            throw new RuntimeException("No record found");        
-        }
+//        if (query.getResultList().size() < 1) {
+//            throw new RuntimeException("No record found");        
+//        }
         return query.getResultList();
     }
 

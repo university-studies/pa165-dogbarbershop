@@ -64,9 +64,9 @@ public class CustomerDaoImpl implements CustomerDao{
         if (query.getResultList() == null){
             throw new IllegalArgumentException("Query returned null.");
         }
-        if (query.getResultList().size() < 1) {
-            throw new IllegalArgumentException("No record found");        
-        }
+//        if (query.getResultList().size() < 1) {
+//            throw new IllegalArgumentException("No record found");        
+//        }
         return query.getResultList();
     }
 
