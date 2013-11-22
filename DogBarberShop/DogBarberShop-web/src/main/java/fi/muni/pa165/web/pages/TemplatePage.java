@@ -4,9 +4,10 @@
  */
 package fi.muni.pa165.web.pages;
 
+import fi.muni.pa165.web.components.MenuPanel;
+import fi.muni.pa165.web.components.HeaderPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.basic.Label;
 
 /**
  *

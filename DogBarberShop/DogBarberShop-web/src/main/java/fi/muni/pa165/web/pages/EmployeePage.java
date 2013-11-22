@@ -6,14 +6,8 @@ import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import javax.faces.validator.LengthValidator;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.form.palette.Palette;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -29,7 +23,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.CollectionModel;
 import org.apache.wicket.model.util.ListModel;
-import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.validation.validator.StringValidator;
 
 /**
@@ -50,7 +43,7 @@ public class EmployeePage extends TemplatePage {
 
     public EmployeePage() {
         super();
-        service = DogBarberShopApplication.get().getemployeeService();
+        service = DogBarberShopApplication.get().getEmployeeService();
         serviceService = DogBarberShopApplication.get().getServiceService();
         this.initComponents();
     }
@@ -72,7 +65,7 @@ public class EmployeePage extends TemplatePage {
         /*
          * Kontrola vstupnych dat - ak sa nepodari zobrazi sa FeedBackPanel
          */
-        phone.add(new StringValidator(6, 9));
+        phone.add(new StringValidator(6, 15));
         
         final Form<EmployeeDto> editableForm = new Form<EmployeeDto>(ComponentIDs.ADD_EDIT_FORM, new CompoundPropertyModel<>(new EmployeeDto())) {
             @Override
@@ -89,6 +82,7 @@ public class EmployeePage extends TemplatePage {
                     this.setModelObject(new EmployeeDto());
                     setNewCustomerLabel();
                     isUpdateButton = false;
+                    palette.setModel(new ListModel(new ArrayList<ServiceDto>()));
                 }
             }
         };
@@ -113,7 +107,7 @@ public class EmployeePage extends TemplatePage {
 				renderer, 10, true);
 		
 		editableForm.add(palette);
-        
+        //tabulka
         final Form tableForm = new Form<EmployeeDto>(ComponentIDs.TABLE_FORM, new Model<EmployeeDto>()) {
             @Override
             protected void onSubmit() {
@@ -128,7 +122,7 @@ public class EmployeePage extends TemplatePage {
                 }
             }
         };
-
+        
         final IModel<? extends List<? extends EmployeeDto>> employeeModel = new InnerLoadableCustomerModel();
         final ListView<EmployeeDto> listView = new ListView<EmployeeDto>(ComponentIDs.EMPLOYEES_LIST, employeeModel) {
             @Override
@@ -146,6 +140,7 @@ public class EmployeePage extends TemplatePage {
                         isUpdateButton = false;
                         tableForm.setModelObject(employee);
                         setNewCustomerLabel();
+                        palette.setModel(new ListModel(new ArrayList<>()));
                     }
                 });
 
@@ -155,6 +150,7 @@ public class EmployeePage extends TemplatePage {
                         super.onSubmit();
                         isUpdateButton = true;
                         tableForm.setModelObject(employee);
+                        palette.setModel(new ListModel(employee.getServices()));
                     }
                 });
             }

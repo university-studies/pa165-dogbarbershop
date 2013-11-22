@@ -40,7 +40,7 @@ public class DogBarberShopApplication extends WebApplication {
     }
     
     @Nonnull
-    public EmployeeService getemployeeService() {
+    public EmployeeService getEmployeeService() {
         return this.employeeService;
     }
     
