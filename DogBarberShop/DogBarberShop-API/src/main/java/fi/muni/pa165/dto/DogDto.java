@@ -15,6 +15,11 @@ public class DogDto implements Serializable {
     private LocalDate birthDate;
     private CustomerDto owner;
 
+    public DogDto() {
+    }
+    
+    
+
     public DogDto(Long id, String name, String breed, LocalDate birthDate, CustomerDto owner) {
         this.id = id;
         this.name = name;

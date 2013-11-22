@@ -33,10 +33,15 @@ public final class DogServicePage extends TemplatePage {
     private void initComponents() {
         IChoiceRenderer<DogDto> dogRenderer = new ChoiceRenderer<>("name", "id");
         IChoiceRenderer<ServiceDto> serviceRenderer = new ChoiceRenderer<>("name", "id");
+        
         final DropDownChoice<DogDto> dogDropDownChoice = new DropDownChoice(
                 ComponentIDs.DOG_DROP_DOWN_CHOICE, new Model<DogDto>(),dogService.getAllDogs(), dogRenderer);
+        //dogDropDownChoice.setMarkupId("dogDropDownChoiceDCC");
+        
         final DropDownChoice<ServiceDto> serviceDownChoice = new DropDownChoice(
                 ComponentIDs.SERVICE_DROP_DOWN_CHOICE, new Model<ServiceDto>(), serviceService.getAllServices(), serviceRenderer);
+        //serviceDownChoice.setMarkupId("serviceDownChoiceDCC");
+        
         final Form addDogService = new Form (ComponentIDs.ADD_DOG_SERVICE_FORM) {
 
             @Override
