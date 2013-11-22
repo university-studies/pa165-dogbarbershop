@@ -6,10 +6,11 @@
     </head>
     <body>
     <wicket:extend>
-        <a wicket:id="employeeLink"><wicket:message key="EntrancePage.employeeLink"/></a>
-        <br><a wicket:id="a_dog"><wicket:message key="EntrancePage.a_dog"/></a>
-        <br><a wicket:id="a_customer"><wicket:message key="EntrancePage.a_customer"/></a>
-        <br><a wicket:id="serviceLink"><wicket:message key="EntrancePage.serviceLink"/></a>
+        <form wicket:id="addDogServiceForm">
+            <select wicket:id="dogDropDownChoice"/>
+            <select wicket:id="serviceDropDownChoice"/>
+            <input wicket:id="submitButton" type="submit" wicket:message="value:EmployeePage.button.submit"/>
+        </form>
     </wicket:extend>    
 </body>
 </html>
