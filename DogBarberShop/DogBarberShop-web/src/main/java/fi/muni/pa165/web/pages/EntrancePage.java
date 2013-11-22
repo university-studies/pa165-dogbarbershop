@@ -7,8 +7,10 @@ import fi.muni.pa165.service.DogServiceService;
 import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.model.Model;
 
 /**
@@ -29,8 +31,12 @@ public final class EntrancePage extends TemplatePage {
     }
     
     private void initComponents() {
-        final DropDownChoice<DogDto> dogDropDownChoice = new DropDownChoice(ComponentIDs.DOG_DROP_DOWN_CHOICE, new Model<DogDto>(),dogService.getAllDogs());
-        final DropDownChoice<ServiceDto> serviceDownChoice = new DropDownChoice(ComponentIDs.SERVICE_DROP_DOWN_CHOICE, new Model<ServiceDto>(), serviceService.getAllServices());
+        IChoiceRenderer<DogDto> dogRenderer = new ChoiceRenderer<>("name", "id");
+        IChoiceRenderer<ServiceDto> serviceRenderer = new ChoiceRenderer<>("name", "id");
+        final DropDownChoice<DogDto> dogDropDownChoice = new DropDownChoice(
+                ComponentIDs.DOG_DROP_DOWN_CHOICE, new Model<DogDto>(),dogService.getAllDogs(), dogRenderer);
+        final DropDownChoice<ServiceDto> serviceDownChoice = new DropDownChoice(
+                ComponentIDs.SERVICE_DROP_DOWN_CHOICE, new Model<ServiceDto>(), serviceService.getAllServices(), serviceRenderer);
         final Form addDogService = new Form (ComponentIDs.ADD_DOG_SERVICE_FORM) {
 
             @Override
