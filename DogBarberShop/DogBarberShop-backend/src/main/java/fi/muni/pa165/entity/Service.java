@@ -3,11 +3,14 @@ package fi.muni.pa165.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.joda.time.Duration;
 
 /**
@@ -24,7 +27,7 @@ public class Service implements Serializable {
   private Long price;  // CZK
   private Duration duration;  // ms
   
-  @ManyToMany(mappedBy = "services")
+  @ManyToMany(mappedBy = "services", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   private List<Employee> employees = new ArrayList<>();
 
   public Service() {
