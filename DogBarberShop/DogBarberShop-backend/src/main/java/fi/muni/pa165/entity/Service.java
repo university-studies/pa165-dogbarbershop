@@ -27,7 +27,7 @@ public class Service implements Serializable {
   private Long price;  // CZK
   private Duration duration;  // ms
   
-  @ManyToMany(mappedBy = "services", cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @ManyToMany(mappedBy = "services", cascade={CascadeType.PERSIST, CascadeType.MERGE})
   private List<Employee> employees = new ArrayList<>();
 
   public Service() {
@@ -47,7 +47,19 @@ public class Service implements Serializable {
 
   public void setEmployees(List<Employee> employees) {
     this.employees = employees;
+  }
+  
+  public void addEmployee(Employee employee){
+      if(!employees.contains(employee)){
+          employees.add(employee);
       }
+  }
+  
+  public void removeEmployee(Employee employee){
+      if(employees.contains(employee)){
+          employees.remove(employee);
+      }
+  }
 
   public String getName() {
     return name;

@@ -106,6 +106,18 @@ public class Employee implements Serializable {
     public List<Service> getServices() {
         return new ArrayList(services);
     }
+    
+    public void addService(Service service){
+        if (!services.contains(service)){
+            services.add(service);
+        }
+    }
+    
+    public void removeService(Service service){
+        if (services.contains(service)){
+            services.remove(service);
+        }
+    }
 
     public String getSalary() {
         return salary;
