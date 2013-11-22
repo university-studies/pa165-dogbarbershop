@@ -1,6 +1,7 @@
 package fi.muni.pa165.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *  @TODO doplnit vsade validaciu aby sme nemali v DTO null hodnoty
@@ -14,6 +15,7 @@ public class EmployeeDto implements Serializable {
     private String address;
     private String phone;
     private String salary;
+    private List<ServiceDto> services;
 
     public EmployeeDto() {
     }
@@ -25,7 +27,7 @@ public class EmployeeDto implements Serializable {
         this.phone = phone;
         this.salary = salary;
     }
-
+    
     public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary) {
         this.id = id;
         this.name = name;
@@ -33,6 +35,16 @@ public class EmployeeDto implements Serializable {
         this.address = address;
         this.phone = phone;
         this.salary = salary;
+    }
+
+    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, List<ServiceDto> services) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phone = phone;
+        this.salary = salary;
+        this.services = services;
     }
     
     
@@ -90,9 +102,17 @@ public class EmployeeDto implements Serializable {
         this.surname = surname;
     }
 
+    public List<ServiceDto> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceDto> services) {
+        this.services = services;
+    }
+
     @Override
     public String toString() {
-        return "EmployeeDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", address=" + address + ", phone=" + phone + ", salary=" + salary + '}';
+        return "EmployeeDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", address=" + address + ", phone=" + phone + ", salary=" + salary + ", services=" + services + '}';
     }
 
     @Override
