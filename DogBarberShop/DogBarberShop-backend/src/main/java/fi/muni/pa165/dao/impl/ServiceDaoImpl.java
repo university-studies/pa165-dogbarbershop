@@ -7,6 +7,7 @@ package fi.muni.pa165.dao.impl;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.idao.ServiceDao;
 import fi.muni.pa165.entity.Service;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,9 +39,11 @@ public class ServiceDaoImpl implements ServiceDao {
         if(employees != null){
             s.setEmployees(null);
             em.persist(s);
+            s.setEmployees(new ArrayList<Employee>());
             for (Employee e : employees){
                 s.addEmployee(e);
             }
+            //s.setEmployees(employees);
             em.merge(s);
         }
         else {
