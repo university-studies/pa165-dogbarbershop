@@ -1,6 +1,7 @@
 package fi.muni.pa165.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *  @TODO doplnit vsade validaciu aby sme nemali v DTO null hodnoty
@@ -77,6 +78,27 @@ public class CustomerDto implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CustomerDto other = (CustomerDto) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
     
 }
