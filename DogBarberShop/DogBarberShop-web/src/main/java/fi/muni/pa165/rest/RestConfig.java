@@ -19,7 +19,5 @@ public class RestConfig extends Application {
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(fi.muni.pa165.rest.CustomersResource.class);
-        resources.add(org.glassfish.jersey.client.filter.HttpDigestAuthFilter.class);
-        resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
     }
 }

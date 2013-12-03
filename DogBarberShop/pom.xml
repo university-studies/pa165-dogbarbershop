@@ -10,6 +10,7 @@
         <module>DogBarberShop-backend</module>
         <module>DogBarberShop-web</module>
     <module>DogBarberShop-API</module>
+    <module>DogBarberShop-cli</module>
   </modules>
 <!--  <build>
     <plugins>
