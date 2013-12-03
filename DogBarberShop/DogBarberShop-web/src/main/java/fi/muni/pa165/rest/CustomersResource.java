@@ -40,6 +40,7 @@ public class CustomersResource {
         return service.getAllCustomers();
 }
  
+    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomerDto getCustomerResource(@PathParam("id") Long id) {
