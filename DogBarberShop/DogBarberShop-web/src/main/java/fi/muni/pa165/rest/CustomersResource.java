@@ -4,6 +4,7 @@ import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.service.CustomerService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import java.net.URI;
+import java.util.List;
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -35,19 +36,11 @@ public class CustomersResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPlain() {
-        StringBuilder returnString = new StringBuilder();
+    public List<CustomerDto> getCustomers() {
+        return service.getAllCustomers();
+}
  
-        for (CustomerDto customer : service.getAllCustomers()) {
-            
-            returnString.append(new CustomerResource(customer));
-            returnString.append(" ");
-        }
- 
-        return returnString.toString();
-    }
- 
-    @Path("json/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public CustomerDto getCustomerResource(@PathParam("id") Long id) {
         return service.getCustomerById(id);
