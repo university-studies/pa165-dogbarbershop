@@ -89,6 +89,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.0.1.Final</version>
         </dependency>
+<!--        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>1.17.1</version>
+        </dependency>-->
     </dependencies>
 
     <build>

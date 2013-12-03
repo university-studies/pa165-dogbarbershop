@@ -2,18 +2,23 @@ package fi.muni.pa165.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *  @TODO doplnit vsade validaciu aby sme nemali v DTO null hodnoty
  * 
  * @author Oliver Pentek
  */
+@XmlRootElement
 public class CustomerDto implements Serializable {
     private Long id;
     private String name;
     private String surname;
     private String phone;
     private String address;
+    
+    public CustomerDto(){
+    }
 
     public CustomerDto(Long id, String name, String surname, String address, String phone) {
         this.id = id;
@@ -28,15 +33,6 @@ public class CustomerDto implements Serializable {
         this.surname = surname;
         this.phone = phone;
         this.address = address;
-    }
-    
-    public CustomerDto(){
-    
-    }
-
-    @Override
-    public String toString() {
-      return name + " " + surname;
     }
 
     public String getAddress() {
@@ -99,6 +95,11 @@ public class CustomerDto implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", address=" + address + '}';
     }
     
 }

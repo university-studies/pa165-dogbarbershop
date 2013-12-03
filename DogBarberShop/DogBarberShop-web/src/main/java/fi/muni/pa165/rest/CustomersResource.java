@@ -13,8 +13,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -28,8 +30,11 @@ public class CustomersResource {
     // FIXME samostatny inject autowired
     private CustomerService service = DogBarberShopApplication.get().getCustomerService();
     
+    @Context
+    private UriInfo context;
+    
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String getPlain() {
         StringBuilder returnString = new StringBuilder();
  
@@ -42,33 +47,35 @@ public class CustomersResource {
         return returnString.toString();
     }
  
-    @Path("{id}")
-    public CustomerResource getCustomerResource(@PathParam("id") Long id) {
-        return new CustomerResource(service.getCustomerById(id));
+    @Path("json/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CustomerDto getCustomerResource(@PathParam("id") Long id) {
+        return service.getCustomerById(id);
     }
  
-//    @GET
-//    @Path("count")
-//    @Produces(MediaType.TEXT_PLAIN)
-//    public String getCount() {
-//        return String.valueOf(customerDB.size());
-//    }
-//    
-//    @GET
-//    @Path("json/{id}")
-//    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML} )
-//    public CustomerResource get(@PathParam("id") Integer id) {
-//        return customerDB.get(id);
-//    }
-//    
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response postJson(CustomerResource customerResource) {
-//        customerDB.put(Integer.parseInt(customerResource.getId()), customerResource);
-//        System.out.println("Created customer " + customerResource.getId());
-//        return Response.created(URI.create(context.getAbsolutePath() + "/"+ customerResource.getId())).build();
-//    }
+    @GET
+    @Path("count")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getCount() {
+        return String.valueOf(service.getAllCustomers().size());
+    }
+    
+    @GET
+    @Path("xml/{id}")
+    @Produces(MediaType.APPLICATION_XML)
+    public CustomerDto get(@PathParam("id") Long id) {
+        return service.getCustomerById(id);
+    }
+    
+    // napr. curl -i -H 'Accept: application/json' --data '{"customer": {"id": "1", "name": "Oliver", "surname": "Pentek", "phone": "774145489", "address": "K Babe 13"}}' http://localhost:8084/pa165/webresources/customers
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postJson(CustomerDto customerResource) {
+        service.addCustomer(customerResource);
+        System.out.println("Created customer " + customerResource.getId());
+        return Response.created(URI.create(context.getAbsolutePath() + "/"+ customerResource.getId())).build();
+    }
 //    
 //    @PUT
 //    @Consumes(MediaType.APPLICATION_JSON)
