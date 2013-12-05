@@ -31,11 +31,7 @@ public class Dog implements Serializable {
     }
 
     public Dog(String name, String breed, LocalDate birth, @Nonnull Customer owner) {
-        Validate.isTrue(owner != null, "Owner should not be null");
-        this.name = name;
-        this.breed = breed;
-        this.birth = birth;
-        this.owner = owner;
+        this(null, name, breed, birth, owner);
     }
     
     public Dog(Long id, String name, String breed, LocalDate birth, @Nonnull Customer owner) {
@@ -107,6 +103,11 @@ public class Dog implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" + "id=" + id + ", name=" + name + ", breed=" + breed + ", birth=" + birth + ", owner=" + owner + '}';
     }
     
 }

@@ -29,8 +29,7 @@ import org.apache.wicket.validation.validator.StringValidator;
  *
  * @author Oliver Pentek
  */
-
-public class EmployeePage extends TemplatePage {
+public final class EmployeePage extends TemplatePage {
     private final int TABLE_RELOAD_INTERVAL = 5;
     private boolean isUpdateButton;
     private Label whatToDoLabel;

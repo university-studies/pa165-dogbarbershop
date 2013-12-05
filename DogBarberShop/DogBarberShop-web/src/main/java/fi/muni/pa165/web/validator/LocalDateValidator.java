@@ -9,19 +9,19 @@ import org.joda.time.LocalDate;
  *
  * @author Oliver Pentek
  */
-public class LocalDateValidator implements IValidator<LocalDate> {
+public final class LocalDateValidator implements IValidator<LocalDate> {
 
     @Override
-    public void validate(IValidatable validatable) {
-        LocalDate date = (LocalDate) validatable.getValue();
+    public void validate(final IValidatable validatable) {
+        final LocalDate date = (LocalDate) validatable.getValue();
         if(date.isAfter(LocalDate.now())){
-            LocalDate currentDate = new LocalDate();
+            final LocalDate currentDate = LocalDate.now();
             error(validatable, "date-in-future", currentDate);            
         }
     }
 
-    private void error(IValidatable validatable, String errorKey, LocalDate currentDate) {
-        ValidationError error = new ValidationError();
+    private void error(final IValidatable validatable, final String errorKey, final LocalDate currentDate) {
+        final ValidationError error = new ValidationError();
         error.addKey(getClass().getSimpleName() + "." + errorKey);
         error.setVariable("current-date", currentDate);
         validatable.error(error);

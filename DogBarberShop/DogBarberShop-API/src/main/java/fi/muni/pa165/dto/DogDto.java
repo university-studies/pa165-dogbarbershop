@@ -1,6 +1,7 @@
 package fi.muni.pa165.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 import org.joda.time.LocalDate;
 
 /**
@@ -8,7 +9,7 @@ import org.joda.time.LocalDate;
  * 
  * @author Oliver Pentek
  */
-public class DogDto implements Serializable {
+public final class DogDto implements Serializable {
     private Long id;
     private String name;
     private String breed;
@@ -17,21 +18,13 @@ public class DogDto implements Serializable {
 
     public DogDto() {
     }
-
-    @Override
-    public String toString() {
-      return birthDate.toString();
+    
+    public DogDto(String name, String breed, LocalDate birthDate, CustomerDto owner) {
+        this(null, name, breed, birthDate, owner);
     }
 
     public DogDto(Long id, String name, String breed, LocalDate birthDate, CustomerDto owner) {
         this.id = id;
-        this.name = name;
-        this.breed = breed;
-        this.birthDate = birthDate;
-        this.owner = owner;
-    }
-    
-    public DogDto(String name, String breed, LocalDate birthDate, CustomerDto owner) {
         this.name = name;
         this.breed = breed;
         this.birthDate = birthDate;
@@ -77,6 +70,32 @@ public class DogDto implements Serializable {
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DogDto other = (DogDto) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "DogDto{" + "id=" + id + ", name=" + name + ", breed=" + breed + ", birthDate=" + birthDate + ", owner=" + owner + '}';
+    }
+       
 }

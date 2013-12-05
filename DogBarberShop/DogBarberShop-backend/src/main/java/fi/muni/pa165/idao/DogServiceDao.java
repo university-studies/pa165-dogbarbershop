@@ -9,6 +9,7 @@ import fi.muni.pa165.entity.DogService;
 import fi.muni.pa165.entity.Employee;
 import fi.muni.pa165.entity.Service;
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.joda.time.LocalDate;
 
 /**
@@ -16,6 +17,10 @@ import org.joda.time.LocalDate;
  * @author martin
  */
 public interface DogServiceDao {
+    /*
+     * 
+     */
+     void setEntityManager(EntityManager em);
     /*
      * 
      */

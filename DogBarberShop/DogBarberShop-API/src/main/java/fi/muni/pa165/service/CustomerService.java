@@ -8,9 +8,9 @@ import java.util.List;
  * @author Oliver Pentek
  */
 public interface CustomerService {
-    public void addCustomer(CustomerDto customerDto);
-    public void updateCustomer(CustomerDto customerDto);
-    public void deleteCustomer(CustomerDto customerDto);
-    public CustomerDto getCustomerById(Long id);
-    public List<CustomerDto> getAllCustomers();
+    void addCustomer(CustomerDto customerDto);
+    void updateCustomer(CustomerDto customerDto);
+    void deleteCustomer(CustomerDto customerDto);
+    CustomerDto getCustomerById(Long id);
+    List<CustomerDto> getAllCustomers();
 }

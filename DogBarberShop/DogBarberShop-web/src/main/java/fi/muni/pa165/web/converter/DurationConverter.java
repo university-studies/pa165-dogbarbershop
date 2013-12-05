@@ -9,7 +9,7 @@ import org.joda.time.Duration;
  *
  * @author Oliver Pentek
  */
-public class DurationConverter implements IConverter<Duration>{
+public final class DurationConverter implements IConverter<Duration>{
     
     public static final DurationConverter INSTANCE = new DurationConverter();
 

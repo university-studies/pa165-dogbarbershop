@@ -107,7 +107,7 @@ public class DogServiceImpl implements DogService{
     
     @Transactional
     public List<DogDto> getDogsByOwner(CustomerDto owner){
-        List<DogDto> dogsByOwner = new ArrayList<DogDto>();
+        List<DogDto> dogsByOwner = new ArrayList<>();
         try {
             for (Dog dog : dogDao.getDogsByOwner(owner)){
                 dogsByOwner.add(DogConverter.dogToDogDto(dog));

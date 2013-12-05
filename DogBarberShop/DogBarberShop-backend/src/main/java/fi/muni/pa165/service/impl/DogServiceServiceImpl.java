@@ -31,6 +31,7 @@ import org.springframework.dao.DataAccessException;
  */
 @org.springframework.stereotype.Service
 public final class DogServiceServiceImpl implements DogServiceService {
+
     @Autowired
     private DogDao dogDao;
     @Autowired
@@ -39,6 +40,7 @@ public final class DogServiceServiceImpl implements DogServiceService {
     private ServiceDao serviceDao;
 
     @Transactional
+    @Nonnull
     @Override
     public DogServiceDto createDogService(@Nonnull final DogDto dogDto, @Nonnull final ServiceDto serviceDto, @Nullable EmployeeDto employeeDto) {
         Validate.notNull(DogDao.class, "Dog dao was not injected properly", dogDao);
@@ -49,53 +51,56 @@ public final class DogServiceServiceImpl implements DogServiceService {
 
         final Dog dog = DogConverter.dogDtoToDog(dogDto);
         final Service service = ServiceConverter.convertToEntity(serviceDto);
-        
+
         final DogService dogService;
         if (employeeDto != null) {
             dogService = new DogService(dog, service, LocalDate.now(), employeeDto.getId());
         } else {
             dogService = new DogService(dog, service, LocalDate.now(), null);
         }
-        try{
+        try {
             dogServiceDao.createDogService(dogService);
         } catch (final Throwable throwable) {
-            throw new DataAccessException("Error occured during adding dog service to DB", throwable) {};
+            throw new DataAccessException("Error occured during adding dog service to DB", throwable) {
+            };
         }
         return DogServiceConverter.convertToDto(dogService);
     }
-    
+
     @Transactional
+    @Nonnull
     @Override
     public DogServiceDto updateDogService(@Nonnull final DogServiceDto dto) {
         Validate.isTrue(dto != null, "Dog service DTO should not be null");
-        Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
-        DogService dogService;
+        final DogService dogService;
         try {
             dogService = dogServiceDao.updateDogService(DogServiceConverter.convertToEntity(dto));
-        } catch(Throwable throwable) {
-            throw new DataAccessException("Error occured during updating dog service in DB", throwable) {};
+        } catch (Throwable throwable) {
+            throw new DataAccessException("Error occured during updating dog service in DB", throwable) {
+            };
         }
         return DogServiceConverter.convertToDto(dogService);
     }
-    
+
     @Transactional
     @Nonnull
     @Override
     public List<DogServiceDto> getAllDogServices() {
         Validate.notNull(DogServiceDao.class, "Dog service dao was not injected properly", dogServiceDao);
-         List<DogService> services = new ArrayList<>();
+        List<DogService> services = new ArrayList<>();
         try {
             services = dogServiceDao.getAllDogServices();
         } catch (final Throwable throwable) {
-            throw new DataAccessException("Error occured during getting all dogs service from DB", throwable) {};
+            throw new DataAccessException("Error occured during getting all dogs service from DB", throwable) {
+            };
         }
-         List<DogServiceDto> dtoServices =  new ArrayList<>();
-        for (DogService service : services) {
+        final List<DogServiceDto> dtoServices = new ArrayList<>();
+        for (final DogService service : services) {
             dtoServices.add(DogServiceConverter.convertToDto(service));
         }
         return dtoServices;
     }
-    
+
     @Transactional
     @Nonnull
     @Override
@@ -105,12 +110,13 @@ public final class DogServiceServiceImpl implements DogServiceService {
         DogService service = new DogService();
         try {
             service = dogServiceDao.getDogServiceById(dto.getId());
-        } catch(Throwable throwable) {
-            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
-        }    
+        } catch (Throwable throwable) {
+            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {
+            };
+        }
         return DogServiceConverter.convertToDto(service);
     }
-    
+
     @Transactional
     @Nonnull
     @Override
@@ -120,16 +126,17 @@ public final class DogServiceServiceImpl implements DogServiceService {
         List<DogService> services = new ArrayList<>();
         try {
             services = dogServiceDao.getDogServiceByDate(date);
-        } catch(Throwable throwable) {
-            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
+        } catch (Throwable throwable) {
+            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {
+            };
         }
-        List<DogServiceDto> dtoServices =  new ArrayList<>();
-        for (DogService service : services) {
+        List<DogServiceDto> dtoServices = new ArrayList<>();
+        for (final DogService service : services) {
             dtoServices.add(DogServiceConverter.convertToDto(service));
         }
         return dtoServices;
     }
-    
+
     @Transactional
     @Nonnull
     @Override
@@ -139,18 +146,19 @@ public final class DogServiceServiceImpl implements DogServiceService {
         List<DogService> services = new ArrayList<>();
         try {
             services = dogServiceDao.getDogServiceByDog(DogConverter.dogDtoToDog(dog));
-        } catch(Throwable throwable) {
-            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
-            }
-        
-            List<DogServiceDto> dtoServices =  new ArrayList<>();
-            for (DogService service : services) {
+        } catch (Throwable throwable) {
+            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {
+            };
+        }
+
+        final List<DogServiceDto> dtoServices = new ArrayList<>();
+        for (final DogService service : services) {
             dtoServices.add(DogServiceConverter.convertToDto(service));
-            }
-        
+        }
+
         return dtoServices;
     }
-    
+
     @Transactional
     @Nonnull
     @Override
@@ -160,16 +168,17 @@ public final class DogServiceServiceImpl implements DogServiceService {
         List<DogService> services = new ArrayList<>();
         try {
             services = dogServiceDao.getDogServiceByEmployee(EmployeeConverter.EmployeeDtoToEmployee(employee));
-        } catch(Throwable throwable) {
-            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
+        } catch (Throwable throwable) {
+            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {
+            };
         }
-        List<DogServiceDto> dtoServices =  new ArrayList<>();
-            for (DogService service : services) {
+        final List<DogServiceDto> dtoServices = new ArrayList<>();
+        for (DogService service : services) {
             dtoServices.add(DogServiceConverter.convertToDto(service));
-            }
+        }
         return dtoServices;
     }
-    
+
     @Transactional
     @Nonnull
     @Override
@@ -179,14 +188,14 @@ public final class DogServiceServiceImpl implements DogServiceService {
         List<DogService> services = new ArrayList<>();
         try {
             services = dogServiceDao.getDogServiceByService(ServiceConverter.convertToEntity(service));
-        } catch(Throwable throwable) {
-            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {};
+        } catch (Throwable throwable) {
+            throw new DataAccessException("Error occured during getting dog service from DB", throwable) {
+            };
         }
-        List<DogServiceDto> dtoServices =  new ArrayList<>();
-            for (DogService servis : services) {
+        final List<DogServiceDto> dtoServices = new ArrayList<>();
+        for (DogService servis : services) {
             dtoServices.add(DogServiceConverter.convertToDto(servis));
-            }
+        }
         return dtoServices;
     }
-
 }

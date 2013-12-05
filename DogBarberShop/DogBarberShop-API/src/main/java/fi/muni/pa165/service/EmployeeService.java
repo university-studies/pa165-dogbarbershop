@@ -8,12 +8,11 @@ import java.util.List;
  * @author Oliver Pentek
  */
 public interface EmployeeService {
-    public void addEmployee(EmployeeDto empDto);
-    public void updateEmloyee(EmployeeDto empDto);
-    public void deleteEmployee(EmployeeDto empDto);
-    
-    public EmployeeDto getEmployeeById(Long id);
-    public List<EmployeeDto> getEmployeeByName(String name);
-    public List<EmployeeDto> getEmployeeBySurname(String surname);
-    public List<EmployeeDto> getAllEmployee();
+    void addEmployee(EmployeeDto empDto);
+    void updateEmloyee(EmployeeDto empDto);
+    void deleteEmployee(EmployeeDto empDto);
+    EmployeeDto getEmployeeById(Long id);
+    List<EmployeeDto> getEmployeeByName(String name);
+    List<EmployeeDto> getEmployeeBySurname(String surname);
+    List<EmployeeDto> getAllEmployee();
 }

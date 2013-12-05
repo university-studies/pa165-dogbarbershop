@@ -5,12 +5,11 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *  @TODO doplnit vsade validaciu aby sme nemali v DTO null hodnoty
  * 
  * @author Oliver Pentek
  */
 @XmlRootElement
-public class CustomerDto implements Serializable {
+public final class CustomerDto implements Serializable {
     private Long id;
     private String name;
     private String surname;
@@ -19,16 +18,17 @@ public class CustomerDto implements Serializable {
     
     public CustomerDto(){
     }
-
-    public CustomerDto(Long id, String name, String surname, String address, String phone) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.phone = phone;
-        this.address = address;
+    
+    public CustomerDto(Long id) {
+        this(id, null, null, null, null);
     }
     
     public CustomerDto(String name, String surname, String address, String phone) {
+        this(null, name, surname, address, phone);
+    }
+    
+    public CustomerDto(Long id, String name, String surname, String address, String phone) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
@@ -80,6 +80,21 @@ public class CustomerDto implements Serializable {
         int hash = 7;
         hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CustomerDto other = (CustomerDto) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

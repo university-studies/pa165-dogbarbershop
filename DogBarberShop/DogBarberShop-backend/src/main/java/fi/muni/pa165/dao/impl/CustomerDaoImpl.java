@@ -7,6 +7,9 @@ package fi.muni.pa165.dao.impl;
 import fi.muni.pa165.dto.CustomerDogServicesDto;
 import fi.muni.pa165.idao.CustomerDao;
 import fi.muni.pa165.entity.Customer;
+import fi.muni.pa165.entity.Dog;
+import fi.muni.pa165.idao.DogDao;
+import fi.muni.pa165.utils.CustomerConverter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,7 +41,6 @@ public class CustomerDaoImpl implements CustomerDao{
     @Override
     public void createCustomer(Customer customer) {
         Validate.isTrue(customer != null, "Customer cannot be null!");
-        Validate.isTrue(customer.getId() == null, "Customer's ID must be null!");
         em.persist(customer);
         //return customer;
     }
@@ -55,6 +57,11 @@ public class CustomerDaoImpl implements CustomerDao{
     public void deleteCustomer(Customer customer) {
         Validate.isTrue(customer != null, "Customer cannot be null!");
         Validate.isTrue(customer.getId() != null, "Customer's ID cannot be null!");
+        final DogDao dogDao = new DogDaoImpl(em);
+        final List<Dog> dogs = dogDao.getDogsByOwner(CustomerConverter.CustomerToCustomerDto(customer));
+        for (final Dog dog : dogs) {
+            dogDao.removeDog(dog);
+        }
         em.remove(em.merge(customer));
         //return customer;
     }

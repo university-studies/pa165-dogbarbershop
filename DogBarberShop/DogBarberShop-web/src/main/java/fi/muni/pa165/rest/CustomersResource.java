@@ -18,7 +18,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,27 +26,32 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Path("/customers")
 @Singleton
-public class CustomersResource {
+public final class CustomersResource {
     
     // FIXME samostatny inject autowired
-    private CustomerService service = DogBarberShopApplication.get().getCustomerService();
+    private final CustomerService service = DogBarberShopApplication.get().getCustomerService();
+    
+    private static final Logger log = Logger.getLogger(CustomersResource.class.getName());
     
     @Context
     private UriInfo context;
     
+    //curl -i http://localhost:8084/pa165/webresources/customers
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<CustomerDto> getCustomers() {
         return service.getAllCustomers();
 }
  
+    // curl -i http://localhost:8084/pa165/webresources/customers/1
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CustomerDto getCustomerResource(@PathParam("id") Long id) {
+    public CustomerDto getCustomerResource(@PathParam("id") final Long id) {
         return service.getCustomerById(id);
     }
  
+    //  curl -i http://localhost:8084/pa165/webresources/customers/count
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
@@ -54,43 +59,32 @@ public class CustomersResource {
         return String.valueOf(service.getAllCustomers().size());
     }
     
-    @GET
-    @Path("xml/{id}")
-    @Produces(MediaType.APPLICATION_XML)
-    public CustomerDto get(@PathParam("id") Long id) {
-        return service.getCustomerById(id);
-    }
-    
-    // napr. curl -i -H 'Accept: application/json' --data '{"customer": {"id": "1", "name": "Oliver", "surname": "Pentek", "phone": "774145489", "address": "K Babe 13"}}' http://localhost:8084/pa165/webresources/customers
+    // curl -i -H "Content-Type: application/json" --data '{"address":"K Babe 13","name":"Kali","phone":"774145489","surname":"Pentek"}' http://localhost:8084/pa165/webresources/customers
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postJson(CustomerDto customerResource) {
-        service.addCustomer(customerResource);
-        System.out.println("Created customer " + customerResource.getId());
-        return Response.created(URI.create(context.getAbsolutePath() + "/"+ customerResource.getId())).build();
+    public Response postJson(final CustomerDto customer) {
+        service.addCustomer(customer);
+        log.info("Created customer " + customer.getId());
+        return Response.created(URI.create(context.getAbsolutePath() + "/"+ customer.getId())).build();
     }
-//    
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response updateJson(CustomerResource customerResource) {
-// //       CustomerResource current = customerDB.get(Integer.valueOf(customerResource.getId()));
-//        CustomerResource current = customerResource;
-////        current.setInvention(customerResource.getInvention());
-////        current.setName(customerResource.getName());
-////        current.setOccupation(customerResource.getOccupation());
-////        current.setSurname(customerResource.getSurname());
-//        customerDB.put(Integer.parseInt(customerResource.getId()), current);
-//        System.out.println("Udpated customer " + customerResource.getId());
-//        return Response.created(URI.create(context.getAbsolutePath() + "/"+ customerResource.getId())).build();
-//    }
-//    
-//    @DELETE
-//    @Path("del/{id}")
-//    public Response deleteJson(@PathParam("id") Integer id) {
-//        customerDB.remove(id);
-//        System.out.println("Deleted customer " + id);
-//        return Response.ok().build();
-//    }
+    
+    // curl -i -X PUT -H "Content-Type: application/json" --data '{"id":-21474836119,"address":"K Babe 13","name":"Kali","phone":"774145489","surname":"Theodorakaku"}' http://localhost:8084/pa165/webresources/customers
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateJson(final CustomerDto customer) {
+        service.updateCustomer(customer);
+        log.info("Udpated customer " + customer.getId());
+        return Response.created(URI.create(context.getAbsolutePath() + "/"+ customer.getId())).build();
+    }
+    
+    // curl -i -X DELETE http://localhost:8084/pa165/webresources/customers/delete/-21474836119
+    @DELETE
+    @Path("delete/{id}")
+    public Response deleteJson(@PathParam("id") final Long id) {
+        service.deleteCustomer(new CustomerDto(id));
+        log.info("Deleted customer " + id);
+        return Response.ok().build();
+    }
 }

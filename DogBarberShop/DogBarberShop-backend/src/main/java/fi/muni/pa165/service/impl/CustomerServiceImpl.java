@@ -37,9 +37,10 @@ public class CustomerServiceImpl implements CustomerService{
     @Transactional
     public void addCustomer(CustomerDto customerDto){
         Validate.isTrue(customerDto != null, "CustomerDto is null!");
-        Validate.isTrue(customerDto.getId() == null, "CustomerDto ID is not null!");
         try{
-            customerDao.createCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
+            final Customer customer = CustomerConverter.CustomerDtoToCustomer(customerDto);
+            customerDao.createCustomer(customer);
+            customerDto.setId(customer.getId());
         }
         catch(Exception ex){
             throw new DataAccessException("Error during accessing persistence layer", ex) {};

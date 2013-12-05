@@ -2,14 +2,14 @@ package fi.muni.pa165.dao.impl;
 
 import fi.muni.pa165.dto.CustomerDto;
 import fi.muni.pa165.idao.DogDao;
-import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
+import fi.muni.pa165.entity.DogService;
+import fi.muni.pa165.idao.DogServiceDao;
 import fi.muni.pa165.utils.CustomerConverter;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -26,16 +26,14 @@ import org.springframework.stereotype.Repository;
 public class DogDaoImpl implements DogDao{
     
     @PersistenceContext
-    final private EntityManager em;
+     private EntityManager em;
 
     public EntityManager getEm() {
         return em;
     }
-
+    
     public DogDaoImpl() {
-        super();
-        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-        em = emf.createEntityManager();
+
     }
 
     public DogDaoImpl(@Nonnull final EntityManager em) {
@@ -44,12 +42,10 @@ public class DogDaoImpl implements DogDao{
     }
 
     @Override
-    @Nonnull
     public void addDog(@Nonnull final Dog dog) {
         Validate.isTrue(dog != null, "dog cannot be null!");
         Validate.isTrue(dog.getId() == null, "dog's ID must be null!");
         em.persist(dog);
-        //return dog;
     }
 
     @Override
@@ -64,7 +60,6 @@ public class DogDaoImpl implements DogDao{
         Validate.isTrue(dog != null, "dog cannot be null!");
         Validate.isTrue(dog.getId() != null, "dog's ID cannot be null!");
         this.em.merge(dog);
-        //return this.em.merge(dog);
     }
 
     @Override
@@ -72,6 +67,12 @@ public class DogDaoImpl implements DogDao{
         Validate.isTrue(dog != null, "dog cannot be null!");
         Validate.isTrue(dog.getId() != null, "dog's ID cannot be null!");
         dog = this.em.merge(dog);
+        final DogServiceDao dogServiceDao = new DogServiceDaoImpl();
+        dogServiceDao.setEntityManager(em);
+        final List<DogService> services = dogServiceDao.getDogServiceByDog(dog);
+        for (final DogService service : services) {
+            dogServiceDao.deleteDogService(service);
+        }
         em.remove(dog);
     }
 

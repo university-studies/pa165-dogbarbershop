@@ -88,4 +88,9 @@ public final class DogServiceDto {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "DogServiceDto{" + "id=" + id + ", dog=" + dog + ", service=" + service + ", serviceDate=" + serviceDate + ", servedBy=" + servedBy + '}';
+    }
+    
 }
