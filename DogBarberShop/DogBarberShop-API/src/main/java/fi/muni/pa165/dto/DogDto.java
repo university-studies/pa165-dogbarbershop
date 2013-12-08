@@ -2,6 +2,7 @@ package fi.muni.pa165.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.joda.time.LocalDate;
 
 /**
@@ -9,6 +10,8 @@ import org.joda.time.LocalDate;
  * 
  * @author Oliver Pentek
  */
+
+@XmlRootElement
 public final class DogDto implements Serializable {
     private Long id;
     private String name;
@@ -17,6 +20,10 @@ public final class DogDto implements Serializable {
     private CustomerDto owner;
 
     public DogDto() {
+    }
+    
+    public DogDto(Long id){
+        this(id, null, null, null, null);
     }
     
     public DogDto(String name, String breed, LocalDate birthDate, CustomerDto owner) {

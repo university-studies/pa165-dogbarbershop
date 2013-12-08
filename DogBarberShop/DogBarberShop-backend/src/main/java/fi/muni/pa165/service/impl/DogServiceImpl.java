@@ -43,8 +43,10 @@ public class DogServiceImpl implements DogService{
     public void addDog(DogDto dogDto){
         Validate.isTrue(dogDto != null, "DogDto is null!");
         Validate.isTrue(dogDto.getId() == null, "DogDto ID is not null!");
+        Dog dog = DogConverter.dogDtoToDog(dogDto);
         try{
-            dogDao.addDog(DogConverter.dogDtoToDog(dogDto));
+            dogDao.addDog(dog);
+            dogDto.setId(dog.getId());
         }
         catch(Exception ex){
             throw new DataAccessException("Error during accessing persistence layer", ex) {};
