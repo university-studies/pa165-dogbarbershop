@@ -38,7 +38,7 @@ public final class CustomersResource {
     
     //curl -i http://localhost:8084/pa165/webresources/customers
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<CustomerDto> getCustomers() {
         return service.getAllCustomers();
 }
@@ -46,9 +46,13 @@ public final class CustomersResource {
     // curl -i http://localhost:8084/pa165/webresources/customers/1
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public CustomerDto getCustomerResource(@PathParam("id") final Long id) {
-        return service.getCustomerById(id);
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getCustomerResource(@PathParam("id") final Long id) {
+        try {
+            return Response.status(Response.Status.OK).entity(service.getCustomerById(id)).build();
+        }catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
  
     //  curl -i http://localhost:8084/pa165/webresources/customers/count
@@ -75,13 +79,14 @@ public final class CustomersResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateJson(final CustomerDto customer) {
         service.updateCustomer(customer);
+        
         log.info("Udpated customer " + customer.getId());
         return Response.created(URI.create(context.getAbsolutePath() + "/"+ customer.getId())).build();
     }
     
     // curl -i -X DELETE http://localhost:8084/pa165/webresources/customers/delete/-21474836119
     @DELETE
-    @Path("delete/{id}")
+    @Path("{id}")
     public Response deleteJson(@PathParam("id") final Long id) {
         service.deleteCustomer(new CustomerDto(id));
         log.info("Deleted customer " + id);

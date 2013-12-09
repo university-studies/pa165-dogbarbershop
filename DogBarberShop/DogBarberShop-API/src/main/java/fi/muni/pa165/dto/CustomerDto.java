@@ -102,4 +102,8 @@ public final class CustomerDto implements Serializable {
         return "CustomerDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", address=" + address + '}';
     }
     
+    public String toStringData() {
+        return id + " " + name + " " + surname + " " + phone + " " + address;
+    }
+    
 }
