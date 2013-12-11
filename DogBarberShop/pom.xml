@@ -11,7 +11,7 @@
         <module>DogBarberShop-web</module>
         <module>DogBarberShop-API</module>
         <module>DogBarberShop-cli</module>
-    </modules>
+  </modules>
     <!--  <build>
       <plugins>
         <plugin>

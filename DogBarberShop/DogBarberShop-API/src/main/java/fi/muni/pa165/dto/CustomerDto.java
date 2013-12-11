@@ -103,7 +103,7 @@ public final class CustomerDto implements Serializable {
     }
     
     public String toStringData() {
-        return id + " " + name + " " + surname + " " + phone + " " + address;
+        return id + " " + name + " " + surname + " " + address + " " + phone;
     }
     
 }

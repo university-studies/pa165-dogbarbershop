@@ -3,3 +3,4 @@
 /DogBarberShop/DogBarberShop-web/target/
 /*/*/derby.log
 /DogBarberShop/DogBarberShop-cli/target/
+/DogBarberShop/rest-jersey-server/target/

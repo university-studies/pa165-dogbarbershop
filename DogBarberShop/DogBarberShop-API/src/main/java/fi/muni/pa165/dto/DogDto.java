@@ -3,6 +3,7 @@ package fi.muni.pa165.dto;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.joda.time.LocalDate;
 
 /**
@@ -16,6 +17,7 @@ public final class DogDto implements Serializable {
     private Long id;
     private String name;
     private String breed;
+    
     private LocalDate birthDate;
     private CustomerDto owner;
 
@@ -70,6 +72,7 @@ public final class DogDto implements Serializable {
         this.breed = breed;
     }
 
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -106,6 +109,9 @@ public final class DogDto implements Serializable {
     }
        
     public String toStringData() {
-        return id + " " + name + " " + breed + " " + birthDate + " " + owner;
+        if (birthDate != null) {
+            return id + " " + name + " " + breed + " " + birthDate.toString("dd.MM.yyyy") + " " + owner;
+        }
+        return id + " " + name + " " + breed + " " + "null" + " " + owner;
     }
 }

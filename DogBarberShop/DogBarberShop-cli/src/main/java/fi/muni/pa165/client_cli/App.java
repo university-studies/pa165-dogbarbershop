@@ -10,6 +10,9 @@ import fi.muni.pa165.dto.DogDto;
 import java.net.ConnectException;
 import java.util.List;
 import javax.ws.rs.ProcessingException;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -104,15 +107,32 @@ public class App {
                     System.out.println(d.toStringData());
                 }
                 break;
-            case ADD:
-                Long newId = dogRest.add(new DogDto(arg.get(0), arg.get(1),
-                                                    null, null));
-                System.out.println(newId);
+            case ADD: {
+                final DateTimeFormatter format = DateTimeFormat.forPattern("dd.MM.yyyy");
+                final LocalDate date = format.parseLocalDate(arg.get(2));
+                
+                Long newId = null;
+                if (arg.size() == 4) {
+                    newId = dogRest.add(new DogDto(arg.get(0), arg.get(1), 
+                                        date, null), arg.get(3));
+                } else {
+                    newId = dogRest.add(new DogDto(arg.get(0), arg.get(1), 
+                                        date, null), "no-ID");
+                }
+                
+                if (newId != null) {
+                    System.out.println(newId);
+                }
                 break;
-            case UPDATE:
+            }
+            case UPDATE: {
+                final DateTimeFormatter format = DateTimeFormat.forPattern("dd.MM.yyyy");
+                final LocalDate date = format.parseLocalDate(arg.get(3));
+                
                 dogRest.update(new DogDto(new Long(arg.get(0)), arg.get(1), 
-                                          arg.get(2), null, null));
+                                          arg.get(2), date, null), arg.get(4));
                 break;
+            }
             case DELETE:
                 dogRest.delete(arg.get(0));
                 break;
@@ -121,51 +141,3 @@ public class App {
         return true;
     }
 }
-
-/*
-             System.out.print(
-             "SYNOPSIS\n" +
-             "  DogBarberShop-cli [-s <server_url>] -e <entity> <method> [<meth_arg>...]\n" +
-             "OPTIONS\n" +
-             "  -s <server_URI>\n" +
-             "    server to which to connect to\n" +
-             "    default: localhost\n" +
-             "  -e <entity>\n" +
-             "    entity to work with (see LIST OF ENTITIES)\n" +
-             "  <method> [<meth_arg>...]\n" +
-             "    method with arguments to invoke on the given entity\n" +
-             "    some (e.g. add) do return ID (write to stdout) of record\n" +
-             "      they operated on\n" +
-             "    see LIST OF ENTITIES for available methods\n" +
-             // see fi.muni.pa165.service
-             "LIST OF ENTITIES\n" +
-             "  customer\n" +
-             // this one should print the resulting id
-             "    add <name> <surname> <address> <phone>\n" +
-             "    update <id> <name> <surname> <address> <phone>\n" +
-             "    delete <id>\n" +
-             // this one should print output already quoted in
-             // single quotes to allow simple shell usage without
-             // additional parsing, e.g.:
-             //   rename_customer() {
-             //     # $1 $2   $3      $4      $5    $6       $7
-             //     # id name surname address phone new_name new_surname
-             //     mvn ... -e customer update "$1" "$2" "$6" "$7" "$4" "$5"
-             //   }
-             //   rename_customer $(mvn ... -e customer getbyid 4321) 'Franta' 'Vomacka'
-             "    getbyid <id>\n" +
-             // FIXME print IDs as well
-             "    getall\n" +
-             "  dog\n" +
-             "    NO IDEA WHAT IS THE SECOND ENTITY Oliver HAS CHOSEN TO IMPLEMENT REST API ON\n" +
-             "  dogservice\n" +
-             "    NO IDEA WHAT IS THE SECOND ENTITY Oliver HAS CHOSEN TO IMPLEMENT REST API ON\n" +
-             "  employee\n" +
-             "    NO IDEA WHAT IS THE SECOND ENTITY Oliver HAS CHOSEN TO IMPLEMENT REST API ON\n" +
-             "  service\n" +
-             "    NO IDEA WHAT IS THE SECOND ENTITY Oliver HAS CHOSEN TO IMPLEMENT REST API ON\n"
-             );
-             //FIXME -s argument could be also DNS hostname, not only IP addr
-             //FIXME exit status 0
-      
-             */

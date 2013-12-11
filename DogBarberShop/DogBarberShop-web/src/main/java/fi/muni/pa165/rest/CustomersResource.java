@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Oliver Pentek
+ * @author Oliver Pentek, Pavol Loffay
  */
 @Path("/customers")
 @Singleton

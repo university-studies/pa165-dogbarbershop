@@ -42,13 +42,17 @@ public class CLIArgumentsParser {
             + "    customer getall\n"
             + "    customer getbyid <id>\n"
             + "    customer add <name> <surname> <address> <phone>\n"
+            + "             stdout -> new ID\n"
             + "    customer update <id> <name> <surname> <address> <phone>\n"
             + "             if do not exists create new, with new id\n"
             + "    customer delete <id>\n"
             + "  DOG\n" 
             + "    dog getall\n"
             + "    dog getbyid <id>\n"
-            + "    dog add <name> <breed> \n"
+            + "    dog add <name> <breed> <dd.MM.YYYY>\n"
+            + "    dog add <name> <breed> <dd.MM.YYYY> [<owner_id>]\n"
+            + "             if owner do not exist, dog is not created\n"
+            + "             On success stdout -> new ID\n"
             + "    dog update <id> <name> <breed>\n"
             + "             if do not exists create new, with new id\n"
             + "    dog delete <id>";
@@ -256,12 +260,14 @@ public class CLIArgumentsParser {
                     }
                     break;
                 case ADD: 
-                    if (eArgs.size() != 4) {
-                        return false;
+                    if (eArgs.size() == 5 || eArgs.size() == 6) {
+                        return true;
                     }
-                    break;
+                    else
+                        return false;
+                    //break;
                 case UPDATE:
-                    if (eArgs.size() != 5) { 
+                    if (eArgs.size() != 7) { 
                         return false;
                     }
                     break;
