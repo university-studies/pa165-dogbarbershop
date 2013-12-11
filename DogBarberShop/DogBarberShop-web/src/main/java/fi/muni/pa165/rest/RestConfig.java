@@ -18,7 +18,7 @@ public final class RestConfig extends Application {
     }
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(fi.muni.pa165.rest.CustomersResource.class)
+        resources.add(fi.muni.pa165.rest.CustomersResource.class);
         resources.add(fi.muni.pa165.rest.DogsResource.class);
     }
 }

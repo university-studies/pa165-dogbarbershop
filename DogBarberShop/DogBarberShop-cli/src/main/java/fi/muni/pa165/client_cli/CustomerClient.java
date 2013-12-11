@@ -5,6 +5,7 @@
 package fi.muni.pa165.client_cli;
 
 import fi.muni.pa165.dto.CustomerDto;
+import fi.muni.pa165.dto.DogDto;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -25,7 +26,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import org.eclipse.persistence.jaxb.rs.MOXyJsonProvider;
+//import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 
 /**
  *
@@ -33,43 +36,47 @@ import org.glassfish.jersey.jackson.JacksonFeature;
  */
 public class CustomerClient {
 
-    final String url;
-    Client client;
+    private final String url;
+    private Client client;
 
     public CustomerClient(String url) {
         this.url = url;
-        /*
-         * S responseReaderom mi islo get
-         */
-        this.client = ClientBuilder.newBuilder().register(JacksonFeature.class).build();
+        this.client = ClientBuilder.newBuilder().register(MoxyJsonFeature.class)
+                .build();
     }
 
     public List<CustomerDto> getAll() {
-        List<CustomerDto> customers = null;
-        try {
-            client.target(this.url)
-                    .path("customers")
-                    .request(MediaType.APPLICATION_XML)
-                    .get(new GenericType<List<CustomerDto>>() {
-            });
-        } catch (Exception e) {
+        WebTarget webTarget = client.target(this.url).path("customers");
+
+        Invocation.Builder invocationBuilder =
+                webTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.get();
+        
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             return null;
         }
 
-        return customers;
+        return response.readEntity(new GenericType<List<CustomerDto>>() {
+        });
+
     }
 
-    public CustomerDto getById(String path) {
-        CustomerDto customers = null;
-        try {
-            client.target(this.url)
-                    .path(("customers/" + path).replaceAll("\\s+", ""))
-                    .request(MediaType.APPLICATION_XML)
-                    .get(CustomerDto.class);
-        } catch (Exception e) {
+    public CustomerDto getById(String id) {
+        WebTarget webTarget = client.target(this.url).path("customers").path(id);
+
+        Invocation.Builder invocationBuilder =
+                webTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             return null;
         }
-        return customers;
+  
+        return response.readEntity(new GenericType<CustomerDto>() {
+        });
+       
     }
 
     public Long add(CustomerDto cust) {
@@ -82,13 +89,20 @@ public class CustomerClient {
 
         Response response = invocationBuilder.post(Entity.entity(cust, MediaType.APPLICATION_JSON));
 
+        if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
+            return null;
+        }
+        
         String uri = response.getLocation().toString();
         Long id = new Long(uri.substring(uri.lastIndexOf("/") + 1, uri.length()));
 
         return id;
     }
 
-    public void update(CustomerDto cust) {
+    /*
+     * Return id
+     */
+    public Long update(CustomerDto cust) {
         WebTarget webTarget = client.target(this.url);
         WebTarget resourceWebTarget = webTarget.path("customers");
 
@@ -97,7 +111,15 @@ public class CustomerClient {
         invocationBuilder.header("accept", "application/json");
 
         Response response = invocationBuilder.put(Entity.entity(cust, MediaType.APPLICATION_JSON));
-        System.out.println(response.getStatus());
+        
+        if (response.getStatus() != Response.Status.CREATED.getStatusCode()) {
+            return null; 
+        }
+        
+        String uri = response.getLocation().toString();
+        Long id = new Long(uri.substring(uri.lastIndexOf("/") + 1, uri.length()));
+        
+        return id;
     }
 
     public void delete(String id) {
@@ -110,34 +132,5 @@ public class CustomerClient {
         invocationBuilder.header("accept", "application/json");
 
         Response response = invocationBuilder.delete();
-    }
-
-    public static class ResponseReader
-            implements MessageBodyReader<CustomerDto> {
-
-        @Override
-        public boolean isReadable(Class<?> type, Type genericType,
-                Annotation[] annotations, MediaType mediaType) {
-            return type == CustomerDto.class;
-        }
-
-        @Override
-        public CustomerDto readFrom(Class<CustomerDto> type,
-                Type genericType,
-                Annotation[] annotations, MediaType mediaType,
-                MultivaluedMap<String, String> httpHeaders,
-                InputStream entityStream)
-                throws IOException, WebApplicationException {
-
-            try {
-                JAXBContext jaxbContext = JAXBContext.newInstance(CustomerDto.class);
-                CustomerDto custDto = (CustomerDto) jaxbContext.createUnmarshaller()
-                        .unmarshal(entityStream);
-                return custDto;
-            } catch (JAXBException jaxbException) {
-                throw new ProcessingException("Error deserializing a CustomerDto.",
-                        jaxbException);
-            }
-        }
     }
 }

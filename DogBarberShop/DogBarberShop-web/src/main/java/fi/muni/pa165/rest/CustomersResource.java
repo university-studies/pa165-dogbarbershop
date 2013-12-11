@@ -68,8 +68,12 @@ public final class CustomersResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postJson(final CustomerDto customer) {
-        service.addCustomer(customer);
-        log.info("Created customer " + customer.getId());
+        try {
+            service.addCustomer(customer);
+            log.info("Created customer " + customer.getId());
+        } catch (Exception ex) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         return Response.created(URI.create(context.getAbsolutePath() + "/"+ customer.getId())).build();
     }
     
@@ -78,9 +82,13 @@ public final class CustomersResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateJson(final CustomerDto customer) {
-        service.updateCustomer(customer);
+        try {
+            service.updateCustomer(customer);
+            log.info("Udpated customer " + customer.getId());
+        } catch (Exception ex) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         
-        log.info("Udpated customer " + customer.getId());
         return Response.created(URI.create(context.getAbsolutePath() + "/"+ customer.getId())).build();
     }
     

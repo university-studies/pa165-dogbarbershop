@@ -42,8 +42,8 @@ public class DogsResource {
     
     // curl -i http://localhost:8080/pa165/webresources/dogs
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<DogDto> getCustomers() {
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public List<DogDto> getDogs() {
         return service.getAllDogs();
     }
     

@@ -11,11 +11,9 @@ import org.apache.commons.cli.AlreadySelectedException;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.UnrecognizedOptionException;
 
 /**
  *
@@ -38,15 +36,22 @@ public class CLIArgumentsParser {
             + "OPTIONS\n"
             + "    -e <entity> <method> [<meth_arg>...]  entity to work with (see LIST OF ENTITIES)\n"
             + "    -s <server_URI>        server to which to connect to\n"
-            + "                           default: localhost\n"
+            + "                           default: http://localhost:8080/pa165/webresources\n"
             + "LIST OF ENTITIES WITH METHODS\n"
             + "  CUSTOMER\n"
             + "    customer getall\n"
             + "    customer getbyid <id>\n"
             + "    customer add <name> <surname> <address> <phone>\n"
             + "    customer update <id> <name> <surname> <address> <phone>\n"
+            + "             if do not exists create new, with new id\n"
             + "    customer delete <id>\n"
-            + "  ENTITY";
+            + "  DOG\n" 
+            + "    dog getall\n"
+            + "    dog getbyid <id>\n"
+            + "    dog add <name> <breed> \n"
+            + "    dog update <id> <name> <breed>\n"
+            + "             if do not exists create new, with new id\n"
+            + "    dog delete <id>";
 
     /*
      * Enum for Methods
@@ -164,7 +169,7 @@ public class CLIArgumentsParser {
 
             this.serverAddress = cmd.getOptionValue("s", "localhost");
         } else {
-            this.serverAddress = "http://localhost:8080/webresources";
+            this.serverAddress = "http://localhost:8080/pa165/webresources";
         }
 
         if (cmd.hasOption(OPT_ENTITY)) {
@@ -179,7 +184,7 @@ public class CLIArgumentsParser {
             }
 
             List<String> entityArguments = Arrays.asList(cmd.getOptionValues("e"));
-
+            
             /*
              * -e <entity_name> <method> => min 2 arguments
              */
@@ -227,8 +232,42 @@ public class CLIArgumentsParser {
                         return false;
                     }
                     break;
+                case ADD:
+                    if (eArgs.size() != 6) {
+                        return false;
+                    }
             }
         }
+        if (entity == Entities.DOG) {
+            switch (method) {
+                case GETALL:
+                    if (eArgs.size() != 2) {
+                        return false;
+                    }
+                    break;
+                case GETBYID: 
+                    if (eArgs.size() != 3) {
+                        return false;
+                    }
+                    break;
+                case DELETE:
+                    if (eArgs.size() != 3) {
+                        return false;
+                    }
+                    break;
+                case ADD: 
+                    if (eArgs.size() != 4) {
+                        return false;
+                    }
+                    break;
+                case UPDATE:
+                    if (eArgs.size() != 5) { 
+                        return false;
+                    }
+                    break;
+            }   
+        }
+        
         return true;
     }
 

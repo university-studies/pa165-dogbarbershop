@@ -105,4 +105,7 @@ public final class DogDto implements Serializable {
         return "DogDto{" + "id=" + id + ", name=" + name + ", breed=" + breed + ", birthDate=" + birthDate + ", owner=" + owner + '}';
     }
        
+    public String toStringData() {
+        return id + " " + name + " " + breed + " " + birthDate + " " + owner;
+    }
 }
