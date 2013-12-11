@@ -8,9 +8,12 @@ We present you the Dog barbershop. People dress up their dogs and they want them
 
 DogBarberShop-web
 -----------------
-`cd DogBarberShop/
-mvn install/
-mvn tomcat7:run`
+`cd DogBarberShop/`
+~~~~
+`mvn install/`
+~~~~
+`mvn tomcat7:run`
+~~~~
 
 DogBarberShop-cli
 -----------------
@@ -18,7 +21,8 @@ DogBarberShop-cli
 Implements REST client api using in a maven module using CLI.
 
 ### Examples
-cd DogBarberShop/
+`cd DogBarberShop/`
+~~~~
 
 print help
 ~~~~
