@@ -36,14 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void addEmployee(EmployeeDto empDto) {
         Validate.isTrue(empDto != null, "empDto is null!");
         Validate.isTrue(empDto.getId() == null, "empDto.id is not null!");
-        
-        try {
-            final Employee employee = EmployeeConverter.EmployeeDtoToEmployee(empDto);
-            employeeDao.createEmployee(employee);
-        }
-        catch (Exception ex){
-            throw new DataAccessException("Error during addEmployee") {};
-        }
+        final Employee employee = EmployeeConverter.EmployeeDtoToEmployee(empDto);
+        employeeDao.createEmployee(employee);
     }
     
     @Transactional
@@ -51,13 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void updateEmloyee(EmployeeDto empDto) {
         Validate.isTrue(empDto != null, "empDto is null!");
         Validate.isTrue(empDto.getId() != null, "emoDto.id is null!");
-        
-        try {
-            employeeDao.updateEmployee(EmployeeConverter.EmployeeDtoToEmployee(empDto));
-        }
-        catch (Exception ex){
-            throw new DataAccessException("Error during updateEmployee") {};
-        }
+        employeeDao.updateEmployee(EmployeeConverter.EmployeeDtoToEmployee(empDto));
     }
     
     @Transactional
@@ -65,13 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void deleteEmployee(EmployeeDto empDto) {
         Validate.isTrue(empDto != null, "empDto is null!");
         Validate.isTrue(empDto.getId() != null, "empDto.id is null!");
-        
-        try {
-            employeeDao.deleteEmployee(EmployeeConverter.EmployeeDtoToEmployee(empDto));
-        }
-        catch (Exception ex){
-            throw new DataAccessException("Error during deleteEmployee") {};
-        }
+        employeeDao.deleteEmployee(EmployeeConverter.EmployeeDtoToEmployee(empDto));
     }
     
     @Transactional
@@ -80,12 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         Validate.isTrue(id != null, "id is null!");
         
         Employee empE;
-        try {
-            empE = employeeDao.getEmployeeById(id);
-        }
-        catch (Exception ex){
-            throw new DataAccessException("Error during getEmployeeById") {};
-        } 
+        empE = employeeDao.getEmployeeById(id);
         
         return  EmployeeConverter.EmployeeToEmployeeDto(empE);
     }
@@ -96,14 +73,9 @@ public class EmployeeServiceImpl implements EmployeeService{
         Validate.isTrue(name != null, "name si null");
         
         List<EmployeeDto> empDtoList = new ArrayList<>();
-        try {
-            for (Employee empE : employeeDao.getEmployeeByName(name)) {
-                empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
-            }
+        for (Employee empE : employeeDao.getEmployeeByName(name)) {
+            empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during getEmployeeByName") {};
-        } 
         
         return empDtoList;
     }
@@ -114,14 +86,9 @@ public class EmployeeServiceImpl implements EmployeeService{
         Validate.isTrue(surname != null, "surname is null!");
         
         List<EmployeeDto> empDtoList = new ArrayList<>();
-        try {
-            for (Employee empE : employeeDao.getEmployeeBySurname(surname)) {    
-                empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
-            }
+        for (Employee empE : employeeDao.getEmployeeBySurname(surname)) {    
+            empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
         }
-        catch (Exception ex){
-            throw new DataAccessException("Error during getEmployeeByName") {};
-        } 
         
         return empDtoList;
     }
@@ -130,13 +97,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public List<EmployeeDto> getAllEmployee() {
         List<EmployeeDto> empDtoList = new ArrayList<>();
-        try {
-            for (Employee empE : employeeDao.getAllEmployee()) {
-                empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
-            }
-        }
-        catch (Exception ex){
-            throw new DataAccessException("Error during getEmployeeByName") {};
+        for (Employee empE : employeeDao.getAllEmployee()) {
+            empDtoList.add(EmployeeConverter.EmployeeToEmployeeDto(empE));
         }
                 
         return empDtoList;

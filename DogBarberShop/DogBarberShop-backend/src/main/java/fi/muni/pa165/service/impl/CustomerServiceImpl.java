@@ -34,68 +34,46 @@ public class CustomerServiceImpl implements CustomerService{
         this.customerDao = customerDao;
     }
     
+    @Override
     @Transactional
     public void addCustomer(CustomerDto customerDto){
         Validate.isTrue(customerDto != null, "CustomerDto is null!");
-        try{
-            final Customer customer = CustomerConverter.CustomerDtoToCustomer(customerDto);
-            customerDao.createCustomer(customer);
-            customerDto.setId(customer.getId());
-        }
-        catch(Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer", ex) {};
-        }
+        final Customer customer = CustomerConverter.CustomerDtoToCustomer(customerDto);
+        customerDao.createCustomer(customer);
+        customerDto.setId(customer.getId());
     }
     
+    @Override
     @Transactional
     public void updateCustomer(CustomerDto customerDto){
         Validate.isTrue(customerDto != null, "CustomerDto is null!");
         Validate.isTrue(customerDto.getId() != null, "CustomerDto ID is null!");
-        try{
-            customerDao.updateCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
-        }
-        catch(Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer", ex) {};
-        }
+        customerDao.updateCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
     }
     
+    @Override
     @Transactional
     public void deleteCustomer(CustomerDto customerDto){
         Validate.isTrue(customerDto != null, "CustomerDto is null!");
         Validate.isTrue(customerDto.getId() != null, "CustomerDto ID is null!");
-        try{
-            customerDao.deleteCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
-        }
-        catch(Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer", ex) {};
-        }
+        customerDao.deleteCustomer(CustomerConverter.CustomerDtoToCustomer(customerDto));
     }
     
+    @Override
     @Transactional
     public CustomerDto getCustomerById(Long id){
-        if (id == null) {
-            throw new DataAccessException("Customer id cannnot by NULL!") {};
-        }
+        Validate.isTrue(id != null, "ID cannot be null!");
         CustomerDto customerResult;
-        try{
-            customerResult = CustomerConverter.CustomerToCustomerDto(customerDao.getCustomerById(id));
-        }
-        catch (Exception ex){
-            throw new DataAccessException("Error during accessing persistence layer") {};
-        }
+        customerResult = CustomerConverter.CustomerToCustomerDto(customerDao.getCustomerById(id));
         return customerResult;
     }
     
+    @Override
     @Transactional
     public List<CustomerDto> getAllCustomers(){
         List<CustomerDto> listCustomerDto = new ArrayList<>();
-        try {
-            for (Customer customer : customerDao.getAllCustomers()){
-                listCustomerDto.add(CustomerConverter.CustomerToCustomerDto(customer));
-            }
-        }
-        catch (Exception ex) {
-            throw new DataAccessException("Error during accessing persistence layer") {};
+        for (Customer customer : customerDao.getAllCustomers()){
+            listCustomerDto.add(CustomerConverter.CustomerToCustomerDto(customer));
         }
         return listCustomerDto;
     }
