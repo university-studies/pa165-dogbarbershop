@@ -10,6 +10,7 @@ DogBarberShop-web
 -----------------
 `cd DogBarberShop/`
 `mvn install/`
+`cd DogBarberShop-web/`
 `mvn tomcat7:run`
 
 DogBarberShop-cli
