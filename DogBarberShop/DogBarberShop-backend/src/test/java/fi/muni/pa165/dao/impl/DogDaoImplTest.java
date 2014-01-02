@@ -1,7 +1,5 @@
 package fi.muni.pa165.dao.impl;
 
-import fi.muni.pa165.dao.impl.DogDaoImpl;
-import fi.muni.pa165.dao.impl.CustomerDaoImpl;
 import fi.muni.pa165.entity.Customer;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.utils.CustomerConverter;
@@ -82,9 +80,9 @@ public class DogDaoImplTest extends TestCase {
         assertNotNull(id);
         assertNotNull(id2);
         assertNotNull(id3);
-        assertEquals(dog, dao.getDog(id));
         assertEquals(dog2, dao.getDog(id2));
         assertEquals(dog3, dao.getDog(id3));
+        assertDeepEquals(dog, dao.getDog(id));
     }
     
    public void testUpdateDog() {
@@ -214,5 +212,6 @@ public class DogDaoImplTest extends TestCase {
        assertEquals(dog1.getName(), dog2.getName());
        assertEquals(dog1.getBreed(), dog2.getBreed());
        assertEquals(dog1.getBirth(), dog2.getBirth());
+       assertNotNull(dog1.getBirth());
    }
 }

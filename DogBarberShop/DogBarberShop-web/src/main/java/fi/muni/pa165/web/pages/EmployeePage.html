@@ -39,6 +39,7 @@
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.name"/></th>
                 <td><input wicket:id="name" type="text"/></td>
+                <td rowspan="5"><div wicket:id="palette"/></td>
                 </tr>
                 <tr>
                     <th><wicket:message key="EmployeePage.employee.surname"/></th>
@@ -57,11 +58,10 @@
                 <td><input wicket:id="salary" type="text"/></td>
                 </tr>
                 <tr>
-                    <th></th>
-                    <td><input wicket:id="submitButton" type="submit" wicket:message="value:EmployeePage.button.submit"/></td>
+                    <td colspan="3"><input wicket:id="submitButton" type="submit" wicket:message="value:EmployeePage.button.submit"/></td>
                 </tr>
             </table> 
-            <div wicket:id="palette"/>
+            
         </form>
     </wicket:extend>    
 

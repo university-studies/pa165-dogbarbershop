@@ -37,8 +37,7 @@ public final class EmployeePage extends TemplatePage {
     private final ServiceService serviceService;
     private List<ServiceDto> selectedServices;
     private List<ServiceDto> unselectedServices;
-    private Palette<ServiceDto> palette= null;
-
+    private Palette<ServiceDto> palette = null;
 
     public EmployeePage() {
         super();
@@ -46,7 +45,7 @@ public final class EmployeePage extends TemplatePage {
         serviceService = DogBarberShopApplication.get().getServiceService();
         this.initComponents();
     }
-    
+
     private void initComponents() {
 
         /*
@@ -54,18 +53,18 @@ public final class EmployeePage extends TemplatePage {
          */
         final FeedbackPanel feedback = new FeedbackPanel(ComponentIDs.FEEDBACK_PANEL);
         this.add(feedback);
-        
+
         final RequiredTextField name = new RequiredTextField<>(ComponentIDs.NAME);
         final RequiredTextField surname = new RequiredTextField<>(ComponentIDs.SURNAME);
         final RequiredTextField address = new RequiredTextField<>(ComponentIDs.ADDRESS);
         final RequiredTextField phone = new RequiredTextField<>(ComponentIDs.PHONE);
         final RequiredTextField salary = new RequiredTextField<>(ComponentIDs.SALARY);
-        
+
         /*
          * Kontrola vstupnych dat - ak sa nepodari zobrazi sa FeedBackPanel
          */
         phone.add(new StringValidator(6, 15));
-        
+
         final Form<EmployeeDto> editableForm = new Form<EmployeeDto>(ComponentIDs.ADD_EDIT_FORM, new CompoundPropertyModel<>(new EmployeeDto())) {
             @Override
             protected void onSubmit() {
@@ -92,18 +91,19 @@ public final class EmployeePage extends TemplatePage {
         editableForm.add(phone);
         editableForm.add(salary);
         add(editableForm);
-        
+
         // paleta
         selectedServices = new ArrayList<>();
         unselectedServices = serviceService.getAllServices();
         IChoiceRenderer<ServiceDto> renderer = new ChoiceRenderer<>("name", "id");
-		
-		palette = new Palette<>(ComponentIDs.PALETTE,
-				new ListModel<>(selectedServices),
-				new CollectionModel<>(unselectedServices),
-				renderer, 10, Boolean.FALSE);
-		
-		editableForm.add(palette);
+
+        palette = new Palette<ServiceDto>(ComponentIDs.PALETTE,
+                new ListModel<>(selectedServices),
+                new CollectionModel<>(unselectedServices),
+                renderer, 10, Boolean.FALSE) {
+        };
+
+        editableForm.add(palette);
         //tabulka
         final Form tableForm = new Form<EmployeeDto>(ComponentIDs.TABLE_FORM, new Model<EmployeeDto>()) {
             @Override
@@ -119,7 +119,7 @@ public final class EmployeePage extends TemplatePage {
                 }
             }
         };
-        
+
         final IModel<? extends List<? extends EmployeeDto>> employeeModel = new InnerLoadableCustomerModel();
         final ListView<EmployeeDto> listView = new ListView<EmployeeDto>(ComponentIDs.EMPLOYEES_LIST, employeeModel) {
             @Override
@@ -152,7 +152,7 @@ public final class EmployeePage extends TemplatePage {
                 });
             }
         };
-        
+
 //        tableForm.add(new AjaxLink(ComponentIDs.REFRESH_LINK){
 //
 //            @Override
@@ -162,16 +162,16 @@ public final class EmployeePage extends TemplatePage {
 //            }
 //     
 //        });
-        
+
         tableForm.setOutputMarkupId(true);
         tableForm.add(listView);
- //       tableForm.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(TABLE_RELOAD_INTERVAL)));
+        //       tableForm.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(TABLE_RELOAD_INTERVAL)));
         this.add(tableForm);
         this.add(whatToDoLabel = new Label(ComponentIDs.ADD_EDIT_LABEL, new Model()));
         setNewCustomerLabel();
-        
+
     }
-    
+
     private void setNewCustomerLabel() {
         whatToDoLabel.setDefaultModelObject(this.getLocalizer().getString("EmployeePage.label.newEmployee", this));
     }
@@ -187,11 +187,12 @@ public final class EmployeePage extends TemplatePage {
             return EmployeePage.this.service.getAllEmployee();
         }
     }
-    
+
     /**
-     *  Zoznam komponent vramci tejto
+     * Zoznam komponent vramci tejto
      */
     private static class ComponentIDs {
+
         private static final String FEEDBACK_PANEL = "feedback";
         private static final String NAME = "name";
         private static final String SURNAME = "surname";
