@@ -159,7 +159,7 @@ public class EmployeeDaoImplTest extends TestCase {
         EmployeeDaoImpl dao = new EmployeeDaoImpl(em); 
         
         Employee pavol2 = new Employee("Pavol", "Loffay", 
-                "Trstena Zapad 1144", "0905294355", "15000", "login", "heslo");
+                "Trstena Zapad 1144", "0905294355", "15000", "login", "heslo", null);
         
         em.getTransaction().begin();
         em.persist(pavol2);
