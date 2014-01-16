@@ -19,23 +19,24 @@ public final class EmployeeDto implements Serializable {
     private List<ServiceDto> services;
     private String login;
     private String password;
+    private UserRole role;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(String name, String surname, String login,  String password) {
-        this(name, surname, null, null, null, login, password);
+    public EmployeeDto(String name, String surname, String login,  String password, UserRole role) {
+        this(name, surname, null, null, null, login, password, role);
     }
 
-    public EmployeeDto(String name, String surname, String address, String phone, String salary, String login,  String password) {
-        this(null, name, surname, address, phone, salary, login, password);
+    public EmployeeDto(String name, String surname, String address, String phone, String salary, String login,  String password, UserRole role) {
+        this(null, name, surname, address, phone, salary, login, password, role);
     }
 
-    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, String login,  String password) {
-        this(id, name, surname, address, phone, salary, null, login, password);
+    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, String login,  String password, UserRole role) {
+        this(id, name, surname, address, phone, salary, null, login, password, role);
     }
 
-    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, List<ServiceDto> services, String login,  String password) {
+    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, List<ServiceDto> services, String login,  String password, UserRole role) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -45,6 +46,7 @@ public final class EmployeeDto implements Serializable {
         this.services = services;
         this.login = login;
         this.password = password;
+        this.role=role;
     }
 
     public String getAddress() {
@@ -117,6 +119,14 @@ public final class EmployeeDto implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     @Override

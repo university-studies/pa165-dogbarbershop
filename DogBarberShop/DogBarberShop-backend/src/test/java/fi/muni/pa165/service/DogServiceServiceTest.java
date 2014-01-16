@@ -68,7 +68,7 @@ public class DogServiceServiceTest {
     }
     
     private DogServiceDto createDogServiceWithEmployee(DogDto dog, ServiceDto service) {
-        Employee employee =  new Employee("Jozko", "Hubona", "Ceska 44, Kosice", "93232323", "24000", null, null);
+        Employee employee =  new Employee("Jozko", "Hubona", "Ceska 44, Kosice", "93232323", "24000", null, null,  null);
         return dogServiceService.createDogService(dog, service, EmployeeConverter.EmployeeToEmployeeDto(employee));
     }
     

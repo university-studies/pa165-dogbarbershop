@@ -4,6 +4,7 @@
  */
 package fi.muni.pa165.entity;
 
+import fi.muni.pa165.dto.UserRole;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class Employee implements Serializable {
     private String salary;
     private String login;
     private String password;
+    private UserRole role;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "employee_service",
             joinColumns = {
@@ -58,17 +60,17 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(String name, String surname, String login,  String password) {
-        this(name, surname, null, null, null, login, password);
+    public Employee(String name, String surname, String login,  String password, UserRole role) {
+        this(name, surname, null, null, null, login, password, role);
     }
 
     public Employee(String name, String surname, String address,
-            String phone, String salary, String login,  String password) {
-        this(null, name, surname, address, phone, salary, login, password);
+            String phone, String salary, String login,  String password, UserRole role) {
+        this(null, name, surname, address, phone, salary, login, password, role);
     }
 
     public Employee(Long id, String name, String surname, String address,
-            String phone, String salary, String login,  String password) {
+            String phone, String salary, String login,  String password, UserRole role) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -77,6 +79,7 @@ public class Employee implements Serializable {
         this.salary = salary;
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
     public void setSalary(String salary) {
@@ -161,6 +164,14 @@ public class Employee implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     @Override

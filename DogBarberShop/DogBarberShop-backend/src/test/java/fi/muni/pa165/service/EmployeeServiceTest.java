@@ -78,7 +78,7 @@ public class EmployeeServiceTest {
     @Test 
     public void testUpdateEployee() {
         EmployeeDto empDto = new EmployeeDto(new Long(0), "Pavol", "Loffay", "Zapad 1144",
-                "090526955", "15666", null, null);
+                "090526955", "15666", null, null, null);
         
         ArgumentCaptor<Employee> captor = ArgumentCaptor.forClass(Employee.class);
         
@@ -92,7 +92,7 @@ public class EmployeeServiceTest {
     @Test
     public void testDeleteEmployee() {
         EmployeeDto empDto = new EmployeeDto(new Long(0), "Pavol", "Loffay", "Zapad 1144",
-                "090526955", "15666", null, null);
+                "090526955", "15666", null, null, null);
         
         ArgumentCaptor<Employee> captor = ArgumentCaptor.forClass(Employee.class);
         
@@ -106,7 +106,7 @@ public class EmployeeServiceTest {
     @Test 
     public void testGetEpmloyeeById() {
         Employee empE = new Employee(new Long(0), "Pavol", "Loffay", "Zapad 1144",
-                "090526955", "15666", null, null);
+                "090526955", "15666", null, null,  null);
         
         Mockito.stub(empDaoMock.getEmployeeById(Mockito.anyLong())).toReturn(empE);
         
@@ -119,9 +119,9 @@ public class EmployeeServiceTest {
     @Test
     public void testGetAllEmployee() {
         Employee empE1 = new Employee(new Long(0), "Pavol", "Loffay", "Zapad 1144",
-                "090526955", "15666", null, null);
+                "090526955", "15666", null, null,  null);
         Employee empE2 = new Employee(new Long(0), "Honza", "Skrtic", "Zabiedovp 1144",
-                "0905269551", "156662", null, null);
+                "0905269551", "156662", null, null,  null);
         
         List<Employee> empEList= Arrays.asList(empE1, empE2);        
         Mockito.stub(empDaoMock.getAllEmployee()).toReturn(empEList);
@@ -138,9 +138,9 @@ public class EmployeeServiceTest {
     @Test
     public void testGetEmployeeByName() {
         Employee empE1 = new Employee(new Long(0), "Pavol", "Loffay", "Zapad 1144",
-                "090526955", "15666", null, null);
+                "090526955", "15666", null, null,  null);
         Employee empE2 = new Employee(new Long(0), "Honza", "Skrtic", "Zabiedovp 1144",
-                "0905269551", "156662", null, null);
+                "0905269551", "156662", null, null,  null);
         
         List<Employee> empEList= Arrays.asList(empE1, empE2);        
         Mockito.stub(empDaoMock.getEmployeeByName(Mockito.anyString())).toReturn(empEList);
@@ -157,9 +157,9 @@ public class EmployeeServiceTest {
     @Test
     public void testGetEmployeeBySurname() {
         Employee empE1 = new Employee(new Long(0), "Pavol", "Loffay", "Zapad 1144",
-                "090526955", "15666", null, null);
+                "090526955", "15666", null, null,  null);
         Employee empE2 = new Employee(new Long(0), "Honza", "Skrtic", "Zabiedovp 1144",
-                "0905269551", "156662", null, null);
+                "0905269551", "156662", null, null,  null);
         
         List<Employee> empEList= Arrays.asList(empE1, empE2);        
         Mockito.stub(empDaoMock.getEmployeeBySurname(Mockito.anyString())).toReturn(empEList);

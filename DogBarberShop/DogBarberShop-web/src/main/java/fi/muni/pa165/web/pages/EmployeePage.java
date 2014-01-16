@@ -2,14 +2,17 @@ package fi.muni.pa165.web.pages;
 
 import fi.muni.pa165.dto.EmployeeDto;
 import fi.muni.pa165.dto.ServiceDto;
+import fi.muni.pa165.dto.UserRole;
 import fi.muni.pa165.service.EmployeeService;
 import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.DogBarberShopApplication;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.extensions.markup.html.form.palette.Palette;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
@@ -61,6 +64,8 @@ public final class EmployeePage extends TemplatePage {
         final RequiredTextField salary = new RequiredTextField<>(ComponentIDs.SALARY);
         final RequiredTextField login = new RequiredTextField<>(ComponentIDs.LOGIN);
         final RequiredTextField password = new RequiredTextField<>(ComponentIDs.PASSWORD);
+        final CheckBox role = new CheckBox(ComponentIDs.ROLE, Model.of(Boolean.FALSE));
+            
 
         /*
          * Kontrola vstupnych dat - ak sa nepodari zobrazi sa FeedBackPanel
@@ -68,11 +73,13 @@ public final class EmployeePage extends TemplatePage {
         phone.add(new StringValidator(6, 15));
 
         final Form<EmployeeDto> editableForm = new Form<EmployeeDto>(ComponentIDs.ADD_EDIT_FORM, new CompoundPropertyModel<>(new EmployeeDto())) {
-            @Override
-            protected void onSubmit() {
-                IModel<EmployeeDto> model = this.getModel();
-                final EmployeeDto employee = model.getObject();
+            
+             @Override
+            public void onSubmit() {
+                super.onSubmit();
+                 final EmployeeDto employee = this.getModelObject();
                 employee.setServices(new ArrayList<>(palette.getModelCollection()));
+                employee.setRole(role.getModelObject() ? UserRole.ADMIN : UserRole.USER);
                 if (!EmployeePage.this.isUpdateButton) {                        //adding
                     service.addEmployee(employee);
                 } else {                                                        //updating   
@@ -80,22 +87,15 @@ public final class EmployeePage extends TemplatePage {
                     setNewCustomerLabel();
                     isUpdateButton = false;
                 }
-                this.setModelObject(new EmployeeDto());
+                role.setModelObject(Boolean.FALSE);
+                this.setModelObject(new EmployeeDto()); // dopice preco to nejde kurva
+                this.getModelObject();
                 palette.setModel(new ListModel(new ArrayList<ServiceDto>()));
             }
         };
 
         final Button submit = new Button(ComponentIDs.SUBMIT_BUTTON);
-        editableForm.add(submit);
-        editableForm.add(name);
-        editableForm.add(surname);
-        editableForm.add(address);
-        editableForm.add(phone);
-        editableForm.add(salary);
-        editableForm.add(login);
-        editableForm.add(password);
-        add(editableForm);
-
+        
         // paleta
         selectedServices = new ArrayList<>();
         unselectedServices = serviceService.getAllServices();
@@ -108,18 +108,36 @@ public final class EmployeePage extends TemplatePage {
         };
 
         editableForm.add(palette);
+        editableForm.add(submit);
+        editableForm.setDefaultButton(submit);
+        editableForm.add(name);
+        editableForm.add(surname);
+        editableForm.add(address);
+        editableForm.add(phone);
+        editableForm.add(salary);
+        editableForm.add(login);
+        editableForm.add(password);
+        editableForm.add(role);
+        add(editableForm);
+
+        
         //tabulka
         final Form tableForm = new Form<EmployeeDto>(ComponentIDs.TABLE_FORM, new Model<EmployeeDto>()) {
             @Override
             protected void onSubmit() {
                 super.onSubmit();
-                EmployeeDto employee = this.getModelObject();
+                final EmployeeDto employee = this.getModelObject();
                 if (!EmployeePage.this.isUpdateButton) {                         //delete
                     service.deleteEmployee(employee);
                     editableForm.setModelObject(new EmployeeDto());
+                    setNewCustomerLabel();
+                    role.setModelObject(Boolean.FALSE);
+                    palette.setModel(new ListModel(new ArrayList<>()));
                 } else {                                                        //update
                     editableForm.setModelObject(employee);
                     setUpdateCustomerlabel();
+                    role.setModelObject(UserRole.ADMIN.equals(employee.getRole()));
+                    palette.setModel(new ListModel(employee.getServices()));
                 }
             }
         };
@@ -139,9 +157,7 @@ public final class EmployeePage extends TemplatePage {
                     public void onSubmit() {
                         super.onSubmit();
                         isUpdateButton = false;
-                        tableForm.setModelObject(employee);
-                        setNewCustomerLabel();
-                        palette.setModel(new ListModel(new ArrayList<>()));
+                        tableForm.setModelObject(employee);          
                     }
                 });
 
@@ -150,8 +166,7 @@ public final class EmployeePage extends TemplatePage {
                     public void onSubmit() {
                         super.onSubmit();
                         isUpdateButton = true;
-                        tableForm.setModelObject(employee);
-                        palette.setModel(new ListModel(employee.getServices()));
+                        tableForm.setModelObject(employee);   
                     }
                 });
             }
@@ -205,6 +220,7 @@ public final class EmployeePage extends TemplatePage {
         private static final String SALARY = "salary";
         private static final String LOGIN = "login";
         private static final String PASSWORD = "password";
+        private static final String ROLE = "role";
         private static final String ADD_EDIT_FORM = "addEmployeeForm";
         private static final String SUBMIT_BUTTON = "submitButton";
         private static final String EDIT_BUTTON = "editButton";
