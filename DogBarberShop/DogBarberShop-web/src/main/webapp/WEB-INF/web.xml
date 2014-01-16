@@ -11,10 +11,6 @@
             <param-name>applicationFactoryClassName</param-name>
             <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
         </init-param>
-<!--        <init-param>
-            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-            <param-value>true</param-value>
-        </init-param>-->
     </filter>
     <filter-mapping>
         <filter-name>wicket-filter</filter-name>

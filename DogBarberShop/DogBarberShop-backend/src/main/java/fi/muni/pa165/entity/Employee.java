@@ -24,73 +24,65 @@ import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
- * @author martin 
+ * @author martin
  */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Employee.all", query = "SELECT e FROM Employee e"),
     @NamedQuery(name = "Employee.ById", query = "SELECT e "
-        + "FROM Employee AS e where e.id = :id"),
+            + "FROM Employee AS e where e.id = :id"),
     @NamedQuery(name = "Employee.ByName", query = "SELECT e "
-        + "FROM Employee AS e where e.name = :name"),
+            + "FROM Employee AS e where e.name = :name"),
     @NamedQuery(name = "Employee.BySurname", query = "SELECT e "
-        + "FROM Employee AS e where e.surname = :surname"),
-})
+            + "FROM Employee AS e where e.surname = :surname"),})
 public class Employee implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
     private String name;
-    
     private String surname;
-    
     private String address;
-    
     private String phone;
-   
     private String salary;
-    
-    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "employee_service", 
+    private String login;
+    private String password;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "employee_service",
             joinColumns = {
-                @JoinColumn(name = "EMPLOYEE_ID", nullable = false) }, 
-            inverseJoinColumns = { 
-                @JoinColumn(name = "SERVICE_ID", nullable = false) })
+        @JoinColumn(name = "EMPLOYEE_ID", nullable = false)},
+            inverseJoinColumns = {
+        @JoinColumn(name = "SERVICE_ID", nullable = false)})
     private List<Service> services = new ArrayList<>();
 
     public Employee() {
     }
 
-    public Employee(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
+    public Employee(String name, String surname, String login,  String password) {
+        this(name, surname, null, null, null, login, password);
     }
-    
-    public Employee (String name, String surname, String address, 
-            String phone, String salary) {
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.phone = phone;
-        this.salary = salary;
+
+    public Employee(String name, String surname, String address,
+            String phone, String salary, String login,  String password) {
+        this(null, name, surname, address, phone, salary, login, password);
     }
-    
-    public Employee (Long id, String name, String surname, String address, 
-            String phone, String salary) {
+
+    public Employee(Long id, String name, String surname, String address,
+            String phone, String salary, String login,  String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.phone = phone;
         this.salary = salary;
+        this.login = login;
+        this.password = password;
     }
-    
+
     public void setSalary(String salary) {
         this.salary = salary;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -102,19 +94,19 @@ public class Employee implements Serializable {
     public void setServices(List<Service> services) {
         this.services = services;
     }
-    
+
     public List<Service> getServices() {
         return new ArrayList(services);
     }
-    
-    public void addService(Service service){
-        if (!services.contains(service)){
+
+    public void addService(Service service) {
+        if (!services.contains(service)) {
             services.add(service);
         }
     }
-    
-    public void removeService(Service service){
-        if (services.contains(service)){
+
+    public void removeService(Service service) {
+        if (services.contains(service)) {
             services.remove(service);
         }
     }
@@ -122,7 +114,7 @@ public class Employee implements Serializable {
     public String getSalary() {
         return salary;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -155,6 +147,22 @@ public class Employee implements Serializable {
         return phone;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -179,5 +187,4 @@ public class Employee implements Serializable {
     public String toString() {
         return "fi.muni.pa165.entity.Employee[ id=" + id + " ]";
     }
-    
 }

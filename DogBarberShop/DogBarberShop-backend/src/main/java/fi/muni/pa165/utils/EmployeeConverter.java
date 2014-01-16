@@ -33,6 +33,8 @@ public class EmployeeConverter {
         }
         empDto.setServices(serviceDtos);
         }
+        empDto.setLogin(empE.getLogin());
+        empDto.setPassword(empE.getPassword());
         
         return empDto;
     }
@@ -53,6 +55,8 @@ public class EmployeeConverter {
         }
         empE.setServices(services);
         }
+        empE.setLogin(empDto.getLogin());
+        empE.setPassword(empDto.getPassword());
         
         return empE;
     }

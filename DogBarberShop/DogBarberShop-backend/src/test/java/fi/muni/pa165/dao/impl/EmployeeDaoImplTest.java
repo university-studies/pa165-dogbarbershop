@@ -42,7 +42,7 @@ public class EmployeeDaoImplTest extends TestCase {
         
         EmployeeDaoImpl dao = new EmployeeDaoImpl(em);
         Employee emp = new Employee("Janko", "Krasny", "Zabiedovo 114/5", 
-                "0905394355", "10000");
+                "0905394355", "10000", null, null);
         
         em.getTransaction().begin();
         dao.createEmployee(emp);
@@ -156,19 +156,19 @@ public class EmployeeDaoImplTest extends TestCase {
     
     private void createTestData() {
         Employee pavol = new Employee("Pavol", "Loffay", 
-                "Trstena Zapad 1144", "0905294355", "15000");
+                "Trstena Zapad 1144", "0905294355", "15000", null, null);
         
         Employee jano = new Employee ("Jano", "Drzak",
-                "Tvrdosin Mieru 1562", "0904855", "15000");
+                "Tvrdosin Mieru 1562", "0904855", "15000", null, null);
         
         Employee fero = new Employee("Fero", "Vrabel", 
-                "Namestovo 15", "090526444", "15674");
+                "Namestovo 15", "090526444", "15674", null, null);
         
         Employee zuzka = new Employee("Zuzana", "Ostrihana", 
-                "Bratislava 15", "09054444", "19000");
+                "Bratislava 15", "09054444", "19000", null, null);
         
         Employee lucia = new Employee("Lucia", "Duroskova", 
-                "Podbiel 189", "03052644", "18674");
+                "Podbiel 189", "03052644", "18674", null, null);
         
         EntityManager em = emFactory.createEntityManager();
         

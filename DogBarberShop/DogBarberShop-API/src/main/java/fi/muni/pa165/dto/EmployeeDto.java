@@ -17,23 +17,25 @@ public final class EmployeeDto implements Serializable {
     private String phone;
     private String salary;
     private List<ServiceDto> services;
+    private String login;
+    private String password;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(String name, String surname) {
-        this(name, surname, null, null, null);
+    public EmployeeDto(String name, String surname, String login,  String password) {
+        this(name, surname, null, null, null, login, password);
     }
 
-    public EmployeeDto(String name, String surname, String address, String phone, String salary) {
-        this(null, name, surname, address, phone, salary);
+    public EmployeeDto(String name, String surname, String address, String phone, String salary, String login,  String password) {
+        this(null, name, surname, address, phone, salary, login, password);
     }
 
-    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary) {
-        this(id, name, surname, address, phone, salary, null);
+    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, String login,  String password) {
+        this(id, name, surname, address, phone, salary, null, login, password);
     }
 
-    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, List<ServiceDto> services) {
+    public EmployeeDto(Long id, String name, String surname, String address, String phone, String salary, List<ServiceDto> services, String login,  String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -41,6 +43,8 @@ public final class EmployeeDto implements Serializable {
         this.phone = phone;
         this.salary = salary;
         this.services = services;
+        this.login = login;
+        this.password = password;
     }
 
     public String getAddress() {
@@ -97,6 +101,22 @@ public final class EmployeeDto implements Serializable {
 
     public void setServices(List<ServiceDto> services) {
         this.services = services;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

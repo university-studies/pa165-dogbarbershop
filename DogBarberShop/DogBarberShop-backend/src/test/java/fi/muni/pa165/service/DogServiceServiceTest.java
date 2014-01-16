@@ -7,12 +7,10 @@ import fi.muni.pa165.dto.DogServiceDto;
 import fi.muni.pa165.dto.ServiceDto;
 import fi.muni.pa165.entity.Dog;
 import fi.muni.pa165.entity.Employee;
-import fi.muni.pa165.entity.Service;
 import fi.muni.pa165.idao.DogServiceDao;
 import fi.muni.pa165.utils.DogConverter;
 import fi.muni.pa165.utils.DogServiceConverter;
 import fi.muni.pa165.utils.EmployeeConverter;
-import fi.muni.pa165.utils.ServiceConverter;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.Validate;
@@ -70,7 +68,7 @@ public class DogServiceServiceTest {
     }
     
     private DogServiceDto createDogServiceWithEmployee(DogDto dog, ServiceDto service) {
-        Employee employee =  new Employee("Jozko", "Hubona", "Ceska 44, Kosice", "93232323", "24000");
+        Employee employee =  new Employee("Jozko", "Hubona", "Ceska 44, Kosice", "93232323", "24000", null, null);
         return dogServiceService.createDogService(dog, service, EmployeeConverter.EmployeeToEmployeeDto(employee));
     }
     

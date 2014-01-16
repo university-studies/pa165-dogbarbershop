@@ -59,6 +59,8 @@ public final class EmployeePage extends TemplatePage {
         final RequiredTextField address = new RequiredTextField<>(ComponentIDs.ADDRESS);
         final RequiredTextField phone = new RequiredTextField<>(ComponentIDs.PHONE);
         final RequiredTextField salary = new RequiredTextField<>(ComponentIDs.SALARY);
+        final RequiredTextField login = new RequiredTextField<>(ComponentIDs.LOGIN);
+        final RequiredTextField password = new RequiredTextField<>(ComponentIDs.PASSWORD);
 
         /*
          * Kontrola vstupnych dat - ak sa nepodari zobrazi sa FeedBackPanel
@@ -69,7 +71,7 @@ public final class EmployeePage extends TemplatePage {
             @Override
             protected void onSubmit() {
                 IModel<EmployeeDto> model = this.getModel();
-                EmployeeDto employee = model.getObject();
+                final EmployeeDto employee = model.getObject();
                 employee.setServices(new ArrayList<>(palette.getModelCollection()));
                 if (!EmployeePage.this.isUpdateButton) {                        //adding
                     service.addEmployee(employee);
@@ -83,13 +85,15 @@ public final class EmployeePage extends TemplatePage {
             }
         };
 
-        Button submit = new Button(ComponentIDs.SUBMIT_BUTTON);
+        final Button submit = new Button(ComponentIDs.SUBMIT_BUTTON);
         editableForm.add(submit);
         editableForm.add(name);
         editableForm.add(surname);
         editableForm.add(address);
         editableForm.add(phone);
         editableForm.add(salary);
+        editableForm.add(login);
+        editableForm.add(password);
         add(editableForm);
 
         // paleta
@@ -199,6 +203,8 @@ public final class EmployeePage extends TemplatePage {
         private static final String ADDRESS = "address";
         private static final String PHONE = "phone";
         private static final String SALARY = "salary";
+        private static final String LOGIN = "login";
+        private static final String PASSWORD = "password";
         private static final String ADD_EDIT_FORM = "addEmployeeForm";
         private static final String SUBMIT_BUTTON = "submitButton";
         private static final String EDIT_BUTTON = "editButton";
