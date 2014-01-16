@@ -120,6 +120,18 @@ public final class EmployeeDto implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public boolean validatePassword(String pass){
+        if (pass == null){
+            throw new IllegalArgumentException("Password cannot be null to be validate.");
+        }
+        if (this.password != null){
+            if (this.password.equals(pass)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public UserRole getRole() {
         return role;
