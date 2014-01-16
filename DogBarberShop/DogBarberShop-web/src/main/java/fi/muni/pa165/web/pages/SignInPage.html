@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1><wicket:message key="SignInPage.title"/></h1>
+        <span wicket:id="feedback"/>
+        <form wicket:id="loginForm">
+            <table>
+                <tr>
+                    <td><wicket:message key="EmployeePage.employee.login"/></td>
+                    <td><input wicket:id="login" type="text"/></td>
+                </tr>
+                <tr>
+                    <td><wicket:message key="EmployeePage.employee.password"/></td>
+                    <td><input wicket:id="password" type="text"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input wicket:id="submitButton" type="submit" wicket:message="value:EmployeePage.button.submit"/></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

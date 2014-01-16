@@ -8,6 +8,7 @@ import fi.muni.pa165.service.ServiceService;
 import fi.muni.pa165.web.converter.DurationConverter;
 import fi.muni.pa165.web.converter.LocalDateConverter;
 import fi.muni.pa165.web.pages.DogServicePage;
+import fi.muni.pa165.web.pages.SignInPage;
 import javax.annotation.Nonnull;
 import org.apache.commons.lang3.Validate;
 import org.apache.wicket.ConverterLocator;
@@ -67,7 +68,7 @@ public class DogBarberShopApplication extends WebApplication {
 
     @Override
     public Class<? extends Page> getHomePage() {
-        return DogServicePage.class;
+        return SignInPage.class;
     }
 
     @Override
