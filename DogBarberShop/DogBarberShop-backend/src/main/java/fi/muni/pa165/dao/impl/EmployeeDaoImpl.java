@@ -101,4 +101,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
         
         return q.getResultList();
     }
+
+    @Override
+    public Employee getEmployeeByLogin(String login) {
+        TypedQuery<Employee> query = em.createQuery("select e from Employee e "
+                + "where e.login = :login", Employee.class)
+                .setParameter("login", login);
+        return query.getSingleResult();
+    }
 }

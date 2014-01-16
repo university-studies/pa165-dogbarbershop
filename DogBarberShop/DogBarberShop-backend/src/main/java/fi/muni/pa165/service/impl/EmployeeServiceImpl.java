@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Pavol Loffay <p.loffay@gmail.com>
+ * @author Pavol Loffay <p.loffay@gmail.com>, martin
  */
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -102,5 +102,12 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
                 
         return empDtoList;
+    }
+
+    @Override
+    public EmployeeDto getEmployeeByLogin(String login) {
+        Validate.isTrue(login != null, "Login must not be null.");
+        Employee employee = employeeDao.getEmployeeByLogin(login);
+        return EmployeeConverter.EmployeeToEmployeeDto(employee);
     }
 }

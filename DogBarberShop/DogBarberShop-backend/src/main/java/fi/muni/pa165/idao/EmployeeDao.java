@@ -17,6 +17,7 @@ public interface EmployeeDao {
     public void deleteEmployee(Employee employee);
     
     public Employee getEmployeeById(Long id);
+    public Employee getEmployeeByLogin(String login);
     public List<Employee> getEmployeeByName(String name);
     public List<Employee> getEmployeeBySurname(String surname);
     public List<Employee> getAllEmployee();

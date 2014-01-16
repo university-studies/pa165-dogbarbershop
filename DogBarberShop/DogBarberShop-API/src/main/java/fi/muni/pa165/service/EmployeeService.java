@@ -14,5 +14,6 @@ public interface EmployeeService {
     EmployeeDto getEmployeeById(Long id);
     List<EmployeeDto> getEmployeeByName(String name);
     List<EmployeeDto> getEmployeeBySurname(String surname);
+    EmployeeDto getEmployeeByLogin(String login);
     List<EmployeeDto> getAllEmployee();
 }

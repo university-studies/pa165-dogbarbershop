@@ -154,6 +154,22 @@ public class EmployeeDaoImplTest extends TestCase {
         assertEquals(q.getResultList(), dao.getAllEmployee());
     }
     
+    public void testGetEmployeeByLogin(){
+        EntityManager em = emFactory.createEntityManager();
+        EmployeeDaoImpl dao = new EmployeeDaoImpl(em); 
+        
+        Employee pavol2 = new Employee("Pavol", "Loffay", 
+                "Trstena Zapad 1144", "0905294355", "15000", "login", "heslo");
+        
+        em.getTransaction().begin();
+        em.persist(pavol2);
+        em.getTransaction().commit();
+        
+        Employee result = dao.getEmployeeByLogin("login");
+        
+        assertEquals(pavol2, result);
+    }
+    
     private void createTestData() {
         Employee pavol = new Employee("Pavol", "Loffay", 
                 "Trstena Zapad 1144", "0905294355", "15000", null, null);
