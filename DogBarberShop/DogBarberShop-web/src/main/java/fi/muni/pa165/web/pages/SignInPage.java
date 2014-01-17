@@ -44,7 +44,7 @@ public class SignInPage extends WebPage {
                 try {
                     final EmployeeDto employee = service.getEmployeeByLogin(inputLogin);
 
-                    if (!inputPassword.equals(employee.getPassword())) {
+                    if (!employee.validatePassword(inputPassword)) {
                         info(getLocalizer().getString("SignInPage.password.wrong", this));
                         password.setModelObject("");
                     } else {
