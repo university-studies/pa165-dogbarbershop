@@ -12,8 +12,11 @@ import fi.muni.pa165.web.pages.CustomerPage;
 import fi.muni.pa165.web.pages.DogPage;
 import fi.muni.pa165.web.pages.EmployeePage;
 import fi.muni.pa165.web.pages.ServicePage;
+import fi.muni.pa165.web.pages.SignInPage;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
@@ -26,17 +29,50 @@ public class MenuPanel extends Panel {
         super(id);
         
         BookmarkablePageLink employeePage = new BookmarkablePageLink(ComponentIDs.EMPLOYEES_BUTTON, EmployeePage.class);
-        this.add(employeePage);
+        WebMarkupContainer employeeContainer = new WebMarkupContainer(ComponentIDs.EMPLOYEE);
+        employeeContainer.add(employeePage);
+        this.add(employeeContainer);
         BookmarkablePageLink servicesPage =new BookmarkablePageLink(ComponentIDs.SERVICES_BUTTON, ServicePage.class);
-        this.add(servicesPage);
-        this.add(new BookmarkablePageLink(ComponentIDs.CUSTOMERS_BUTTON, CustomerPage.class));
-        this.add(new BookmarkablePageLink(ComponentIDs.DOGS_BUTTON, DogPage.class));
-        // XXX this.add(new BookmarkablePageLink(ComponentIDs.DOG_SERVICE_BUTTON, DogServicePage.class));
+        WebMarkupContainer serviceContainer = new WebMarkupContainer(ComponentIDs.SERVICE);
+        serviceContainer.add(servicesPage);
+        this.add(serviceContainer);
+        BookmarkablePageLink customersPage = new BookmarkablePageLink(ComponentIDs.CUSTOMERS_BUTTON, CustomerPage.class);
+        WebMarkupContainer customersContainer = new WebMarkupContainer(ComponentIDs.CUSTOMER);
+        customersContainer.add(customersPage);
+        this.add(customersContainer);
+        BookmarkablePageLink dogsPage = new BookmarkablePageLink(ComponentIDs.DOGS_BUTTON, DogPage.class);
+        WebMarkupContainer dogsContainer = new WebMarkupContainer(ComponentIDs.DOG);
+        dogsContainer.add(dogsPage);
+        add(dogsContainer);
+        Link logout = new Link("logoutLink") {
+            
+            @Override
+            public void onClick() {
+                getSession().removeAttribute(SessionAttributes.CURRENT_USER.getText());
+                setResponsePage(SignInPage.class);
+            }
+            
+        };
+        WebMarkupContainer logoutContainer = new WebMarkupContainer(ComponentIDs.LOGOUT);
+        logoutContainer.add(logout);
+        add(logoutContainer);
+        
         final EmployeeDto user = (EmployeeDto) getSession().getAttribute(SessionAttributes.CURRENT_USER.getText());
         if (UserRole.USER.equals(user.getRole())) {
-            employeePage.setVisible(false);
+            employeeContainer.setVisible(false);
         } else {
-            this.add(new AttributeModifier("style", "background-color:red;"));
+            this.add(new AttributeModifier("style", "background-color:red"));
+            employeeContainer.add(new AttributeModifier("class", "menu_button5"));
+            serviceContainer.add(new AttributeModifier("class", "menu_button5"));
+            customersContainer.add(new AttributeModifier("class", "menu_button5"));
+            dogsContainer.add(new AttributeModifier("class", "menu_button5"));
+            logoutContainer.add(new AttributeModifier("class", "menu_button5"));
+            
+            logout.add(new AttributeModifier("class", "menu5"));
+            employeePage.add(new AttributeModifier("class", "menu5"));
+            customersPage.add(new AttributeModifier("class", "menu5"));
+            servicesPage.add(new AttributeModifier("class", "menu5"));
+            dogsPage.add(new AttributeModifier("class", "menu5"));
         }
     }
     
@@ -45,6 +81,10 @@ public class MenuPanel extends Panel {
         private static final String DOGS_BUTTON = "dogsButton";
         private static final String CUSTOMERS_BUTTON = "customersButton";
         private static final String SERVICES_BUTTON = "servicesButton";
-        private static final String DOG_SERVICE_BUTTON = "dogServiceButton";
+        private static final String EMPLOYEE = "employee";
+        private static final String SERVICE = "service";
+        private static final String CUSTOMER = "customer";
+        private static final String DOG = "dog";
+        private static final String LOGOUT = "logout";
     }
 }

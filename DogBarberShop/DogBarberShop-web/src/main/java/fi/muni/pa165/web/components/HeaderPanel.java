@@ -17,15 +17,7 @@ public class HeaderPanel extends Panel {
     
     public HeaderPanel(String id) {
         super(id);
-        this.add(new BookmarkablePageLink("homePageLink", DogServicePage.class));
-        this.add(new Link("logoutLink") {
-            
-            @Override
-            public void onClick() {
-                getSession().removeAttribute(SessionAttributes.CURRENT_USER.getText());
-                setResponsePage(SignInPage.class);
-            }
-            
-        });
+        BookmarkablePageLink homePage = new BookmarkablePageLink("homePageLink", DogServicePage.class);
+        this.add(homePage);
     }
 }
