@@ -7,6 +7,7 @@ import fi.muni.pa165.web.SessionAttributes;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
@@ -31,7 +32,8 @@ public class SignInPage extends WebPage {
         final FeedbackPanel feedback = new FeedbackPanel(ComponentIDs.FEEDBACK_PANEL);
         this.add(feedback);
         final RequiredTextField<String> login = new RequiredTextField(ComponentIDs.LOGIN, new Model());
-        final RequiredTextField<String> password = new RequiredTextField(ComponentIDs.PASSWORD, new Model());
+        final PasswordTextField password = new PasswordTextField(ComponentIDs.PASSWORD, new Model());
+        password.setRequired(true);
         final Button submit = new Button(ComponentIDs.SUBMIT_BUTTON);
         final Form loginForm = new Form(ComponentIDs.FORM) {
             @Override
