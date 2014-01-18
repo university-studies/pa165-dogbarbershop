@@ -15,7 +15,7 @@ public final class LocalDateConverter implements IConverter<LocalDate> {
     
     public static final LocalDateConverter INSTANCE = new LocalDateConverter();
     
-    private static final String STYLE = "M-";          //pri zmene stylu musim zmenit aj style v datepickery!!!
+    private static final String STYLE = "S-";          //pri zmene stylu musim zmenit aj style v datepickery!!!
 
     public LocalDateConverter() {
     }
