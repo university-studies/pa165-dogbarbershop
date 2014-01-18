@@ -1,6 +1,7 @@
 package fi.muni.pa165.web.converter;
 
 import java.util.Locale;
+import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -23,14 +24,14 @@ public final class LocalDateConverter implements IConverter<LocalDate> {
     public LocalDate convertToObject(String value, Locale locale) {
         LocalDate date = new LocalDate();
         // don't re-throw because we want to see the original one!
-        //try {
+        try {
             LocalDate.parse(value, prepareFormatter(locale));
-        //} catch (IllegalArgumentException ex) {
-        //    ConversionException ce = new ConversionException(value);
-        //    String dateFormat = DateTimeFormat.patternForStyle(STYLE, locale);
-        //    ce.setVariable("date-format", dateFormat);
-        //    throw ce;
-        //}
+        } catch (IllegalArgumentException ex) {
+            ConversionException ce = new ConversionException(value);
+            String dateFormat = DateTimeFormat.patternForStyle(STYLE, locale);
+            ce.setVariable("date-format", dateFormat);
+            throw ce;
+        }
         return date;
     }
 

@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -128,7 +129,7 @@ public class DogPage extends TemplatePage {
             };
     form_dog_whole.add(new RequiredTextField(INPUT_NAME));
     form_dog_whole.add(new RequiredTextField(INPUT_BREED));
-    form_dog_whole.add(new DateTextField(INPUT_BIRTHDATE));
+    form_dog_whole.add(new TextField(INPUT_BIRTHDATE, LocalDate.class));
     form_dog_whole.add(select_owner = new DropDownChoice(SELECT_OWNER,
             new Model<CustomerDto>(), custser.getAllCustomers(),
             new ChoiceRenderer<CustomerDto>("name", "id")));
