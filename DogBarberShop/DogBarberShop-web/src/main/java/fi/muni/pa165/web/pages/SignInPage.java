@@ -41,7 +41,6 @@ public final class SignInPage extends WebPage {
                 super.onSubmit();
                 final String inputLogin = login.getValue();
                 final String inputPassword = password.getValue();
-                
 
                 try {
                     final EmployeeDto employee = service.getEmployeeByLogin(inputLogin);
