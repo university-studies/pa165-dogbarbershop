@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -38,6 +39,7 @@ public class CustomerPage extends TemplatePage {
   private static final String BTN_SUBMIT      = "btn_submit";
   //private static final String REFRESH_LINK = "refresh";
   private static final String H2_ACTION = "h2_action";
+  private static final String FEEDBACK_PANEL="feedback";
 
   private Label actionLbl;
   private boolean isUpdateButton;
@@ -45,6 +47,9 @@ public class CustomerPage extends TemplatePage {
 
   public CustomerPage() {
     serv = DogBarberShopApplication.get().getCustomerService();
+    
+    final FeedbackPanel feedback = new FeedbackPanel(FEEDBACK_PANEL);
+        this.add(feedback);
 
     CompoundPropertyModel<CustomerDto> mod = new CompoundPropertyModel<>(new CustomerDto());
     final Form<CustomerDto> form_whole = new Form<CustomerDto>(FORM_WHOLE, mod) {
