@@ -60,8 +60,8 @@
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-datetime</artifactId>
-            <version>6.11.0</version>
-            <type>jar</type>
+            <version>6.12.0</version>
+            <!-- type>jar</type -->
         </dependency>
         <dependency>
             <groupId>javax</groupId>
