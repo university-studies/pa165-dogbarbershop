@@ -7,7 +7,9 @@
     <body>
     <wicket:extend>
         <h1><wicket:message key="DogServicePage.title"/></h1>
+        <span wicket:id="feedback"/>
         <form wicket:id="addDogServiceForm">
+            <select wicket:id="customerDropDownChoice"/>
             <select wicket:id="dogDropDownChoice"/>
             <select wicket:id="serviceDropDownChoice"/>
             <input wicket:id="submitButton" type="submit" wicket:message="value:EmployeePage.button.submit"/>
