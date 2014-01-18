@@ -18,7 +18,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
  *
  * @author Oliver Pentek
  */
-public class SignInPage extends WebPage {
+public final class SignInPage extends WebPage {
 
     private final EmployeeService service;
 
@@ -51,7 +51,7 @@ public class SignInPage extends WebPage {
                         password.setModelObject("");
                     } else {
                         getSession().setAttribute(SessionAttributes.CURRENT_USER.getText(), employee);
-                        setResponsePage(EntrancePage.class);
+                        setResponsePage(DogServicePage.class);
                     }
                 } catch (final EmptyResultDataAccessException ex) {
                     info(getLocalizer().getString("SignInPage.login.wrong", this));
