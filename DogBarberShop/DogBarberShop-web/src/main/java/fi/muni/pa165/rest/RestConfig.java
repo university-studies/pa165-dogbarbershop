@@ -23,6 +23,4 @@ public final class RestConfig extends Application {
         resources.add(org.glassfish.jersey.client.filter.HttpDigestAuthFilter.class);
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
     }
-    
-    
 }

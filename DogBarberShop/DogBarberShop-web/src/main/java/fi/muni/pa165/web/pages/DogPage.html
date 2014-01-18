@@ -2,63 +2,63 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd"
       xml:lang="en" lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title></title>
-    </head>
-    <body>
-        <wicket:extend>
-            <h1><wicket:message key="DogPage.title"/></h1>
-            <form wicket:id="form_listing">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th><wicket:message key="DogPage.dog.name"/></th>
-                            <th><wicket:message key="DogPage.dog.breed"/></th>
-                            <th><wicket:message key="DogPage.dog.birthdate"/></th>
-                            <th><wicket:message key="DogPage.dog.owner"/></th>
-                        </tr>
-                    </thead>
-                    <!--span wicket:id="span_row00"-->
-                        <tr wicket:id="span_row00">
-                            <td><span wicket:id="span_name"></span></td>
-                            <td><span wicket:id="span_breed"></span></td>
-                            <td><span wicket:id="span_birthdate"></span></td>
-                            <!-- FIXME should a link to the corresponding CustomerPage -->
-                            <td><span wicket:id="span_owner"></span></td>
-                            <td><input wicket:id="btn_del" type="submit"
-                                       wicket:message="value:DogPage.btn.del"/></td>
-                            <td><input wicket:id="btn_edit" type="submit"
-                                       wicket:message="value:DogPage.btn.edit"/></td>
-                        </tr>
-                    <!--/span-->
-                </table>
-            </form>
-            <h2><wicket:message wicket:id="h2_action" key="DogPage.action.init"/></h2>
-            <form wicket:id="form_dog_whole">
-            <!-- form wicket:id="form_dog_whole" style="display:none;"-->
-            <!-- FIXME form wicket:id="form_dog_whole" style="display: inline;"-->
-              <table>
-                <tr>
-                  <th><wicket:message key="DogPage.dog.name"/></th>
-                  <td><input wicket:id="input_name" type="text"/></td>
-                </tr>
-                <tr>
-                  <th><wicket:message key="DogPage.dog.breed"/></th>
-                  <td><input wicket:id="input_breed" type="text"/></td>
-                </tr>
-                <tr>
-                  <th><wicket:message key="DogPage.dog.birthdate"/></th>
-                  <td><input wicket:id="input_birthdate" type="text"/></td>
-                </tr>
-                <tr>
-                  <th><wicket:message key="DogPage.dog.owner"/></th>
-                  <td><select wicket:id="select_owner"></select></td>
-                </tr>
-              </table>
-              <input wicket:id="btn_submit" type="submit"
-                         wicket:message="value:DogPage.btn.submit"/>
-            </form>
-        </wicket:extend>    
-    </body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <wicket:extend>
+      <h1><wicket:message key="DogPage.title"/></h1>
+      <form wicket:id="form_listing">
+        <table border="1">
+          <thead>
+            <tr>
+              <th><wicket:message key="DogPage.dog.name"/></th>
+              <th><wicket:message key="DogPage.dog.breed"/></th>
+              <th><wicket:message key="DogPage.dog.birthdate"/></th>
+              <th><wicket:message key="DogPage.dog.owner"/></th>
+            </tr>
+          </thead>
+          <!--span wicket:id="span_row00"-->
+          <tr wicket:id="span_row00">
+            <td><span wicket:id="span_name"></span></td>
+            <td><span wicket:id="span_breed"></span></td>
+            <td><span wicket:id="span_birthdate"></span></td>
+            <!-- FIXME should a link to the corresponding CustomerPage -->
+            <td><span wicket:id="span_owner"></span></td>
+            <td><input wicket:id="btn_del" type="submit"
+                       wicket:message="value:DogPage.btn.del"/></td>
+            <td><input wicket:id="btn_edit" type="submit"
+                       wicket:message="value:DogPage.btn.edit"/></td>
+          </tr>
+          <!--/span-->
+        </table>
+      </form>
+      <h2><wicket:message wicket:id="h2_action" key="DogPage.action.init"/></h2>
+        <!-- form wicket:id="form_dog_whole" style="display:none;"-->
+        <!-- FIXME form wicket:id="form_dog_whole" style="display: inline;"-->
+      <form wicket:id="form_dog_whole">
+        <table>
+          <tr>
+            <th><wicket:message key="DogPage.dog.name"/></th>
+            <td><input wicket:id="name" type="text"/></td>
+          </tr>
+          <tr>
+            <th><wicket:message key="DogPage.dog.breed"/></th>
+            <td><input wicket:id="breed" type="text"/></td>
+          </tr>
+          <tr>
+            <th><wicket:message key="DogPage.dog.birthdate"/></th>
+            <td><input wicket:id="birthDate" type="text"/></td>
+          </tr>
+          <tr>
+            <th><wicket:message key="DogPage.dog.owner"/></th>
+            <td><select wicket:id="owner"></select></td>
+          </tr>
+        </table>
+        <input wicket:id="btn_submit" type="submit"
+               wicket:message="value:DogPage.btn.submit"/>
+      </form>
+    </wicket:extend>
+  </body>
 </html>
