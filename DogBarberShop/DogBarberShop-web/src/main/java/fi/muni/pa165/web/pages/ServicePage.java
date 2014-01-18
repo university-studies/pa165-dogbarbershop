@@ -54,10 +54,11 @@ public class ServicePage extends TemplatePage {
                 ServiceDto service = model.getObject();
                 if (!ServicePage.this.isUpdateButton) {                        //adding
                     serviceService.addService(service);
-                    this.setModelObject(new ServiceDto());
+                    this.setModel(new CompoundPropertyModel<>(new ServiceDto()));
                 } else {                                                        //updating
                     serviceService.updateService(service);
                     this.setModelObject(new ServiceDto());
+                    this.getModelObject();
                     setNewCustomerLabel();
                     isUpdateButton = false;
                 }

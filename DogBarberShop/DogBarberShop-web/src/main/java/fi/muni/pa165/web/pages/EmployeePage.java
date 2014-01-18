@@ -88,8 +88,7 @@ public final class EmployeePage extends TemplatePage {
                     isUpdateButton = false;
                 }
                 role.setModelObject(Boolean.FALSE);
-                this.setModelObject(new EmployeeDto()); // dopice preco to nejde kurva
-                this.getModelObject();
+                this.setModel(new CompoundPropertyModel<>(new EmployeeDto()));
                 palette.setModel(new ListModel(new ArrayList<ServiceDto>()));
             }
         };
