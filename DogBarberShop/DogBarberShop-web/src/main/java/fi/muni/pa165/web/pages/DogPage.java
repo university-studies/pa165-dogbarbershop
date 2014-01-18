@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -66,6 +67,9 @@ public class DogPage extends TemplatePage {
   public DogPage() {
     dogser = DogBarberShopApplication.get().getDogService();
     custser = DogBarberShopApplication.get().getCustomerService();
+    
+    final FeedbackPanel feedback = new FeedbackPanel("feedback");
+        this.add(feedback);
 
     add(form_listing = new Form<DogDto>(FORM_LISTING, new Model<DogDto>()) {
       @Override
