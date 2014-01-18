@@ -15,7 +15,7 @@ public final class LocalDateConverter implements IConverter<LocalDate> {
     
     public static final LocalDateConverter INSTANCE = new LocalDateConverter();
     
-    private static final String STYLE = "S-";          //pri zmene stylu musim zmenit aj style v datepickery!!!
+    public static final String STYLE = "S-"; 
 
     public LocalDateConverter() {
     }
@@ -25,7 +25,7 @@ public final class LocalDateConverter implements IConverter<LocalDate> {
         LocalDate date = new LocalDate();
         // don't re-throw because we want to see the original one!
         try {
-            LocalDate.parse(value, prepareFormatter(locale));
+            date = LocalDate.parse(value, prepareFormatter(locale));
         } catch (IllegalArgumentException ex) {
             ConversionException ce = new ConversionException(value);
             String dateFormat = DateTimeFormat.patternForStyle(STYLE, locale);

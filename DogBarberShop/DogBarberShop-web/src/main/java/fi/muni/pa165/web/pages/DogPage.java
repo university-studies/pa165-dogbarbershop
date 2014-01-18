@@ -5,6 +5,8 @@ import fi.muni.pa165.dto.DogDto;
 import fi.muni.pa165.service.CustomerService;
 import fi.muni.pa165.service.DogService;
 import fi.muni.pa165.web.DogBarberShopApplication;
+import fi.muni.pa165.web.converter.LocalDateConverter;
+import fi.muni.pa165.web.validator.LocalDateValidator;
 import java.util.List;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.basic.Label;
@@ -21,6 +23,8 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.joda.time.LocalDate;
+import org.apache.wicket.extensions.yui.calendar.DatePicker;
+import org.joda.time.format.DateTimeFormat;
 
 
 
@@ -62,7 +66,7 @@ public class DogPage extends TemplatePage {
   private Button btn_submit;
 
   private static DogDto newDogDto() {
-    return new DogDto("", "", new LocalDate(2013, 1, 1), null);
+    return new DogDto();
   }
 
   public DogPage() {
@@ -129,7 +133,20 @@ public class DogPage extends TemplatePage {
             };
     form_dog_whole.add(new RequiredTextField(INPUT_NAME));
     form_dog_whole.add(new RequiredTextField(INPUT_BREED));
-    form_dog_whole.add(new TextField(INPUT_BIRTHDATE, LocalDate.class));
+    final TextField date = new TextField(INPUT_BIRTHDATE, LocalDate.class);
+    date.add(new LocalDateValidator());
+    date.add(new DatePicker() {
+        @Override
+            protected String getDatePattern() {
+                String datePattern = super.getDatePattern();
+                String actualPattern = DateTimeFormat.patternForStyle(LocalDateConverter.STYLE, this.getLocale());
+                if (!actualPattern.equals(datePattern)) {
+                    return actualPattern;
+                }
+                return datePattern;
+            }
+    });
+    form_dog_whole.add(date);
     form_dog_whole.add(select_owner = new DropDownChoice(SELECT_OWNER,
             new Model<CustomerDto>(), custser.getAllCustomers(),
             new ChoiceRenderer<CustomerDto>("name", "id")));
