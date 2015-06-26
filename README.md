@@ -1,5 +1,8 @@
-pa165
+PA165-Dogbabershop
 =====
+
+Project for PA165 FI MUNI
+
 
 Task
 ----
